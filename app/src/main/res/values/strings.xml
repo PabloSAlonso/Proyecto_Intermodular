@@ -8,4 +8,6 @@
     <string name="mensaje_publicacion">a quien sigues, a hecho una publicación</string>
     <string name="mensaje_password">contraseña</string>
     <string name="mensaje_footer">Todos los derechos reservados.</string>
+    <string name="mensaje_valorar">Valóranos</string>
+    <string name="mensaje_poneremail">micorreo@ejemplo.com</string>
 </resources>

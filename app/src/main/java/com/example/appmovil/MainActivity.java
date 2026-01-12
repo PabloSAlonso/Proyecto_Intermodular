@@ -1,6 +1,11 @@
 package com.example.appmovil;
 
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +14,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-
+    EditText etMail,etPass;
+    TextView tvMail, tvPass, tvBienvenido, tvFoot;
+    RatingBar rb;
+    Toolbar tb;
+    ScrollView sv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

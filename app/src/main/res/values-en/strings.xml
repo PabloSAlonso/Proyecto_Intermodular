@@ -9,4 +9,6 @@
     <string name="mensaje_publicacion">" who you follow, have posted a post"</string>
     <string name="mensaje_password">password</string>
     <string name="mensaje_footer">All rights reserved</string>
+    <string name="mensaje_valorar">Rate us</string>
+    <string name="mensaje_poneremail">mymail@example.com</string>
 </resources>
