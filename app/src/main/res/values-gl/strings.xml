@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App Mobil</string>
+    <string name="mensaje_bienvenida">Benvido a Klyer</string>
+    <string name="mensaje_cerrarsesion">Seguro que desexa rematar a sesion?</string>
+    <string name="mensaje_virales">A continuación amosamoslle as pubricacións mais virais da páxina</string>
+    <string name="mensaje_registro">¿Aínda non dispone dunha conta? Rexistrese gratis xa!</string>
+    <string name="mensaje_recibirmensaje">Tes una nove mensaxe de</string>
+    <string name="mensaje_publicacion">" a quen segues, fixo unha publicación"</string>
+    <string name="mensaje_password">contrasinal</string>
+    <string name="mensaje_footer">Todos os dereitos reservados</string>
+</resources>
