@@ -7,8 +7,12 @@
     <string name="mensaje_registro">¿Doesn\'t have an account yet? Register now for free!</string>
     <string name="mensaje_recibirmensaje">You have a new message from</string>
     <string name="mensaje_publicacion">" who you follow, have posted a post"</string>
-    <string name="mensaje_password">password</string>
+    <string name="mensaje_password">Password</string>
     <string name="mensaje_footer">All rights reserved</string>
     <string name="mensaje_valorar">Rate us</string>
     <string name="mensaje_poneremail">mymail@example.com</string>
+    <string name="mensaje_nomcompleto">Name and Surname</string>
+    <string name="mensaje_nombreusuario">UserName</string>
+    <string name="mensaje_fechanac">BirthDate</string>
+    <string name="mensaje_registrarcorreo">Email Adress</string>
 </resources>

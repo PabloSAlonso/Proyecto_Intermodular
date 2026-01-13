@@ -7,8 +7,12 @@
     <string name="mensaje_registro">¿Aínda non dispone dunha conta? Rexistrese gratis xa!</string>
     <string name="mensaje_recibirmensaje">Tes una nove mensaxe de</string>
     <string name="mensaje_publicacion">" a quen segues, fixo unha publicación"</string>
-    <string name="mensaje_password">contrasinal</string>
+    <string name="mensaje_password">Contrasinal</string>
     <string name="mensaje_footer">Todos os dereitos reservados</string>
     <string name="mensaje_valorar">Valóranos</string>
     <string name="mensaje_poneremail">meucorreo@exemplo.com</string>
+    <string name="mensaje_nomcompleto">Nome e apelidos</string>
+    <string name="mensaje_nombreusuario">Nome de Usuario</string>
+    <string name="mensaje_fechanac">Fecha de Nacemento</string>
+    <string name="mensaje_registrarcorreo">Correo Electrónico</string>
 </resources>
