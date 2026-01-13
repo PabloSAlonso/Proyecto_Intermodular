@@ -23,32 +23,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_nomcompleto"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="105dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <TextView
         android:id="@+id/tvRUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_nombreusuario"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="163dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRNombreCompleto" />
 
     <TextView
         android:id="@+id/tvRmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mensaje_poneremail"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="220dp" />
+        android:text="@string/mensaje_registrarcorreo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRUserName" />
 
     <TextView
         android:id="@+id/tvRPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_password"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="280dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRmail" />
 
     <CalendarView
         android:id="@+id/calendarView"
