@@ -5,7 +5,34 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".RegistroCuenta">
+
+    <EditText
+        android:id="@+id/ettRMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/mensaje_poneremail"
+        android:inputType="text"
+        android:textColorHint="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/ettRPass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvRmail"
+        app:layout_constraintTop_toBottomOf="@+id/ettNick" />
+
+    <EditText
+        android:id="@+id/ettRPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/mensaje_password"
+        android:inputType="text"
+        android:textColorHint="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvRPass"
+        app:layout_constraintTop_toBottomOf="@+id/ettRMail" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -23,22 +50,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_nomcompleto"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/ettNom"
+        app:layout_constraintEnd_toStartOf="@+id/ettNom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.837" />
 
     <TextView
         android:id="@+id/tvRUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_nombreusuario"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/ettRMail"
+        app:layout_constraintEnd_toStartOf="@+id/ettNick"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRNombreCompleto" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRNombreCompleto"
+        app:layout_constraintVertical_bias="0.548" />
 
     <TextView
         android:id="@+id/tvRmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_registrarcorreo"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/tvRPass"
+        app:layout_constraintEnd_toStartOf="@+id/ettRMail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRUserName" />
 
@@ -47,13 +86,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mensaje_password"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/tvRNacimiento"
+        app:layout_constraintEnd_toStartOf="@+id/ettRPass"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRmail" />
+        app:layout_constraintTop_toTopOf="@+id/ettRPass"
+        app:layout_constraintVertical_bias="0.08" />
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="237dp"
         android:layout_height="216dp"
+        android:background="@color/blue"
+        android:backgroundTint="@color/dark_blue"
+        android:focusedMonthDateColor="@color/gray"
+        android:foregroundTint="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvRNacimiento" />
@@ -62,8 +110,36 @@
         android:id="@+id/tvRNacimiento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/mensaje_fechanac"
+        android:textColor="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/calendarView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/calendarView" />
+
+    <EditText
+        android:id="@+id/ettNom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/mensaje_nomcompleto"
+        android:inputType="text"
+        android:textColorHint="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/ettNick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvRNombreCompleto"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+
+    <EditText
+        android:id="@+id/ettNick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/mensaje_nombreusuario"
+        android:inputType="text"
+        android:textColorHint="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/ettRMail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvRUserName"
+        app:layout_constraintTop_toBottomOf="@+id/ettNom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

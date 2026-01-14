@@ -15,12 +15,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class InicioSesion extends AppCompatActivity {
     EditText etMail,etPass;
     TextView tvMail, tvPass, tvBienvenido, tvFoot, tvRegistro;
     RatingBar rb;
     Toolbar tb;
-    ScrollView sv;
+    BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,7 @@ public class InicioSesion extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        tvRegistro = findViewById(R.id.tvRegistro);
+        tvRegistro = findViewById(R.id.tvFooter);
 
 
         tvRegistro.setOnClickListener(new View.OnClickListener() {

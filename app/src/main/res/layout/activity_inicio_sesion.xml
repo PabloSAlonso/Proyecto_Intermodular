@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".InicioSesion">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,93 +19,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/sv"
-        android:layout_width="409dp"
-        android:layout_height="116dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvFooter"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:text="@string/mensaje_registro"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="italic" />
 
-            <TextView
-                android:id="@+id/tvFooter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/mensaje_footer"
-                android:textAlignment="center"
-                android:textColor="@color/dark_blue"
-                android:textSize="20sp"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/tvRegistro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/mensaje_registro"
-                android:textAlignment="center"
-                android:textColor="@color/dark_blue"
-                android:textSize="24sp"
-                android:textStyle="bold|italic" />
-        </LinearLayout>
-    </ScrollView>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="Email"
+        android:textColor="@color/dark_blue"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvPass"
+        app:layout_constraintBottom_toBottomOf="@+id/etEmail"
         app:layout_constraintEnd_toStartOf="@+id/etEmail"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.953" />
 
     <TextView
         android:id="@+id/tvPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="@string/mensaje_password"
+        android:textColor="@color/dark_blue"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sv"
+        app:layout_constraintBottom_toBottomOf="@+id/etPass"
         app:layout_constraintEnd_toStartOf="@+id/etPass"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail"
+        app:layout_constraintVertical_bias="0.915" />
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/mensaje_poneremail"
         android:inputType="text|textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/etPass"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bnv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvEmail"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/etPass"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/mensaje_password"
         android:inputType="text|textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/sv"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bnv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvPass"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
@@ -118,9 +107,24 @@
         android:textColor="@color/dark_blue"
         android:textSize="34sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintBottom_toTopOf="@+id/tvDescripcion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/tvDescripcion"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:text="@string/mensaje_captarclientes"
+        android:textAlignment="center"
+        android:textColor="@color/dark_blue"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBienvenida" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

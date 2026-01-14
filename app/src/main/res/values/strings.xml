@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App Movil</string>
+    <string name="app_name">Klyer</string>
     <string name="mensaje_bienvenida">Bienvenido a Klyer</string>
     <string name="mensaje_cerrarsesion">¿Seguro que desea cerrar la sesion?</string>
     <string name="mensaje_virales">Vea a continuación las publicaciones mas virales de la página</string>
@@ -14,4 +14,5 @@
     <string name="mensaje_nombreusuario">Nombre de Usuario</string>
     <string name="mensaje_fechanac">Fecha de Nacimiento</string>
     <string name="mensaje_registrarcorreo">Correo Electrónico</string>
+    <string name="mensaje_captarclientes">La innovación total respecto al mundo de las redes sociales, empieza ya a chatear con todo tipo de personas y entidades de la manera mas comoda y elegante posible</string>
 </resources>
