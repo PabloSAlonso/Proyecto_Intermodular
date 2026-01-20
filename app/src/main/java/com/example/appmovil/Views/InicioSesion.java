@@ -1,11 +1,10 @@
-package com.example.appmovil;
+package com.example.appmovil.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -15,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.example.appmovil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InicioSesion extends AppCompatActivity {

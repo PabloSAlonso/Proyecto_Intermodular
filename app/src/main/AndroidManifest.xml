@@ -13,10 +13,10 @@
         android:theme="@style/Theme.AppMovil"
         tools:targetApi="31">
         <activity
-            android:name=".RegistroCuenta"
+            android:name=".Views.RegistroCuenta"
             android:exported="false" />
         <activity
-            android:name=".InicioSesion"
+            android:name=".Views.InicioSesion"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

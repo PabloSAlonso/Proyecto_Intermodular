@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".InicioSesion">
+    tools:context=".Views.InicioSesion">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

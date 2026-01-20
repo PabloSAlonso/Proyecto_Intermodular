@@ -1,4 +1,4 @@
-package com.example.appmovil;
+package com.example.appmovil.Models;
 
 import android.media.Image;
 
