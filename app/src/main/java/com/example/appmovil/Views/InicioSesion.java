@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InicioSesion extends AppCompatActivity {
     EditText etMail,etPass;
-    TextView tvMail, tvPass, tvBienvenido, tvFoot, tvRegistro;
+    TextView tvMail, tvPass, tvBienvenido, tvFoot, tvHeader;
     RatingBar rb;
     Toolbar tb;
     BottomNavigationView bnv;
@@ -33,10 +33,10 @@ public class InicioSesion extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        tvRegistro = findViewById(R.id.tvFooter);
+        tvHeader = findViewById(R.id.tvHeader);
 
 
-        tvRegistro.setOnClickListener(new View.OnClickListener() {
+        tvHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent recoger_nuevo_user = new Intent(InicioSesion.this, RegistroCuenta.class);

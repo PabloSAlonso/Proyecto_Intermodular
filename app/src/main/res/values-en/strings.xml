@@ -16,4 +16,6 @@
     <string name="mensaje_fechanac">BirthDate</string>
     <string name="mensaje_registrarcorreo">Email Adress</string>
     <string name="mensaje_captarclientes">"The total innovation in the world of social networks: start chatting with all kinds of people and entities in the most comfortable and elegant way possible "</string>
+    <string name="mensaje_cuentaexistente">¿Already have an account? Log in</string>
+    <string name="mensaje_registrate">Sign Up</string>
 </resources>

@@ -16,4 +16,6 @@
     <string name="mensaje_fechanac">Fecha de Nacemento</string>
     <string name="mensaje_registrarcorreo">Correo Electrónico</string>
     <string name="mensaje_captarclientes">"A innovación total no mundo das redes sociais: comeza a chatear con todo tipo de persoas e entidades da maneira máis cómoda e elegante posible.  "</string>
+    <string name="mensaje_cuentaexistente">Xa tes unha conta? Inicia sesión</string>
+    <string name="mensaje_registrate">Rexistrate</string>
 </resources>

@@ -32,12 +32,12 @@
             android:id="@+id/tvFooter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/mensaje_registro"
+            android:text="@string/mensaje_footer"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
+            android:textColorLink="@color/black"
+            android:textSize="34sp"
+            android:textStyle="bold" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <TextView
@@ -126,5 +126,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBienvenida" />
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mensaje_registro"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
