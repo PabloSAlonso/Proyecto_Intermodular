@@ -1,6 +1,14 @@
-# README PROYECTO INTERMODULAR
+# README PROYECTO INTERMODULAR  
 
-### *En el siguiente documento se comentan los periodos y las acciones realizadas en dichos periodos de la realizacion del proyecto intermodular por el programador Pablo Santana Alonso*  
+## Introducción
+
+Este documento funciona como un diario de desarrollo del proyecto de clases, cuyo objetivo es la creación de tres aplicaciones a lo largo del curso.  
+
+Aquí voy registrando, día a día, el trabajo realizado, las decisiones tomadas, los problemas encontrados y las soluciones aplicadas durante el proceso.
+
+La finalidad de este diario es documentar mi progreso, facilitar el seguimiento del proyecto y servir como referencia futura para entender cómo y por qué se implementaron determinadas partes.
+
+— Pablo Santana Alonso
 
 ## 1º Semana enero
 * Diseño web de página de inicio de sesión y página de registro realizados
@@ -12,6 +20,9 @@
 
 ## 3º Semana enero
 * Creación de algunas clases en Java para la app móvil para poder gestionar los objetos de la base de datos (Usuarios y Publicaciones)  
+* Creacion del modelo de carpetas MVC para la app Web ademas de crear ya las clases modelos  
+* Diseño sencillo de un logotipo para las 3 aplicaciones  
+* Comienzo del diseño de las celdas de publicaciones en movil, ademas de ir creando el Recycler View y su adaptador para estas mismas publicaciones
 
 ## 4º Semana enero
 
