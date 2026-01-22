@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Klyer</string>
+    <string name="mensaje_bienvenida">Bienvenido a Klyer</string>
+    <string name="mensaje_cerrarsesion">¿Seguro que desea cerrar la sesion?</string>
+    <string name="mensaje_virales">Vea a continuación las publicaciones mas virales de la página</string>
+    <string name="mensaje_registro">¿Todavia no tienes una cuenta? Registrate ya gratis!</string>
+    <string name="mensaje_recibirmensaje">Tienes un nuevo mensaje de</string>
+    <string name="mensaje_publicacion">a quien sigues, a hecho una publicación</string>
+    <string name="mensaje_password">Contraseña</string>
+    <string name="mensaje_footer">Todos los derechos reservados.</string>
+    <string name="mensaje_valorar">Valóranos</string>
+    <string name="mensaje_poneremail">micorreo@ejemplo.com</string>
+    <string name="mensaje_nomcompleto">Nombre y Apellidos</string>
+    <string name="mensaje_nombreusuario">Nombre de Usuario</string>
+    <string name="mensaje_fechanac">Fecha de Nacimiento</string>
+    <string name="mensaje_registrarcorreo">Correo Electrónico</string>
+    <string name="mensaje_captarclientes">La innovación total respecto al mundo de las redes sociales, empieza ya a chatear con todo tipo de personas y entidades de la manera mas comoda y elegante posible</string>
+    <string name="mensaje_cuentaexistente">¿Ya tienes una cuenta? inicia sesion</string>
+    <string name="mensaje_registrate">Registrarse</string>
+</resources>

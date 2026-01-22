@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Klyer</string>
+    <string name="mensaje_bienvenida">Benvido a Klyer</string>
+    <string name="mensaje_cerrarsesion">Seguro que desexa rematar a sesion?</string>
+    <string name="mensaje_virales">A continuación amosamoslle as pubricacións mais virais da páxina</string>
+    <string name="mensaje_registro">¿Aínda non dispone dunha conta? Rexistrese gratis xa!</string>
+    <string name="mensaje_recibirmensaje">Tes una nove mensaxe de</string>
+    <string name="mensaje_publicacion">" a quen segues, fixo unha publicación"</string>
+    <string name="mensaje_password">Contrasinal</string>
+    <string name="mensaje_footer">Todos os dereitos reservados</string>
+    <string name="mensaje_valorar">Valóranos</string>
+    <string name="mensaje_poneremail">meucorreo@exemplo.com</string>
+    <string name="mensaje_nomcompleto">Nome e apelidos</string>
+    <string name="mensaje_nombreusuario">Nome de Usuario</string>
+    <string name="mensaje_fechanac">Fecha de Nacemento</string>
+    <string name="mensaje_registrarcorreo">Correo Electrónico</string>
+    <string name="mensaje_captarclientes">"A innovación total no mundo das redes sociais: comeza a chatear con todo tipo de persoas e entidades da maneira máis cómoda e elegante posible.  "</string>
+    <string name="mensaje_cuentaexistente">Xa tes unha conta? Inicia sesión</string>
+    <string name="mensaje_registrate">Rexistrate</string>
+</resources>
