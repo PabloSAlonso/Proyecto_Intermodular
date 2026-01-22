@@ -12,7 +12,7 @@
 
     <header class="bg-primary text-white py-3">
         <div class="container d-flex align-items-center">
-            <img src="" alt="Logo" width="50" height="50" class="me-3">
+            <img src="/Logotipo_App/Klyer-logo-transparent.png" alt="Logo" width="50" height="50" class="me-3">
             <h5 class="mb-0" style="font-family: 'Times New Roman', Times, serif;">KLYER</h5>
         </div>
     </header>
