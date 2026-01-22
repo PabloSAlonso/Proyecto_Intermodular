@@ -3,8 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/imgK"
-        android:icon="@drawable/klyer_k_black_on_blue_48px"
+        android:id="@+id/btnFavoritos"
+        android:icon="@drawable/favs_icon"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btnFeed"
+        android:icon="@drawable/options_icon"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btnPublicar"
+        android:icon="@drawable/photo_icon"
         android:title="Item"
         app:showAsAction="always" />
 </menu>
