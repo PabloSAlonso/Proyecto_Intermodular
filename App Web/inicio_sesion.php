@@ -34,9 +34,9 @@
 
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" placeholder="******" required minlength="6">
+                            <input type="password" class="form-control" placeholder="******" required minlength="6" id="pass">
                             <!-- Agregaré una funcionalidad de cambiar de formato password a formato texto y viceversa al pulsar -->
-                            <span>Mostrar Contraseña</span>
+                            <span id="mostrar_pass">Mostrar Contraseña</span>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">
@@ -45,10 +45,6 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <a href="recuperar_pass.php" class="d-block">¿Olvidaste tu contraseña?</a>
-                        <!-- La idea es hacer una funcionalidad simple 
-                        donde introduciendo tu correo busque en la base de datos 
-                        la contraseña de ese correo y la muestre desencriptada al usuario -->
                         <span class="d-block mt-2">
                             ¿No tienes cuenta?
                             <a href="registro.php">Regístrate</a>
