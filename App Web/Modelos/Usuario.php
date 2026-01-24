@@ -6,6 +6,7 @@ class usuario {
     private $nickname;
     private $password;
     private $email;
+    private $foto_perfil;
     private $fecha_nacimiento;
     private $fecha_creacion_cuenta;
 }
