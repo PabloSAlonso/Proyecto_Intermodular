@@ -39,6 +39,7 @@ public class RegistroCuenta extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Registrar al usuario en la bd con la API
                 String nombre = ettNom.getText().toString();
                 String nick = ettNick.getText().toString();
                 api.subirUsuario(nombre, nick);

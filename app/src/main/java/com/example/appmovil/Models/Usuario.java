@@ -1,5 +1,7 @@
 package com.example.appmovil.Models;
 
+import android.media.Image;
+
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
@@ -12,18 +14,55 @@ public class Usuario implements Serializable {
     private String nickname;
     private String email;
     private String password;
+    private Image foto_perfil;
     private Date fecha_nacimiento;
     private Date fecha_creacion_cuenta;
 
-    public Usuario(int id, String nombre, String apellidos, String nickname, String email, String password, Date fecha_nacimiento, Date fecha_creacion_cuenta){
+    public Usuario(int id, String nombre, String apellidos, String nickname, String email, String password, Image foto_perfil,Date fecha_nacimiento, Date fecha_creacion_cuenta){
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.nickname = nickname;
         this.email = email;
         this.password = password;
+        this.foto_perfil = foto_perfil;
         this.fecha_nacimiento = fecha_nacimiento;
         this.fecha_creacion_cuenta = fecha_creacion_cuenta;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Image getFoto_perfil() {
+        return foto_perfil;
+    }
+
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public Date getFecha_creacion_cuenta() {
+        return fecha_creacion_cuenta;
+    }
 }

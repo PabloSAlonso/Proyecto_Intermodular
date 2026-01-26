@@ -16,5 +16,31 @@ public class Publicacion implements Serializable {
     private int likes;
     private int comentarios;
 
+    public Date getFecha_publicacion() {
+        return fecha_publicacion;
+    }
 
+    public Image getImagen() {
+        return imagen;
+    }
+
+    public int getComentarios() {
+        return comentarios;
+    }
+
+    public int getId_publicacion() {
+        return id_publicacion;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
 }

@@ -20,9 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class InicioSesion extends AppCompatActivity {
     EditText etMail,etPass;
     TextView tvMail, tvPass, tvBienvenido, tvFoot, tvHeader;
-    RatingBar rb;
     Toolbar tb;
-    BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +31,18 @@ public class InicioSesion extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        tb = findViewById(R.id.toolbar);
         tvHeader = findViewById(R.id.tvHeader);
-
-
+        etMail = findViewById(R.id.etEmail);
+        etPass = findViewById(R.id.etPass);
+        tvMail = findViewById(R.id.tvEmail);
+        tvPass = findViewById(R.id.tvPass);
+        tvBienvenido = findViewById(R.id.tvBienvenida);
+        tvFoot = findViewById(R.id.tvDescripcion);
         tvHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent recoger_nuevo_user = new Intent(InicioSesion.this, RegistroCuenta.class);
-//                startActivity(recoger_nuevo_user);
+                // Buscar a usuario en la API
             }
         });
     }
