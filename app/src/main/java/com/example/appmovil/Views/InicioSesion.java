@@ -39,8 +39,8 @@ public class InicioSesion extends AppCompatActivity {
         tvHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent recoger_nuevo_user = new Intent(InicioSesion.this, RegistroCuenta.class);
-                startActivity(recoger_nuevo_user);
+//                Intent recoger_nuevo_user = new Intent(InicioSesion.this, RegistroCuenta.class);
+//                startActivity(recoger_nuevo_user);
             }
         });
     }
