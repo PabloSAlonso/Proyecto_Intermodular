@@ -23,6 +23,7 @@ La finalidad de este diario es documentar mi progreso, facilitar el seguimiento 
 * Creacion del modelo de carpetas MVC para la app Web ademas de crear ya las clases modelos  
 * Diseño sencillo de un logotipo para las 3 aplicaciones  
 * Comienzo del diseño de las celdas de publicaciones en movil, ademas de ir creando el Recycler View y su adaptador para estas mismas publicaciones
+* Creacion del modelo de carpetas MVC para la web y creacion de la clase conexion ademas de estrcuturacion del feed principal de la web
 
 ## 4º Semana enero
 
