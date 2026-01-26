@@ -24,6 +24,7 @@ La finalidad de este diario es documentar mi progreso, facilitar el seguimiento 
 * Diseño sencillo de un logotipo para las 3 aplicaciones  
 * Comienzo del diseño de las celdas de publicaciones en movil, ademas de ir creando el Recycler View y su adaptador para estas mismas publicaciones
 * Creacion del modelo de carpetas MVC para la web y creacion de la clase conexion ademas de estrcuturacion del feed principal de la web
+* Terminado el RecyclerView y el adaptador de las publicaciones, falta añadir las funcionalidades de la API
 
 ## 4º Semana enero
 
