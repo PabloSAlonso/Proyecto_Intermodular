@@ -11,7 +11,7 @@ class Publicacion
 
     public static function obtenerTodas()
     {
-        $conexion = Conexion::conectar(); // Tengo que pedir los datos que me hacen falta para cada publicacion
+        $conexion = Conexion::conectar(); // Tengo que pedir los datos que me hacen falta para cada publicacion en la API
         $sql = "SELECT 
                 FROM publicaciones
                 JOIN usuarios ON id_usuario = id
@@ -21,5 +21,18 @@ class Publicacion
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    private static $apiUrl = "https://api.midominio.com/publicaciones";
+
+    public static function obtenerTodas_2() {
+        $ch = curl_init(self::$apiUrl);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($response, true);
     }
 }

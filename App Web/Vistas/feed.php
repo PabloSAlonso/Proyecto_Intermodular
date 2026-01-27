@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feed</title>
 </head>
+<?php require_once '../components/header.php' ?>
 <body>
     <?php foreach ($publicaciones as $pub): ?>
     <div class="post">

@@ -10,13 +10,7 @@
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <header class="bg-primary text-white py-3">
-        <div class="container d-flex align-items-center">
-            <!-- Logo de la app (aun no tengo la imagen pero sera una K azul o blanca) -->
-            <img src="/Logotipo_App/Klyer-logo-transparent.png" alt="Logo" width="50" height="50" class="me-3">
-            <h5 class="mb-0" style="font-family: 'Times New Roman', Times, serif;">KLYER</h5>
-        </div>
-    </header>
+    <?php require_once '../components/header.php' ?>
 
     <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
         <div class="col-md-5 col-lg-4">
@@ -52,14 +46,7 @@
             </div>
         </div>
     </div>
-    <footer class="bg-white border-top py-3">
-        <div class="container text-center">
-            <span class="text-muted small">
-                © 2026 · Todos los derechos reservados ·
-                <a href="#" class="link-primary">Términos y condiciones</a>
-            </span>
-        </div>
-    </footer>
+    <?php require_once '../components/footer.php' ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
