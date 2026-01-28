@@ -16,7 +16,7 @@ public class ApiRest {
         new Thread(() -> {
             try {
                 // URL proyecto maven del Proyecto Intermodular
-                URL url = new URL("http://192.130.0.14:8080/tema5maven/rest/deportistas/android"); //10.0.2.2
+                URL url = new URL("http://192.130.0.14:8080/apirest/rest/usuarios/insertar"); //10.0.2.2
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
