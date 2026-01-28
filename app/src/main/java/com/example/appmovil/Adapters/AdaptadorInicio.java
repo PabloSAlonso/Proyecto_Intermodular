@@ -40,12 +40,27 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.Inicio
     @Override
     public void onBindViewHolder(@NonNull InicioViewHolder holder, int position) {
         Publicacion p = this.publicaciones.get(position);
+        if (selectedPos == position) {
+
+        } else {
+
+        }
 
     }
 
     @Override
     public int getItemCount() {
         return publicaciones.size();
+    }
+
+    int selectedPos=RecyclerView.NO_POSITION;
+    public int getSelectedPos () {
+        return selectedPos;
+    }
+    public void setSelectedPos(int nuevaPos) {
+        if (nuevaPos == this.selectedPos){
+
+        }
     }
 
     public class InicioViewHolder extends RecyclerView.ViewHolder{
@@ -63,7 +78,10 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.Inicio
             this.ibLikes = itemView.findViewById(R.id.ibLikes);
             this.ibComentarios = itemView.findViewById(R.id.ibComents);
             this.ibCompartidos = itemView.findViewById(R.id.ibShares);
-
+            this.sv = itemView.findViewById(R.id.scrollView2);
+            this.ibPerfil = itemView.findViewById(R.id.ibPerfil);
+            this.ibOpciones = itemView.findViewById(R.id.ibOpciones);
+            this.ivFotoPublicacion = itemView.findViewById(R.id.ivImagen);
         }
 
         public ImageButton getIbComentarios() {
@@ -113,8 +131,6 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.Inicio
         public TextView getTvNombreUsuario() {
             return tvNombreUsuario;
         }
-
-
 
     }
 }
