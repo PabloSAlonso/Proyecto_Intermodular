@@ -42,7 +42,7 @@ public class RegistroCuenta extends AppCompatActivity {
                 // Registrar al usuario en la bd con la API
                 String nombre = ettNom.getText().toString();
                 String nick = ettNick.getText().toString();
-                api.subirUsuario(nombre, nick);
+
             }
         });
     }

@@ -2,8 +2,12 @@ package com.example.appmovil.Views;
 
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,13 +48,25 @@ public class PaginaInicio extends AppCompatActivity {
         tb = findViewById(R.id.toolbar3);
         bnv = findViewById(R.id.bottomNavigationView);
         ActionBar ab = getSupportActionBar();
+        ab.setTitle(R.string.mensaje_pagprincipal);
+        ab.setSubtitle(R.string.mensaje_virales);
         setSupportActionBar(tb);
         rv = findViewById(R.id.recyclerView);
         rv.setAdapter(adaptadorInicio);
         layoutManagerPublicaciones = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         rv.setLayoutManager(layoutManagerPublicaciones);
-        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL
-        ));
+        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_footer, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        return super.onOptionsItemSelected(item);
     }
 }

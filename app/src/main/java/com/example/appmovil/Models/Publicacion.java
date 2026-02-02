@@ -3,6 +3,7 @@ package com.example.appmovil.Models;
 import android.media.Image;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Date;
 
 public class Publicacion implements Serializable {
@@ -10,7 +11,7 @@ public class Publicacion implements Serializable {
     private int id_usuario;
     private Date fecha_publicacion;
 
-    private Image imagen;
+    private Blob imagen;
 
     private String descripcion;
     private int likes;
@@ -20,7 +21,7 @@ public class Publicacion implements Serializable {
         return fecha_publicacion;
     }
 
-    public Image getImagen() {
+    public Blob getImagen() {
         return imagen;
     }
 

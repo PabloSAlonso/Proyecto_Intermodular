@@ -5,6 +5,7 @@ import android.media.Image;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Date;
 
 public class Usuario implements Serializable {
@@ -14,11 +15,11 @@ public class Usuario implements Serializable {
     private String nickname;
     private String email;
     private String password;
-    private Image foto_perfil;
+    private Blob foto_perfil;
     private Date fecha_nacimiento;
     private Date fecha_creacion_cuenta;
 
-    public Usuario(int id, String nombre, String apellidos, String nickname, String email, String password, Image foto_perfil,Date fecha_nacimiento, Date fecha_creacion_cuenta){
+    public Usuario(int id, String nombre, String apellidos, String nickname, String email, String password, Blob foto_perfil,Date fecha_nacimiento, Date fecha_creacion_cuenta){
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -54,7 +55,7 @@ public class Usuario implements Serializable {
         return email;
     }
 
-    public Image getFoto_perfil() {
+    public Blob getFoto_perfil() {
         return foto_perfil;
     }
 

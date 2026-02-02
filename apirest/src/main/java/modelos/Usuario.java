@@ -1,34 +1,40 @@
 package modelos;
 
-import java.awt.Image;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
+import org.mindrot.jbcrypt.BCrypt;
 
 import conexion.Conexion;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/usuarios")
 public class Usuario implements Serializable {
+
     private int id;
     private String nombre;
     private String apellidos;
     private String nickname;
     private String email;
     private String password;
-    private Image foto_perfil;
+    private Blob foto_perfil;
     private Date fecha_nacimiento;
     private Date fecha_creacion_cuenta;
 
+    public Usuario() {
+    }
+
     public Usuario(String nombre, String apellidos, String nickname, String email, String password,
-            Image foto_perfil, Date fecha_nacimiento, Date fecha_creacion_cuenta) {
+            Blob foto_perfil, Date fecha_nacimiento, Date fecha_creacion_cuenta) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.nickname = nickname;
@@ -55,15 +61,15 @@ public class Usuario implements Serializable {
         return nickname;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public Image getFoto_perfil() {
+    public String getPassword() {
+        return password;
+    }
+
+    public Blob getFoto_perfil() {
         return foto_perfil;
     }
 
@@ -74,14 +80,16 @@ public class Usuario implements Serializable {
     public Date getFecha_creacion_cuenta() {
         return fecha_creacion_cuenta;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    String ruta_driver = "org.mariadb.jdbc.Driver";
+    Conexion c = new Conexion();
 
     public void llamadaDriver(String ruta) throws ClassNotFoundException {
         Class.forName(ruta);
     }
-
-    String ruta_driver = "org.mariadb.jdbc.Driver";
-
-    Conexion c = new Conexion();
 
     @Path("/insertar")
     @POST
@@ -89,21 +97,84 @@ public class Usuario implements Serializable {
     public Response insertarUsuario(Usuario u) {
         try {
             llamadaDriver(ruta_driver);
-            try (Connection conexion = c.getConexion()) {
-                Statement st = conexion.createStatement();
-                st.executeUpdate(
-                        "INSERT INTO usuarios(nombre, apellidos, nickname, email, password, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES");
+            Connection conexion = c.getConexion();
+            
+            String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            // BCrypt.checkpw(passwordIntroducida, passwordGuardadaBD); Comprueba password
+            String passwordHashed = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getApellidos());
+            ps.setString(3, u.getNickname());
+            ps.setString(4, u.getEmail());
+            ps.setString(5, passwordHashed);
+            ps.setBlob(6, u.getFoto_perfil());
+            ps.setDate(7, u.getFecha_nacimiento());
+            ps.setDate(8, u.getFecha_creacion_cuenta());
 
-                u = new Usuario(nombre, apellidos, nickname, email, password, foto_perfil, fecha_nacimiento,
-                        fecha_creacion_cuenta);
+            ps.executeUpdate();
+            u.setPassword(null);
+            return Response.status(Response.Status.CREATED).entity(u).build();
 
-                return Response.ok(u).build();
-            } catch (SQLException s) {
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-            }
-        } catch (ClassNotFoundException c) {
-            // TODO: handle exception
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @Path("/actualizar/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response actualizarUsuario(@PathParam("id") int id, Usuario u) {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+
+            String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, password=?, foto_perfil=?, fecha_nacimiento=? WHERE id=?";
+
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getApellidos());
+            ps.setString(3, u.getNickname());
+            ps.setString(4, u.getEmail());
+            ps.setString(5, u.getPassword());
+            ps.setBlob(6, u.getFoto_perfil());
+            ps.setDate(7, u.getFecha_nacimiento());
+            ps.setInt(8, id);
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/eliminar/{id}")
+    @DELETE
+    public Response eliminarUsuario(@PathParam("id") int id) {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+
+            String sql = "DELETE FROM usuarios WHERE id=?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
