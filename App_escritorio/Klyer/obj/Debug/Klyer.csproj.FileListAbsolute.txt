@@ -1,0 +1,11 @@
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\bin\Debug\Klyer.exe.config
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\bin\Debug\Klyer.exe
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\bin\Debug\Klyer.pdb
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.csproj.AssemblyReference.cache
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.Properties.Resources.resources
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.csproj.GenerateResource.cache
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.csproj.CoreCompileInputs.cache
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.exe
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.pdb
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.exe.config
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.Inicio_de_sesión.resources
