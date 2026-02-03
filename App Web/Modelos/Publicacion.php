@@ -25,14 +25,5 @@ class Publicacion
 
     private static $apiUrl = "https://api.midominio.com/publicaciones";
 
-    public static function obtenerTodas_2() {
-        $ch = curl_init(self::$apiUrl);
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        return json_decode($response, true);
-    }
+    
 }

@@ -166,7 +166,6 @@ public class Usuario implements Serializable {
             ps.setInt(1, id);
 
             int filas = ps.executeUpdate();
-
             if (filas > 0) {
                 return Response.ok().build();
             } else {

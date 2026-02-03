@@ -30,7 +30,8 @@ La finalidad de este diario es documentar mi progreso, facilitar el seguimiento 
 * Creacion de tablas likes_publicaciones y likes_usuarios
 
 ## 1º Semana febrero
-* Inicio de aplicacion de escritorio (vista de inicio de sesion sin funcionalidad)
+* Inicio de aplicacion de escritorio 
+* Registro de aplicacion de escritorio
 * Creacion de funciones basicas de la API para: insertar, actualizar y borrar
 
 ## 2º Semana febrero

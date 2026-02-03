@@ -26,6 +26,7 @@ public class Historia implements Serializable {
     private int likes;
 
     public Historia() {
+        
     }
 
     public Historia(int id_usuario, Date fecha_publicacion, Blob imagen, int likes) {

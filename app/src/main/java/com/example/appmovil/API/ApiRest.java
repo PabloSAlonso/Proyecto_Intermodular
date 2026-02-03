@@ -9,9 +9,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
+import java.sql.Date;
 
 public class ApiRest {
-    public void insertarUsuario(String nombre, String nick){
+    public void insertarUsuario(String nombre, String apellidos, String nickname, String email, String password, Blob foto_perfil, Date fecha_nacimiento, Date fecha_creacion_cuenta){
         new Thread(() -> {
             try {
                 // URL proyecto maven del Proyecto Intermodular
@@ -22,7 +24,13 @@ public class ApiRest {
                 connection.setDoOutput(true); //Voy a escribir en body
                 JSONObject json = new JSONObject();
                 json.put("nombre", nombre);
-                json.put("nickname", nick);
+                json.put("apellidos", apellidos);
+                json.put("nickname", nickname);
+                json.put("email", email);
+                json.put("password", password);
+                json.put("foto_perfil", foto_perfil);
+                json.put("fecha_nacimiento",fecha_nacimiento);
+                json.put("fecha_creacion_cuenta", fecha_creacion_cuenta);
                 System.out.println(json);
                 try (OutputStream os = connection.getOutputStream()){
                     os.write(json.toString().getBytes(StandardCharsets.UTF_8)); //Enviar body
