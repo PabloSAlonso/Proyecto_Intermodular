@@ -9,3 +9,4 @@ C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\De
 C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.pdb
 C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.exe.config
 C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.Inicio_de_sesión.resources
+C:\Users\Pablo Santana\Desktop\Proyecto_Intermodular\App_escritorio\Klyer\obj\Debug\Klyer.Registro.resources

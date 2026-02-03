@@ -16,5 +16,10 @@ namespace Klyer
         {
             InitializeComponent();
         }
+
+        private void tbNick_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
