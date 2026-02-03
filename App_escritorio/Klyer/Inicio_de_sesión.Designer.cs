@@ -48,7 +48,7 @@
             this.lblCorreo.AutoSize = true;
             this.lblCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCorreo.ForeColor = System.Drawing.Color.White;
-            this.lblCorreo.Location = new System.Drawing.Point(18, 111);
+            this.lblCorreo.Location = new System.Drawing.Point(18, 104);
             this.lblCorreo.Name = "lblCorreo";
             this.lblCorreo.Size = new System.Drawing.Size(140, 20);
             this.lblCorreo.TabIndex = 1;
@@ -60,7 +60,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(41, 148);
+            this.label1.Location = new System.Drawing.Point(41, 141);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 20);
             this.label1.TabIndex = 3;
@@ -69,7 +69,7 @@
             // textBox1
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.Location = new System.Drawing.Point(166, 112);
+            this.textBox1.Location = new System.Drawing.Point(166, 105);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(262, 20);
             this.textBox1.TabIndex = 2;
@@ -77,7 +77,7 @@
             // textBox2
             // 
             this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox2.Location = new System.Drawing.Point(166, 150);
+            this.textBox2.Location = new System.Drawing.Point(166, 143);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(262, 20);
@@ -99,7 +99,7 @@
             this.lblMensajeRegistro.AutoSize = true;
             this.lblMensajeRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMensajeRegistro.ForeColor = System.Drawing.Color.White;
-            this.lblMensajeRegistro.Location = new System.Drawing.Point(135, 311);
+            this.lblMensajeRegistro.Location = new System.Drawing.Point(135, 296);
             this.lblMensajeRegistro.Name = "lblMensajeRegistro";
             this.lblMensajeRegistro.Size = new System.Drawing.Size(204, 20);
             this.lblMensajeRegistro.TabIndex = 6;
@@ -111,7 +111,7 @@
             this.lblRegistro.AutoSize = true;
             this.lblRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegistro.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lblRegistro.Location = new System.Drawing.Point(180, 331);
+            this.lblRegistro.Location = new System.Drawing.Point(180, 316);
             this.lblRegistro.Name = "lblRegistro";
             this.lblRegistro.Size = new System.Drawing.Size(103, 24);
             this.lblRegistro.TabIndex = 7;
@@ -126,7 +126,7 @@
             this.lblBienvenida.AutoSize = true;
             this.lblBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBienvenida.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lblBienvenida.Location = new System.Drawing.Point(84, 47);
+            this.lblBienvenida.Location = new System.Drawing.Point(84, 32);
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(298, 37);
             this.lblBienvenida.TabIndex = 0;
@@ -138,7 +138,7 @@
             this.btnInicio.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInicio.ForeColor = System.Drawing.Color.White;
-            this.btnInicio.Location = new System.Drawing.Point(91, 202);
+            this.btnInicio.Location = new System.Drawing.Point(91, 206);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(291, 51);
             this.btnInicio.TabIndex = 5;
@@ -161,7 +161,7 @@
             this.grupoComponentes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grupoComponentes.Location = new System.Drawing.Point(0, 0);
             this.grupoComponentes.Name = "grupoComponentes";
-            this.grupoComponentes.Size = new System.Drawing.Size(475, 411);
+            this.grupoComponentes.Size = new System.Drawing.Size(474, 381);
             this.grupoComponentes.TabIndex = 8;
             this.grupoComponentes.TabStop = false;
             // 
@@ -170,7 +170,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(475, 411);
+            this.ClientSize = new System.Drawing.Size(474, 381);
             this.Controls.Add(this.grupoComponentes);
             this.Controls.Add(this.lblNotificarCorreo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
