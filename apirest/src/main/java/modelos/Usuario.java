@@ -5,15 +5,19 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import conexion.Conexion;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -80,6 +84,7 @@ public class Usuario implements Serializable {
     public Date getFecha_creacion_cuenta() {
         return fecha_creacion_cuenta;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -98,9 +103,9 @@ public class Usuario implements Serializable {
         try {
             llamadaDriver(ruta_driver);
             Connection conexion = c.getConexion();
-            
+
             String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            
+
             PreparedStatement ps = conexion.prepareStatement(sql);
             // BCrypt.checkpw(passwordIntroducida, passwordGuardadaBD); Comprueba password
             String passwordHashed = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
@@ -173,6 +178,43 @@ public class Usuario implements Serializable {
             }
 
         } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/obtener/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerUsuario(@PathParam("id") int id) {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+
+            String sql = "SELECT * FROM usuarios WHERE id=?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Usuario u = new Usuario();
+                u.id = rs.getInt("id");
+                u.nombre = rs.getString("nombre");
+                u.apellidos = rs.getString("apellidos");
+                u.nickname = rs.getString("nickname");
+                u.email = rs.getString("email");
+                u.password = null;
+                u.foto_perfil = rs.getBlob("foto_perfil");
+                u.fecha_nacimiento = rs.getDate("fecha_nacimiento");
+                u.fecha_creacion_cuenta = rs.getDate("fecha_creacion_cuenta");
+
+                return Response.ok(u).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }

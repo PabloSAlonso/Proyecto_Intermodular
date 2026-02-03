@@ -5,14 +5,17 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import conexion.Conexion;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -40,13 +43,33 @@ public class Publicacion implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public int getId_publicacion() { return id_publicacion; }
-    public int getId_usuario() { return id_usuario; }
-    public Date getFecha_publicacion() { return fecha_publicacion; }
-    public Blob getImagen() { return imagen; }
-    public String getDescripcion() { return descripcion; }
-    public int getLikes() { return likes; }
-    public int getComentarios() { return comentarios; }
+    public int getId_publicacion() {
+        return id_publicacion;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public Date getFecha_publicacion() {
+        return fecha_publicacion;
+    }
+
+    public Blob getImagen() {
+        return imagen;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public int getComentarios() {
+        return comentarios;
+    }
 
     String ruta_driver = "org.mariadb.jdbc.Driver";
     Conexion c = new Conexion();
@@ -136,6 +159,76 @@ public class Publicacion implements Serializable {
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/obtener/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicacion(@PathParam("id") int id) {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+
+            String sql = "SELECT * FROM publicaciones WHERE id_publicacion=?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.id_publicacion = rs.getInt("id_publicacion");
+                p.id_usuario = rs.getInt("id_usuario");
+                p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                p.imagen = rs.getBlob("imagen");
+                p.descripcion = rs.getString("descripcion");
+                p.likes = rs.getInt("likes");
+                p.comentarios = rs.getInt("comentarios");
+
+                return Response.ok(p).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/usuario/{id_usuario}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+
+            String sql = "SELECT * FROM publicaciones WHERE id_usuario=?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+            java.util.List<Publicacion> lista = new java.util.ArrayList<>();
+
+            while (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.id_publicacion = rs.getInt("id_publicacion");
+                p.id_usuario = rs.getInt("id_usuario");
+                p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                p.imagen = rs.getBlob("imagen");
+                p.descripcion = rs.getString("descripcion");
+                p.likes = rs.getInt("likes");
+                p.comentarios = rs.getInt("comentarios");
+
+                lista.add(p);
+            }
+
+            return Response.ok(lista).build();
 
         } catch (Exception e) {
             e.printStackTrace();
