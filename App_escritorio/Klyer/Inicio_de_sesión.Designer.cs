@@ -125,7 +125,7 @@
             this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBienvenida.AutoSize = true;
             this.lblBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBienvenida.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblBienvenida.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblBienvenida.Location = new System.Drawing.Point(84, 47);
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(298, 37);
