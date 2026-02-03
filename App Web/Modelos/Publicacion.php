@@ -21,7 +21,7 @@ class Publicacion
 
     public function getPublicaciones()
     {
-        return $this->request->get('/publicaciones');
+        return $this->request->get('/publicaciones/todas');
     }
 
 

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import conexion.Conexion;
 import jakarta.ws.rs.Consumes;
@@ -29,6 +30,8 @@ public class Publicacion implements Serializable {
     private String descripcion;
     private int likes;
     private int comentarios;
+
+    private ArrayList<Publicacion> publicaciones;
 
     public Publicacion() {
     }
@@ -76,6 +79,74 @@ public class Publicacion implements Serializable {
 
     public void llamadaDriver(String ruta) throws ClassNotFoundException {
         Class.forName(ruta);
+    }
+
+    @Path("/todas")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicaciones() {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+            String sql = "SELECT * FROM publicaciones ORDER_BY id_publicacion DESC";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            publicaciones = new ArrayList<>();
+            while (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.id_publicacion = rs.getInt("id_publicacion");
+                p.id_usuario = rs.getInt("id_usuario");
+                p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                p.imagen = rs.getBlob("imagen");
+                p.descripcion = rs.getString("descripcion");
+                p.likes = rs.getInt("likes");
+                p.comentarios = rs.getInt("comentarios");
+
+                publicaciones.add(p);
+            }
+
+            return Response.ok(publicaciones).build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/usuario/{id_usuario}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
+        try {
+            llamadaDriver(ruta_driver);
+            Connection conexion = c.getConexion();
+
+            String sql = "SELECT * FROM publicaciones WHERE id_usuario=?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+            publicaciones = new ArrayList<>();
+
+            while (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.id_publicacion = rs.getInt("id_publicacion");
+                p.id_usuario = rs.getInt("id_usuario");
+                p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                p.imagen = rs.getBlob("imagen");
+                p.descripcion = rs.getString("descripcion");
+                p.likes = rs.getInt("likes");
+                p.comentarios = rs.getInt("comentarios");
+
+                publicaciones.add(p);
+            }
+
+            return Response.ok(publicaciones).build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @Path("/insertar")
@@ -200,39 +271,4 @@ public class Publicacion implements Serializable {
         }
     }
 
-    @Path("/usuario/{id_usuario}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
-
-            String sql = "SELECT * FROM publicaciones WHERE id_usuario=?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idUsuario);
-
-            ResultSet rs = ps.executeQuery();
-            java.util.List<Publicacion> lista = new java.util.ArrayList<>();
-
-            while (rs.next()) {
-                Publicacion p = new Publicacion();
-                p.id_publicacion = rs.getInt("id_publicacion");
-                p.id_usuario = rs.getInt("id_usuario");
-                p.fecha_publicacion = rs.getDate("fecha_publicacion");
-                p.imagen = rs.getBlob("imagen");
-                p.descripcion = rs.getString("descripcion");
-                p.likes = rs.getInt("likes");
-                p.comentarios = rs.getInt("comentarios");
-
-                lista.add(p);
-            }
-
-            return Response.ok(lista).build();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-    }
 }
