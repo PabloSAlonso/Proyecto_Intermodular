@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+    </style>
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
@@ -27,8 +30,7 @@
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
                             <input type="password" class="form-control" placeholder="******" required minlength="6" id="pass">
-                            <!-- Agregaré una funcionalidad de cambiar de formato password a formato texto y viceversa al pulsar -->
-                            <input type="checkbox" id="mostrar_pass"><span>Mostrar Contraseña</span>
+                            <input type="checkbox" id="mostrar_pass">
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">
