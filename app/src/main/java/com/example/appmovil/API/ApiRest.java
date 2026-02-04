@@ -44,4 +44,42 @@ public class ApiRest {
             }
         }).start();
     }
+
+    public interface LoginCallback {
+        void onLoginResult(boolean success);
+    }
+
+    public void obtenerDatosUsuario(String email, String password, LoginCallback callback) {
+        new Thread(() -> {
+            try {
+                URL url = new URL(
+                        "http://10.0.2.2:8080/apirest/rest/usuarios/obtener/"+email+"/"+password
+                );
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                int code = conn.getResponseCode();
+                System.out.println("Código HTTP: " + code);
+                if (code == 200) {
+                    callback.onLoginResult(true);
+                } else {
+                    callback.onLoginResult(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                callback.onLoginResult(false);
+            }
+        }).start();
+    }
+
+
+    //COMO LLAMAR A LA FUNCION
+
+//    buscarUsuario("byDoVaaL99", success -> {
+//        if (success) {
+//            System.out.println("Usuario encontrado");
+//        } else {
+//            System.out.println("Error o usuario no existe");
+//        }
+//    });
 }

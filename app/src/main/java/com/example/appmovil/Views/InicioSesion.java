@@ -1,11 +1,14 @@
 package com.example.appmovil.Views;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,6 +25,9 @@ public class InicioSesion extends AppCompatActivity {
     EditText etMail,etPass;
     TextView tvMail, tvPass, tvBienvenido, tvFoot, tvHeader;
     Toolbar tb;
+    Button btnInicio;
+    ApiRest api;
+//    Boolean userEncontrado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +38,8 @@ public class InicioSesion extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        api = new ApiRest();
+        btnInicio = findViewById(R.id.btnInicio);
         tb = findViewById(R.id.toolbar);
         tvHeader = findViewById(R.id.tvHeader);
         etMail = findViewById(R.id.etEmail);
@@ -39,11 +48,29 @@ public class InicioSesion extends AppCompatActivity {
         tvPass = findViewById(R.id.tvPass);
         tvBienvenido = findViewById(R.id.tvBienvenida);
         tvFoot = findViewById(R.id.tvDescripcion);
-        tvHeader.setOnClickListener(new View.OnClickListener() {
+        btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Buscar a usuario en la API
+                api.obtenerDatosUsuario(
+                        etMail.getText().toString(),
+                        etPass.getText().toString(),
+                        success -> {
+
+                            if (success) {
+                                // login correcto
+                                Intent iniciarSesion = new Intent(InicioSesion.this, PaginaInicio.class);
+                            } else {
+                                new AlertDialog.Builder(InicioSesion.this)
+                                        .setTitle("Error")
+                                        .setMessage("Correo o contraseña inválidos")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss())
+                                        .show();
+                            }
+                        }
+                );
             }
         });
+
     }
 }

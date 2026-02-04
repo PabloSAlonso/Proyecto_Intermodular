@@ -182,20 +182,20 @@ public class Usuario implements Serializable {
         }
     }
 
-    @Path("/obtener/{id}")
+    @Path("/obtener/{email}/{password}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerUsuario(@PathParam("id") int id) {
+    public Response obtenerUsuario(@PathParam("email") String email, @PathParam("password") String password) {
         try {
             llamadaDriver(ruta_driver);
             Connection conexion = c.getConexion();
 
-            String sql = "SELECT * FROM usuarios WHERE id=?";
+            String sql = "SELECT * FROM usuarios WHERE email=? AND password = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setString(1, email);
+            ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 Usuario u = new Usuario();
                 u.id = rs.getInt("id");
