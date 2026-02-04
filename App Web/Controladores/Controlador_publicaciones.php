@@ -1,7 +1,7 @@
 <?php
 require_once '../Modelos/Publicacion.php';
 
-class PublicacionesController
+class Controlador_publicaciones
 {
     public function todas()
     {

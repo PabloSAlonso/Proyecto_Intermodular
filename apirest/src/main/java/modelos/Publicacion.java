@@ -120,14 +120,11 @@ public class Publicacion implements Serializable {
         try {
             llamadaDriver(ruta_driver);
             Connection conexion = c.getConexion();
-
             String sql = "SELECT * FROM publicaciones WHERE id_usuario=?";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idUsuario);
-
             ResultSet rs = ps.executeQuery();
             publicaciones = new ArrayList<>();
-
             while (rs.next()) {
                 Publicacion p = new Publicacion();
                 p.id_publicacion = rs.getInt("id_publicacion");
@@ -270,5 +267,4 @@ public class Publicacion implements Serializable {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }
