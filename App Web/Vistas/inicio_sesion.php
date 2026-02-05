@@ -56,7 +56,7 @@
         const checkboxPass = document.getElementById("mostrar_pass");
         const inputPass = document.getElementById("pass")
 
-        checkboxPass.addEventListener("change", function() {
+        checkboxPass.addEventListener("change", () => {
             if (this.checked) {
                 inputPass.type = 'text';
             } else {

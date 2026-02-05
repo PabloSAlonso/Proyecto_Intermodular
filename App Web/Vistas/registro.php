@@ -93,7 +93,7 @@
         const btnEnviar = document.getElementById("btnEnviar");
         
         // Cambiar estado del boton según el checkbox
-        terminos.addEventListener("change", function() {
+        terminos.addEventListener("change", () => {
             btnEnviar.disabled = !this.checked;
         });
     </script>
