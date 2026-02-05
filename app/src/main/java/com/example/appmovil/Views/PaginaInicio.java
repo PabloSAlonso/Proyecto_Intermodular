@@ -1,6 +1,7 @@
 package com.example.appmovil.Views;
 
 
+import android.graphics.PathEffect;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.Adapters.AdaptadorInicio;
 import com.example.appmovil.Models.Publicacion;
 import com.example.appmovil.R;
@@ -33,6 +35,9 @@ public class PaginaInicio extends AppCompatActivity {
     Toolbar tb;
     BottomNavigationView bnv;
     RecyclerView.LayoutManager layoutManagerPublicaciones;
+    ApiRest api;
+    Inicio inicio = new Inicio();
+    Perfil perfil = new Perfil();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class PaginaInicio extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        api = new ApiRest();
         // Recoger Publicaciones de la API
         tb = findViewById(R.id.toolbar3);
         bnv = findViewById(R.id.bottomNavigationView);

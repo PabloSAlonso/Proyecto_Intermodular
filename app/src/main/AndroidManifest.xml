@@ -23,7 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".Views.InicioSesion"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Views.PaginaInicio"
             android:exported="true">
