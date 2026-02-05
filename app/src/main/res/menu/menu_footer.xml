@@ -7,7 +7,4 @@
     <item android:id="@+id/perfil"
         android:title="Perfil"
         android:icon="@drawable/user_icon"/>
-    <item android:id="@+id/publicar"
-        android:title="Publicar"
-        android:icon="@drawable/photo_icon"/>
 </menu>
