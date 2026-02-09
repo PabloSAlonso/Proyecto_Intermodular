@@ -147,18 +147,6 @@
         app:layout_constraintStart_toEndOf="@+id/tvRNacimiento"
         app:layout_constraintTop_toBottomOf="@+id/ettRPass" />
 
-    <TextView
-        android:id="@+id/tvInicioSesion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mensaje_registro"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnRegistrarse"
         android:layout_width="wrap_content"

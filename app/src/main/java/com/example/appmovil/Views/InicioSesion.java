@@ -12,12 +12,15 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appmovil.API.ApiRest;
+import com.example.appmovil.Models.Usuario;
 import com.example.appmovil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,7 +30,8 @@ public class InicioSesion extends AppCompatActivity {
     private Toolbar tb;
     private Button btnInicio;
     private ApiRest api;
-//    Boolean userEncontrado;
+    private ActivityResultLauncher<Intent> registroLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,5 +75,23 @@ public class InicioSesion extends AppCompatActivity {
             }
         });
 
+        registroLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+
+                        Usuario usuario = (Usuario)
+                                result.getData().getSerializableExtra("usuario_registrado");
+
+                        // Guardar en BD / API / sesión
+                    }
+                }
+        );
+
+        tvHeader.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioSesion.this, RegistroCuenta.class);
+            registroLauncher.launch(intent);
+        });
     }
+
 }

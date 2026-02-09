@@ -5,6 +5,7 @@ import android.media.Image;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Publicacion implements Serializable {
     private int id_publicacion;
@@ -16,6 +17,23 @@ public class Publicacion implements Serializable {
     private String descripcion;
     private int likes;
     private int comentarios;
+    public Publicacion(int id_publicacion,
+                       int id_usuario,
+                       Date fecha_publicacion,
+                       Blob imagen,
+                       String descripcion,
+                       int likes,
+                       int comentarios) {
+        this.id_publicacion = id_publicacion;
+        this.id_usuario = id_usuario;
+        this.fecha_publicacion = fecha_publicacion;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.likes = likes;
+        this.comentarios = comentarios;
+    }
+
+
 
     public Date getFecha_publicacion() {
         return fecha_publicacion;
@@ -44,4 +62,6 @@ public class Publicacion implements Serializable {
     public String getDescripcion() {
         return descripcion;
     }
+
+
 }

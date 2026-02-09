@@ -36,6 +36,7 @@ public class Inicio extends Fragment {
     private BottomNavigationView bnv;
     private RecyclerView.LayoutManager layoutManagerPublicaciones;
     private ApiRest api;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class Inicio extends Fragment {
         layoutManagerPublicaciones = new LinearLayoutManager(getContext());
         rv.setLayoutManager(layoutManagerPublicaciones);
 
+        cargarPublicacionesMock();
+
         adaptadorInicio = new AdaptadorInicio(publicaciones, getContext());
         rv.setAdapter(adaptadorInicio);
 
@@ -57,5 +60,48 @@ public class Inicio extends Fragment {
         );
 
         return view;
+    }
+    private void cargarPublicacionesMock() {
+        publicaciones.clear();
+
+        publicaciones.add(new Publicacion(
+                1,
+                10,
+                new java.sql.Date(System.currentTimeMillis()),
+                null,
+                "Primera publicación de prueba 🚀",
+                12,
+                3
+        ));
+
+        publicaciones.add(new Publicacion(
+                2,
+                11,
+                new java.sql.Date(System.currentTimeMillis()),
+                null,
+                "Día increíble por la playa 🌊☀️",
+                45,
+                10
+        ));
+
+        publicaciones.add(new Publicacion(
+                3,
+                12,
+                new java.sql.Date(System.currentTimeMillis()),
+                null,
+                "Nuevo setup terminado 🎮🔥",
+                102,
+                22
+        ));
+
+        publicaciones.add(new Publicacion(
+                4,
+                13,
+                new java.sql.Date(System.currentTimeMillis()),
+                null,
+                "Trabajando en nuevos proyectos ✨",
+                67,
+                8
+        ));
     }
 }
