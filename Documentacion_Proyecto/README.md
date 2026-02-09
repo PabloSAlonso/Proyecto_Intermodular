@@ -33,7 +33,8 @@ La finalidad de este diario es documentar mi progreso, facilitar el seguimiento 
 * Inicio de aplicacion de escritorio 
 * Registro de aplicacion de escritorio
 * Creacion de funciones basicas de la API para: insertar, actualizar y borrar
-* Creacion de vistas como el perfil en la aplicacion movil, ademas de un buen progreso en el uso del componente BottomNavigationView y sus respectivos Fragments
+* Creacion de vistas como el perfil en la aplicacion movil, ademas de un buen progreso en el uso del componente BottomNavigationView y sus respectivos Fragments  
+* Llamada a la funcion de la API de insertar usuarios (falta verificar que existe en el inicio)
 
 ## 2º Semana febrero
 
