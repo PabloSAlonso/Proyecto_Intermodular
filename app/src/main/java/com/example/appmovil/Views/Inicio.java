@@ -29,13 +29,13 @@ import java.util.ArrayList;
 
 
 public class Inicio extends Fragment {
-    ArrayList<Publicacion> publicaciones = new ArrayList<>();
-    AdaptadorInicio adaptadorInicio;
-    RecyclerView rv;
-    Toolbar tb;
-    BottomNavigationView bnv;
-    RecyclerView.LayoutManager layoutManagerPublicaciones;
-    ApiRest api;
+    private ArrayList<Publicacion> publicaciones = new ArrayList<>();
+    private AdaptadorInicio adaptadorInicio;
+    private RecyclerView rv;
+    private Toolbar tb;
+    private BottomNavigationView bnv;
+    private RecyclerView.LayoutManager layoutManagerPublicaciones;
+    private ApiRest api;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

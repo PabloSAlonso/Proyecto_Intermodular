@@ -43,23 +43,19 @@ public class Perfil extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Referencias UI
         imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil);
         txtNickname = view.findViewById(R.id.txtNickname);
         txtDescripcion = view.findViewById(R.id.txtDescripcion);
         rvPublicaciones = view.findViewById(R.id.rvPublicaciones);
 
-        // ⚠️ Simulación de datos (luego tú lo conectas a tu lógica real)
         usuario = obtenerUsuario();
         publicacionesUsuario = obtenerPublicacionesUsuario(usuario.getId());
 
-        // Pintar datos usuario
         txtNickname.setText(usuario.getNickname());
-        txtDescripcion.setText("Descripción del usuario"); // luego lo conectas
+        txtDescripcion.setText("Descripción del usuario");
 
         imgFotoPerfil.setImageResource(R.drawable.user_icon);
 
-        // RecyclerView
         AdaptadorInicio adaptador =
                 new AdaptadorInicio(publicacionesUsuario, getContext());
 
@@ -67,10 +63,8 @@ public class Perfil extends Fragment {
         rvPublicaciones.setAdapter(adaptador);
     }
 
-    // ================== MÉTODOS TEMPORALES ==================
-
     private Usuario obtenerUsuario() {
-        // Esto luego vendrá de sesión, intent, bundle, API, etc.
+        // Esto luego vendrá de API.
         return new Usuario(
                 1,
                 "Nombre",
@@ -88,7 +82,7 @@ public class Perfil extends Fragment {
 
         ArrayList<Publicacion> lista = new ArrayList<>();
 
-        // Aquí luego filtrarás por id_usuario
+        // Aquí luego filtrar por id_usuario
         // lista.add(...)
 
         return lista;

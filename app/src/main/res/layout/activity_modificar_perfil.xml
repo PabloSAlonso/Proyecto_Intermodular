@@ -5,8 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:padding="50dp"
     tools:context=".Views.ModificarPerfil">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarModificarPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_guardar"
+        app:titleTextColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -19,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewPerfil"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -44,15 +56,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="@string/mensaje_nomcompleto" />
+            android:text="@string/mensaje_nomcompleto"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/ettNombreChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/mensaje_nomcompleto"
             android:inputType="text"
-            android:text="Name" />
+            android:textColorHint="@color/white" />
 
         <TextView
             android:id="@+id/tvNicknameChange"
@@ -60,15 +74,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="@string/mensaje_nombreusuario" />
+            android:text="@string/mensaje_nombreusuario"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/ettNicknamechange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/mensaje_nombreusuario"
             android:inputType="text"
-            android:text="Name" />
+            android:textColorHint="@color/white" />
 
         <TextView
             android:id="@+id/tvPassChange"
@@ -76,15 +92,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="@string/mensaje_password" />
+            android:text="@string/mensaje_password"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/ettPassChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/mensaje_password"
             android:inputType="text"
-            android:text="Name" />
+            android:textColorHint="@color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

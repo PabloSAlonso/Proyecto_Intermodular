@@ -22,11 +22,11 @@ import com.example.appmovil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InicioSesion extends AppCompatActivity {
-    EditText etMail,etPass;
-    TextView tvMail, tvPass, tvBienvenido, tvFoot, tvHeader;
-    Toolbar tb;
-    Button btnInicio;
-    ApiRest api;
+    private EditText etMail,etPass;
+    private TextView tvMail, tvPass, tvBienvenido, tvFoot, tvHeader;
+    private Toolbar tb;
+    private Button btnInicio;
+    private ApiRest api;
 //    Boolean userEncontrado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,8 @@ public class InicioSesion extends AppCompatActivity {
                         etMail.getText().toString(),
                         etPass.getText().toString(),
                         success -> {
-
                             if (success) {
-                                // login correcto
+
                                 Intent iniciarSesion = new Intent(InicioSesion.this, PaginaInicio.class);
                             } else {
                                 new AlertDialog.Builder(InicioSesion.this)

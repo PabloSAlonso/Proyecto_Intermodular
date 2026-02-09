@@ -6,7 +6,15 @@
     android:background="@color/gray"
     android:padding="16dp">
 
-    <!-- Foto de perfil -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:menu="@menu/menu_perfil"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <ImageView
         android:id="@+id/imgFotoPerfil"
         android:layout_width="100dp"
@@ -17,7 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Nombre o nickname -->
     <TextView
         android:id="@+id/txtNickname"
         android:layout_width="wrap_content"
@@ -32,7 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgFotoPerfil" />
 
-    <!-- Descripción -->
     <TextView
         android:id="@+id/txtDescripcion"
         android:layout_width="0dp"
@@ -45,7 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtNickname" />
 
-    <!-- RecyclerView de publicaciones -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPublicaciones"
         android:layout_width="0dp"

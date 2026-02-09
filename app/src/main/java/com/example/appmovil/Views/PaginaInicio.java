@@ -20,11 +20,9 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 
 public class PaginaInicio extends AppCompatActivity {
-
-    BottomNavigationView bnv;
-
-    Inicio inicioFragment = new Inicio();
-    Perfil perfilFragment = new Perfil();
+    private BottomNavigationView bnv;
+    private Inicio inicioFragment = new Inicio();
+    private Perfil perfilFragment = new Perfil();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class PaginaInicio extends AppCompatActivity {
         bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                int id = item.getItemId();
+                int id = item.getItemId(); //Sgun donde pulses aparece un fragmento
                 if (id == R.id.inicio){
                     getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, inicioFragment).commit();
                 } else if (id == R.id.perfil){

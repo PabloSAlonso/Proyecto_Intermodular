@@ -16,9 +16,9 @@ import com.example.appmovil.R;
 
 
 public class RegistroCuenta extends AppCompatActivity {
-    EditText ettNom, ettNick;
-    Button btnRegistro;
-    ApiRest api;
+    private EditText ettNom, ettNick;
+    private Button btnRegistro;
+    private ApiRest api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class RegistroCuenta extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Registrar al usuario en la bd con la API
                 String nombre = ettNom.getText().toString();
+
                 String nick = ettNick.getText().toString();
 
             }
