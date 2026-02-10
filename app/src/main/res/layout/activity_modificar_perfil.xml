@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     tools:context=".Views.ModificarPerfil">
 
     <LinearLayout
@@ -45,7 +45,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/mensaje_nomcompleto"
-            android:textColor="@color/black" />
+            android:textColor="@color/text" />
 
         <EditText
             android:id="@+id/ettNombreChange"
@@ -54,7 +54,7 @@
             android:ems="10"
             android:hint="@string/mensaje_nomcompleto"
             android:inputType="text"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/text"/>
 
         <TextView
             android:id="@+id/tvNicknameChange"
@@ -63,7 +63,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/mensaje_nombreusuario"
-            android:textColor="@color/black" />
+            android:textColor="@color/text" />
 
         <EditText
             android:id="@+id/ettNicknamechange"
@@ -72,7 +72,7 @@
             android:ems="10"
             android:hint="@string/mensaje_nombreusuario"
             android:inputType="text"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/text" />
 
         <TextView
             android:id="@+id/tvPassChange"
@@ -81,7 +81,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/mensaje_password"
-            android:textColor="@color/black" />
+            android:textColor="@color/text" />
 
         <EditText
             android:id="@+id/ettPassChange"
@@ -90,7 +90,7 @@
             android:ems="10"
             android:hint="@string/mensaje_password"
             android:inputType="text"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/text" />
     </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
