@@ -1,13 +1,20 @@
 package com.example.appmovil.Views;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +30,7 @@ public class PaginaInicio extends AppCompatActivity {
     private BottomNavigationView bnv;
     private Inicio inicioFragment = new Inicio();
     private Perfil perfilFragment = new Perfil();
+    private Toolbar toolbarInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,9 @@ public class PaginaInicio extends AppCompatActivity {
         });
 
         bnv = findViewById(R.id.bottomNavigationView);
+        toolbarInicio = findViewById(R.id.toolbarInicio);
+        setSupportActionBar(toolbarInicio);
+        ActionBar ab = getSupportActionBar();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, inicioFragment).commit();
 
@@ -53,15 +64,19 @@ public class PaginaInicio extends AppCompatActivity {
             }
         });
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.menu_footer, menu);
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id=item.getItemId();
-//        return super.onOptionsItemSelected(item);
-//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_publicar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.opcion_publicar){
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

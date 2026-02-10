@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ettRMail" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbarRegistro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -55,7 +55,7 @@
         android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toStartOf="@+id/ettNom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro" />
 
     <TextView
         android:id="@+id/tvRUserName"
@@ -117,7 +117,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvRNombreCompleto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvRNombreCompleto"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro" />
 
     <EditText
         android:id="@+id/ettNick"

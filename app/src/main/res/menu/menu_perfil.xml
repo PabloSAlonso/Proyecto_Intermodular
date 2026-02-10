@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/opcionEditar"
+        android:id="@+id/opcion_editar"
         android:icon="@drawable/options_icon"
         android:title="Item"
         app:showAsAction="always" />

@@ -1,12 +1,9 @@
 package com.example.appmovil.Views;
 
-import android.content.Intent;
-import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +13,7 @@ import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.Models.Usuario;
 import com.example.appmovil.R;
 
-import java.sql.Blob;
 import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.Instant;
 
 public class RegistroCuenta extends AppCompatActivity {
 
@@ -35,7 +28,7 @@ public class RegistroCuenta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_cuenta);
 
-        toolbar = findViewById(R.id.toolbar2);
+        toolbar = findViewById(R.id.toolbarRegistro);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

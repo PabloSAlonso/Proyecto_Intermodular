@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Publicar"
+            android:exported="false" />
+        <activity
             android:name=".Views.ModificarPerfil"
             android:exported="false" />
         <activity

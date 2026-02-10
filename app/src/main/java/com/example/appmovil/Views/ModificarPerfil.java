@@ -66,15 +66,6 @@ public class ModificarPerfil extends AppCompatActivity {
             ettNickname.setText(usuarioOriginal.getNickname());
             ettPassword.setText(usuarioOriginal.getPassword());
         }
-
-        // Clicks toolbar
-        toolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.opcion_guradar) {
-                guardarCambios();
-                return true;
-            }
-            return false;
-        });
     }
     private void guardarCambios() {
 
@@ -103,7 +94,10 @@ public class ModificarPerfil extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == R.id.opcion_guardar) {
+            guardarCambios();
+            return true;
+        } else if (item.getItemId() == android.R.id.home){
             setResult(RESULT_CANCELED);
             finish();
             return true;

@@ -2,8 +2,6 @@ package com.example.appmovil.Views;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -11,13 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.Adapters.AdaptadorInicio;
@@ -43,7 +36,7 @@ public class Inicio extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
         api = new ApiRest();
-        tb = view.findViewById(R.id.toolbar3);
+        tb = view.findViewById(R.id.toolbarInicio);
         bnv = view.findViewById(R.id.bottomNavigationView);
         rv = view.findViewById(R.id.recyclerView);
 
@@ -69,7 +62,7 @@ public class Inicio extends Fragment {
                 10,
                 new java.sql.Date(System.currentTimeMillis()),
                 null,
-                "Primera publicación de prueba 🚀",
+                "Primera publicación de prueba",
                 12,
                 3
         ));
@@ -79,7 +72,7 @@ public class Inicio extends Fragment {
                 11,
                 new java.sql.Date(System.currentTimeMillis()),
                 null,
-                "Día increíble por la playa 🌊☀️",
+                "Día increíble por la playa",
                 45,
                 10
         ));
@@ -89,7 +82,7 @@ public class Inicio extends Fragment {
                 12,
                 new java.sql.Date(System.currentTimeMillis()),
                 null,
-                "Nuevo setup terminado 🎮🔥",
+                "Nuevo setup terminado",
                 102,
                 22
         ));
@@ -99,7 +92,7 @@ public class Inicio extends Fragment {
                 13,
                 new java.sql.Date(System.currentTimeMillis()),
                 null,
-                "Trabajando en nuevos proyectos ✨",
+                "Trabajando en nuevos proyectos",
                 67,
                 8
         ));
