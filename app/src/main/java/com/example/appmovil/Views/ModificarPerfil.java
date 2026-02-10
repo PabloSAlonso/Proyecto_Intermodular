@@ -3,6 +3,8 @@ package com.example.appmovil.Views;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,7 +53,6 @@ public class ModificarPerfil extends AppCompatActivity {
         });
         toolbar = findViewById(R.id.toolbarModificarPerfil);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ettNombre = findViewById(R.id.ettNombreChange);
@@ -91,6 +92,14 @@ public class ModificarPerfil extends AppCompatActivity {
         setResult(RESULT_OK, resultado);
         finish();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_guardar,menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

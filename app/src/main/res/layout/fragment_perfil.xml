@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:padding="16dp">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/imgFotoPerfil"
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/mensaje_nombreusuario"
-        android:textColor="@color/white"
+        android:textColor="@color/gray"
         android:textColorHint="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -39,7 +38,7 @@
         android:layout_marginTop="8dp"
         android:text="Descripción del usuario"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtNickname" />
@@ -56,9 +55,9 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarPerfil"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
+        android:background="@color/light_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,35 +5,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
-    android:padding="50dp"
+    android:background="@color/white"
     tools:context=".Views.ModificarPerfil">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarModificarPerfil"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_guardar"
-        app:titleTextColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarModificarPerfil">
 
         <ImageView
             android:id="@+id/imageViewPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:layout_weight="1"
             android:src="@drawable/user_icon" />
     </LinearLayout>
@@ -57,7 +45,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/mensaje_nomcompleto"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/ettNombreChange"
@@ -66,7 +54,7 @@
             android:ems="10"
             android:hint="@string/mensaje_nomcompleto"
             android:inputType="text"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/black" />
 
         <TextView
             android:id="@+id/tvNicknameChange"
@@ -75,7 +63,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/mensaje_nombreusuario"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/ettNicknamechange"
@@ -84,7 +72,7 @@
             android:ems="10"
             android:hint="@string/mensaje_nombreusuario"
             android:inputType="text"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/black" />
 
         <TextView
             android:id="@+id/tvPassChange"
@@ -93,7 +81,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="@string/mensaje_password"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/ettPassChange"
@@ -102,7 +90,18 @@
             android:ems="10"
             android:hint="@string/mensaje_password"
             android:inputType="text"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/black" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarModificarPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

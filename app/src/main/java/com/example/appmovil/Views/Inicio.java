@@ -25,7 +25,6 @@ public class Inicio extends Fragment {
     private ArrayList<Publicacion> publicaciones = new ArrayList<>();
     private AdaptadorInicio adaptadorInicio;
     private RecyclerView rv;
-    private Toolbar tb;
     private BottomNavigationView bnv;
     private RecyclerView.LayoutManager layoutManagerPublicaciones;
     private ApiRest api;
@@ -36,7 +35,6 @@ public class Inicio extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
         api = new ApiRest();
-        tb = view.findViewById(R.id.toolbarInicio);
         bnv = view.findViewById(R.id.bottomNavigationView);
         rv = view.findViewById(R.id.recyclerView);
 

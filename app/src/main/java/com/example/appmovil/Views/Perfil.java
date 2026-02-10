@@ -53,6 +53,22 @@ public class Perfil extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        toolbarPerfil = view.findViewById(R.id.toolbarPerfil);
+
+        toolbarPerfil.setTitle("Perfil");
+        toolbarPerfil.inflateMenu(R.menu.menu_perfil);
+
+        toolbarPerfil.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.opcion_editar) {
+                Intent intent = new Intent(getContext(), ModificarPerfil.class);
+                intent.putExtra("usuario_a_modificar", usuario);
+                editarPerfilLauncher.launch(intent);
+                return true;
+            }
+            return false;
+        });
+
         editarPerfilLauncher =
                 registerForActivityResult(
                         new ActivityResultContracts.StartActivityForResult(),
@@ -71,7 +87,7 @@ public class Perfil extends Fragment {
                             }
                         }
                 );
-//        setHasOptionsMenu(true);
+
 
         imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil);
         txtNickname = view.findViewById(R.id.txtNickname);
@@ -79,6 +95,7 @@ public class Perfil extends Fragment {
         rvPublicaciones = view.findViewById(R.id.rvPublicaciones);
 
         toolbarPerfil = view.findViewById(R.id.toolbarPerfil);
+
 
 
         usuario = obtenerUsuario();
@@ -107,7 +124,6 @@ public class Perfil extends Fragment {
             Intent modificar_perfil = new Intent(getContext(), ModificarPerfil.class);
             modificar_perfil.putExtra("usuario_a_modificar", usuario);
             editarPerfilLauncher.launch(modificar_perfil);
-
             return true;
         }
         return super.onOptionsItemSelected(item);

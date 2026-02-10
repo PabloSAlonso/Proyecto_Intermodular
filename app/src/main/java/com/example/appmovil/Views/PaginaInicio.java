@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appmovil.Fragments.Perfil;
+import com.example.appmovil.Views.Publicar;
 import com.example.appmovil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -30,7 +31,7 @@ public class PaginaInicio extends AppCompatActivity {
     private BottomNavigationView bnv;
     private Inicio inicioFragment = new Inicio();
     private Perfil perfilFragment = new Perfil();
-    private Toolbar toolbarInicio;
+    private Publicar publicarFragment = new Publicar();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,6 @@ public class PaginaInicio extends AppCompatActivity {
         });
 
         bnv = findViewById(R.id.bottomNavigationView);
-        toolbarInicio = findViewById(R.id.toolbarInicio);
-        setSupportActionBar(toolbarInicio);
-        ActionBar ab = getSupportActionBar();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, inicioFragment).commit();
 
@@ -58,25 +56,12 @@ public class PaginaInicio extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, inicioFragment).commit();
                 } else if (id == R.id.perfil){
                     getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, perfilFragment).commit();
+                } else if (id == R.id.publicar){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, publicarFragment).commit();
                 }
 
                 return false;
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.menu_publicar,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.opcion_publicar){
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
