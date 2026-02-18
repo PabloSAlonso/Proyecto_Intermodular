@@ -55,4 +55,26 @@ class Request
     {
         return $this->request('DELETE', $url);
     }
+
+    // ==== USUARIOS ====
+    public function login(string $email, string $password) {
+        return $this->get("/usuarios/obtener/$email/$password");
+    }
+    public function register(array $userData) {
+        return $this->post("/usuarios/insertar", $userData);
+    }
+    public function deleteUser(int $id) {
+        return $this->delete("/usuarios/eliminar/$id");
+    }
+
+    // ==== PUBLICACIONES ====
+    public function getAllPublications() {
+        return $this->get('/publicaciones/todas');
+    }
+    public function createPublication(array $publicationData) {
+        return $this->post('/publicaciones/insertar', $publicationData);
+    }
+    public function deletePublication(int $id) {
+        return $this->delete("/publicaciones/eliminar/$id");
+    }
 }
