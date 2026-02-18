@@ -46,88 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Editar Perfil</title>
-    <style>
-        /* ========================= */
-        /* EDITAR PERFIL */
-        /* ========================= */
-
-        .perfil-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        form {
-            background-color: var(--card-color);
-            padding: 25px;
-            border-radius: 16px;
-            max-width: 420px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        input {
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-size: 14px;
-            transition: 0.2s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 5px rgba(41, 98, 255, 0.3);
-        }
-
-        button.btn-editar {
-            margin-top: 10px;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background-color: var(--primary);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-
-        button.btn-editar:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        .perfil-container p {
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .volver-link {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 600;
-            transition: 0.2s ease;
-        }
-
-        .volver-link:hover {
-            opacity: 0.7;
-            transform: translateX(-3px);
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/styles.css">
 </head>
 
 <body>
+    <?php require_once '../components/header_feed.php' ?>
 
     <div class="perfil-container">
         <h2>Editar Perfil</h2>
