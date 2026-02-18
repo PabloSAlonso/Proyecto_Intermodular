@@ -99,7 +99,7 @@ $publicaciones = [
             <h2><?= $usuario['nickname'] ?></h2>
             <p><?= $usuario['descripcion'] ?></p>
 
-            <a href="editar_perfil.php" class="btn-editar">Editar perfil</a>
+            <a href='editar_perfil.php' class="btn-editar">Editar perfil</a>
         </div>
 
         <div class="publicaciones">

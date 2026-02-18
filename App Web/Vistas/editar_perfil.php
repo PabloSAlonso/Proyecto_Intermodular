@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "config/Request.php";
+require_once "../config/Request.php";
 
 $request = new Request("http://localhost:8080/apirest/rest");
 
@@ -46,7 +46,85 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Editar Perfil</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ========================= */
+        /* EDITAR PERFIL */
+        /* ========================= */
+
+        .perfil-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: var(--card-color);
+            padding: 25px;
+            border-radius: 16px;
+            max-width: 420px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 5px rgba(41, 98, 255, 0.3);
+        }
+
+        button.btn-editar {
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        button.btn-editar:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .perfil-container p {
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .volver-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .volver-link:hover {
+            opacity: 0.7;
+            transform: translateX(-3px);
+        }
+    </style>
 </head>
 
 <body>
@@ -77,8 +155,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         </form>
 
-        <br>
-        <a href="perfil.php">← Volver al perfil</a>
+        <div style="text-align:center;">
+            <a href="perfil.php" class="volver-link">
+                ← Volver al perfil
+            </a>
+        </div>
+
     </div>
 
 </body>
