@@ -57,24 +57,37 @@ class Request
     }
 
     // ==== USUARIOS ====
-    public function login(string $email, string $password) {
+    public function login(string $email, string $password)
+    {
         return $this->get("/usuarios/obtener/$email/$password");
     }
-    public function register(array $userData) {
+    public function register(array $userData)
+    {
         return $this->post("/usuarios/insertar", $userData);
     }
-    public function deleteUser(int $id) {
+    public function deleteUser(int $id)
+    {
         return $this->delete("/usuarios/eliminar/$id");
     }
 
+
+    public function modificarUser(array $userData)
+    {
+        return $this->put("/usuarios/modificarUser", $userData);
+    }
+
+
     // ==== PUBLICACIONES ====
-    public function getAllPublications() {
+    public function getAllPublications()
+    {
         return $this->get('/publicaciones/todas');
     }
-    public function createPublication(array $publicationData) {
+    public function createPublication(array $publicationData)
+    {
         return $this->post('/publicaciones/insertar', $publicationData);
     }
-    public function deletePublication(int $id) {
+    public function deletePublication(int $id)
+    {
         return $this->delete("/publicaciones/eliminar/$id");
     }
 }
