@@ -68,7 +68,7 @@
 
                         <button type="submit" class="btn btn-primary w-100" id="btnEnviar" disabled>
                             Registrarse
-                            <!-- Aqui ya veré si le inicio la sesión directamente o si tras registrarse le hago iniciarla -->
+                            
                         </button>
                     </form>
 
@@ -92,7 +92,6 @@
         const terminos = document.getElementById("terminos");
         const btnEnviar = document.getElementById("btnEnviar");
         
-        // Cambiar estado del boton según el checkbox
         terminos.addEventListener("change", () => {
             btnEnviar.disabled = !this.checked;
         });
