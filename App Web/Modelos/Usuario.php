@@ -2,8 +2,9 @@
 
 require_once '../config/Request.php';
 
-class usuario
+class Usuario
 {
+    public $id, $nombre, $apellidos, $nickname, $email, $password, $foto_perfil, $fecha_nacimiento, $fecha_creacion_cuenta;
     private Request $request;
     public function __construct()
     {
@@ -18,6 +19,7 @@ class usuario
     public function setUsuario($id, $nombre, $apellidos, $nickname, $email, $password, $foto_perfil, $fecha_nacimiento, $fecha_creacion_cuenta)
     {
         $data = [
+            'id' => $id,
             'nombre' => $nombre,
             'apellidos' => $apellidos,
             'nickname' => $nickname,

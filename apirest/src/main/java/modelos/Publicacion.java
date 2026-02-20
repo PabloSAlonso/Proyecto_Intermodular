@@ -153,7 +153,6 @@ public class Publicacion implements Serializable {
         try {
             llamadaDriver(ruta_driver);
             Connection conexion = c.getConexion();
-
             String sql = "INSERT INTO publicaciones "
                     + "(id_usuario, fecha_publicacion, imagen, descripcion, likes, comentarios) "
                     + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -169,39 +168,6 @@ public class Publicacion implements Serializable {
             ps.executeUpdate();
 
             return Response.status(Response.Status.CREATED).entity(p).build();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @Path("/actualizar/{id}")
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response actualizarPublicacion(@PathParam("id") int id, Publicacion p) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
-
-            String sql = "UPDATE publicaciones SET "
-                    + "imagen=?, descripcion=?, likes=?, comentarios=? "
-                    + "WHERE id_publicacion=?";
-
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setBlob(1, p.getImagen());
-            ps.setString(2, p.getDescripcion());
-            ps.setInt(3, p.getLikes());
-            ps.setInt(4, p.getComentarios());
-            ps.setInt(5, id);
-
-            int filas = ps.executeUpdate();
-
-            if (filas > 0) {
-                return Response.ok().build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -89,12 +90,27 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
+    private static final String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_klyer";
+    private static final String USER = "freedb_pablillo2k";
+    private static final String PASSWORD = "bUf*2m9N!w2mmEU";
+
     String ruta_driver = "org.mariadb.jdbc.Driver";
-    Conexion c = new Conexion();
+    // Conexion c = new Conexion();
 
     public void llamadaDriver(String ruta) throws ClassNotFoundException {
         Class.forName(ruta);
     }
+
+    // {
+    // "nombre":"",
+    // "apellidos":"",
+    // "nickname":"",
+    // "email":"",
+    // "password":"",
+    // "foto_perfil":"",
+    // "fecha_nacimiento":"",
+    // "fecha_creacion_cuenta":"",
+    // }
 
     @Path("/insertar")
     @POST
@@ -102,7 +118,7 @@ public class Usuario implements Serializable {
     public Response insertarUsuario(Usuario u) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
             String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -133,7 +149,7 @@ public class Usuario implements Serializable {
     public Response actualizarUsuario(@PathParam("id") int id, Usuario u) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
             String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, password=?, foto_perfil=?, fecha_nacimiento=? WHERE id=?";
 
@@ -164,7 +180,7 @@ public class Usuario implements Serializable {
     public Response eliminarUsuario(@PathParam("id") int id) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
             String sql = "DELETE FROM usuarios WHERE id=?";
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -188,7 +204,7 @@ public class Usuario implements Serializable {
     public Response obtenerUsuario(@PathParam("email") String email, @PathParam("password") String password) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
             String sql = "SELECT * FROM usuarios WHERE email=? AND password = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);

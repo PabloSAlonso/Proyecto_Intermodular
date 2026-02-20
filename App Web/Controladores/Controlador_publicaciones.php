@@ -10,4 +10,12 @@ class Controlador_publicaciones
         $pub = new Publicacion();
         echo json_encode($pub->getPublicaciones());
     }
+
+    public function todasPorUsuario()
+    {
+        header('Content-Type: application/json');
+        $usuario = new Usuario();
+        $pub = new Publicacion();
+        echo json_encode($pub->getPublicacionesPorUsuario($usuario->id));
+    }
 }
