@@ -15,11 +15,20 @@
             </h5>
         </div>
 
-        <div>
+        <div class="d-flex align-items-center gap-3">
+
+            <a href="feed.php"
+                class="text-white text-decoration-none fw-semibold">
+                Volver al Feed
+            </a>
+
+            <span class="text-white-50">|</span>
+
             <a href="perfil.php"
                 class="text-white text-decoration-none fw-semibold">
                 Mi Perfil
             </a>
+
         </div>
 
     </div>
