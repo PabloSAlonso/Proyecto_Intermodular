@@ -18,5 +18,6 @@ class Usuario
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->fecha_creacion_cuenta = $fecha_creacion_cuenta;
     }
+    
 }
  
