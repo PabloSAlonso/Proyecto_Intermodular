@@ -1,4 +1,4 @@
-package com.example.appmovil.Fragments;
+package com.example.appmovil.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,6 @@ import com.example.appmovil.Adapters.AdaptadorInicio;
 import com.example.appmovil.Models.Publicacion;
 import com.example.appmovil.Models.Usuario;
 import com.example.appmovil.R;
-import com.example.appmovil.Views.ModificarPerfil;
 
 import java.util.ArrayList;
 
@@ -55,19 +53,24 @@ public class Perfil extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         toolbarPerfil = view.findViewById(R.id.toolbarPerfil);
+        imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil);
+        txtNickname = view.findViewById(R.id.txtNickname);
+        txtDescripcion = view.findViewById(R.id.txtDescripcion);
+        rvPublicaciones = view.findViewById(R.id.rvPublicaciones);
 
-        toolbarPerfil.setTitle("Perfil");
-        toolbarPerfil.inflateMenu(R.menu.menu_perfil);
-
-        toolbarPerfil.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.opcion_editar) {
-                Intent intent = new Intent(getContext(), ModificarPerfil.class);
-                intent.putExtra("usuario_a_modificar", usuario);
-                editarPerfilLauncher.launch(intent);
-                return true;
-            }
-            return false;
-        });
+        if (toolbarPerfil != null) {
+            toolbarPerfil.setTitle("Perfil");
+            toolbarPerfil.inflateMenu(R.menu.menu_perfil);
+            toolbarPerfil.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.opcion_editar) {
+                    Intent intent = new Intent(getContext(), ModificarPerfil.class);
+                    intent.putExtra("usuario_a_modificar", usuario);
+                    editarPerfilLauncher.launch(intent);
+                    return true;
+                }
+                return false;
+            });
+        }
 
         editarPerfilLauncher =
                 registerForActivityResult(
@@ -82,28 +85,17 @@ public class Perfil extends Fragment {
 
                                 if (usuarioModificado != null) {
                                     usuario = usuarioModificado;
-//                                    actualizarVistaUsuario();
+                                    txtNickname.setText(usuario.getNickname());
                                 }
                             }
                         }
                 );
 
-
-        imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil);
-        txtNickname = view.findViewById(R.id.txtNickname);
-        txtDescripcion = view.findViewById(R.id.txtDescripcion);
-        rvPublicaciones = view.findViewById(R.id.rvPublicaciones);
-
-        toolbarPerfil = view.findViewById(R.id.toolbarPerfil);
-
-
-
         usuario = obtenerUsuario();
         publicacionesUsuario = obtenerPublicacionesUsuario(usuario.getId());
 
         txtNickname.setText(usuario.getNickname());
-        txtDescripcion.setText("Descripción del usuario");
-
+        txtDescripcion.setText("¡Hola! Estoy usando App Movil para compartir mis momentos.");
         imgFotoPerfil.setImageResource(R.drawable.user_icon);
 
         AdaptadorInicio adaptador =
@@ -130,7 +122,6 @@ public class Perfil extends Fragment {
     }
 
     private Usuario obtenerUsuario() {
-        // Esto luego vendrá de API.
         return new Usuario(
                 1,
                 "Nombre",
@@ -145,12 +136,6 @@ public class Perfil extends Fragment {
     }
 
     private ArrayList<Publicacion> obtenerPublicacionesUsuario(int idUsuario) {
-
-        ArrayList<Publicacion> lista = new ArrayList<>();
-
-        // Aquí luego filtrar por id_usuario
-        // lista.add(...)
-
-        return lista;
+        return new ArrayList<>();
     }
 }

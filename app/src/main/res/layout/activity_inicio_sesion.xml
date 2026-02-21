@@ -119,24 +119,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInicio" />
 
-    <View
-        android:id="@+id/footerBackground"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/blue"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <TextView
-        android:id="@+id/tvFooter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mensaje_footer"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/footerBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/footerBackground" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,7 @@ public class RegistroCuenta extends AppCompatActivity {
         ettNick = findViewById(R.id.ettNick);
         ettEmail = findViewById(R.id.ettRMail);
         ettPass = findViewById(R.id.ettRPass);
-        ettFecha = findViewById(R.id.editTextText);
+        ettFecha = findViewById(R.id.ettFecha);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
 
         btnRegistrarse.setOnClickListener(v -> {

@@ -62,8 +62,8 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.Inicio
     public static class InicioViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvLikes, tvComentarios, tvCompartidos, tvDescripcion, tvNombreUsuario;
-        ImageButton ibLikes, ibComentarios, ibCompartidos, ibPerfil, ibOpciones;
-        ImageView ivFotoPublicacion;
+        ImageButton ibLikes, ibComentarios, ibCompartidos, ibOpciones;
+        ImageView ivFotoPublicacion, ivPerfilPost;
 
         public InicioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,10 +77,10 @@ public class AdaptadorInicio extends RecyclerView.Adapter<AdaptadorInicio.Inicio
             ibLikes = itemView.findViewById(R.id.ibLikes);
             ibComentarios = itemView.findViewById(R.id.ibComents);
             ibCompartidos = itemView.findViewById(R.id.ibShares);
-            ibPerfil = itemView.findViewById(R.id.ibPerfil);
             ibOpciones = itemView.findViewById(R.id.ibOpciones);
 
             ivFotoPublicacion = itemView.findViewById(R.id.ivImagen);
+            ivPerfilPost = itemView.findViewById(R.id.ivPerfilPost);
         }
     }
 }
