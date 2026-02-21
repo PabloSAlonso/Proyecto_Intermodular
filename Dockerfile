@@ -1,28 +1,27 @@
-# Stage 1: construir el WAR con Maven
-FROM maven:3.9.3-eclipse-temurin-17 AS build
+# Usamos imagen de Maven para compilar
+FROM maven:3.9.2-eclipse-temurin-17 AS build
+
+# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiamos pom.xml primero para cachear dependencias
-COPY pom.xml .
-RUN mvn dependency:go-offline
+# Copiamos pom.xml y src desde la carpeta apirest
+COPY apirest/pom.xml .
+COPY apirest/src ./src
 
-# Copiamos el código fuente
-COPY src ./src
+# Ejecutamos la compilación de Maven y generamos el .war
+RUN mvn clean package -DskipTests
 
-# Construimos el WAR
-RUN mvn clean package
+# Usamos Tomcat para servir la aplicación
+FROM tomcat:10.1-jdk17
 
-# Stage 2: Tomcat
-FROM tomcat:10.0.27-jdk17
-
-# Limpiamos apps por defecto
+# Eliminamos la aplicación default de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copiamos el WAR generado desde el stage anterior
+# Copiamos el .war generado al directorio webapps de Tomcat
 COPY --from=build /app/target/apirest.war /usr/local/tomcat/webapps/ROOT.war
 
-# Exponemos puerto 8080
+# Exponemos el puerto 8080
 EXPOSE 8080
 
-# Arrancamos Tomcat
+# Comando para iniciar Tomcat
 CMD ["catalina.sh", "run"]

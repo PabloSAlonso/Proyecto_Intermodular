@@ -8,152 +8,156 @@
     android:background="@color/background"
     tools:context=".Views.RegistroCuenta">
 
-    <EditText
-        android:id="@+id/ettRMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/mensaje_poneremail"
-        android:inputType="text"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/ettRPass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvRmail"
-        app:layout_constraintTop_toBottomOf="@+id/ettNick" />
-
-    <EditText
-        android:id="@+id/ettRPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/mensaje_password"
-        android:inputType="text"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvRPass"
-        app:layout_constraintTop_toBottomOf="@+id/ettRMail" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarRegistro"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/blue"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Crear Cuenta"
+        app:titleTextColor="@color/white" />
 
-    <TextView
-        android:id="@+id/tvRNombreCompleto"
-        android:layout_width="113dp"
-        android:layout_height="40dp"
-        android:text="@string/mensaje_nomcompleto"
-        android:textColor="@color/text"
-        app:layout_constraintEnd_toStartOf="@+id/ettNom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro" />
-
-    <TextView
-        android:id="@+id/tvRUserName"
-        android:layout_width="126dp"
-        android:layout_height="42dp"
-        android:text="@string/mensaje_nombreusuario"
-        android:textColor="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/ettRMail"
-        app:layout_constraintEnd_toStartOf="@+id/ettNick"
-        app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRNombreCompleto"
-        app:layout_constraintVertical_bias="0.548" />
-
-    <TextView
-        android:id="@+id/tvRmail"
-        android:layout_width="128dp"
-        android:layout_height="26dp"
-        android:text="@string/mensaje_registrarcorreo"
-        android:textColor="@color/text"
-        app:layout_constraintBottom_toBottomOf="@+id/ettRMail"
-        app:layout_constraintEnd_toStartOf="@+id/ettRMail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ettRMail" />
-
-    <TextView
-        android:id="@+id/tvRPass"
-        android:layout_width="87dp"
-        android:layout_height="22dp"
-        android:text="@string/mensaje_password"
-        android:textColor="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/tvRNacimiento"
-        app:layout_constraintEnd_toStartOf="@+id/ettRPass"
-        app:layout_constraintHorizontal_bias="0.569"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ettRPass"
-        app:layout_constraintVertical_bias="0.08" />
-
-    <TextView
-        android:id="@+id/tvRNacimiento"
-        android:layout_width="104dp"
-        android:layout_height="40dp"
-        android:text="@string/mensaje_fechanac"
-        android:textColor="@color/text"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText"
-        app:layout_constraintEnd_toStartOf="@+id/editTextText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextText" />
-
-    <EditText
-        android:id="@+id/ettNom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/mensaje_nomcompleto"
-        android:inputType="text"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text"
-        app:layout_constraintBottom_toBottomOf="@+id/tvRNombreCompleto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvRNombreCompleto"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro" />
-
-    <EditText
-        android:id="@+id/ettNick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/mensaje_nombreusuario"
-        android:inputType="text"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/ettRMail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvRUserName"
-        app:layout_constraintTop_toBottomOf="@+id/ettNom" />
-
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="00/00/0000"
-        android:inputType="datetime|date"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegistrarse"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvRNacimiento"
-        app:layout_constraintTop_toBottomOf="@+id/ettRPass" />
-
-    <Button
-        android:id="@+id/btnRegistrarse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mensaje_registrate"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistro">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/tvRegistroTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Únete a nosotros"
+                android:textColor="@color/blue"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvRegistroSubtitulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Completa tus datos para empezar"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRegistroTitulo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/mensaje_nomcompleto"
+                app:layout_constraintTop_toBottomOf="@+id/tvRegistroSubtitulo"
+                app:startIconDrawable="@android:drawable/ic_menu_edit">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ettNom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNick"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/mensaje_nombreusuario"
+                app:layout_constraintTop_toBottomOf="@+id/tilNom"
+                app:startIconDrawable="@android:drawable/ic_menu_myplaces">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ettNick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRMail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/mensaje_poneremail"
+                app:layout_constraintTop_toBottomOf="@+id/tilNick"
+                app:startIconDrawable="@android:drawable/ic_dialog_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ettRMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRPass"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/mensaje_password"
+                app:layout_constraintTop_toBottomOf="@+id/tilRMail"
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@android:drawable/ic_lock_idle_lock">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ettRPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNacimiento"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/mensaje_fechanac"
+                app:layout_constraintTop_toBottomOf="@+id/tilRPass"
+                app:startIconDrawable="@android:drawable/ic_menu_today">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="00/00/0000"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnRegistrarse"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/blue"
+                android:text="@string/mensaje_registrate"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tilNacimiento" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
