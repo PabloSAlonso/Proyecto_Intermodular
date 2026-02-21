@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Views.InicioApp"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Views.ModificarPerfil"
             android:exported="false" />
         <activity
@@ -23,15 +32,10 @@
             android:exported="false" />
         <activity
             android:name=".Views.InicioSesion"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Views.PaginaInicio"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
     </application>
 
