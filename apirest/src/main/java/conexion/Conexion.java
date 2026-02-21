@@ -34,6 +34,7 @@ public class Conexion {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
