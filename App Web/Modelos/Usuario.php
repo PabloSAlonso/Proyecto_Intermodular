@@ -19,3 +19,4 @@ class Usuario
         $this->fecha_creacion_cuenta = $fecha_creacion_cuenta;
     }
 }
+ 
