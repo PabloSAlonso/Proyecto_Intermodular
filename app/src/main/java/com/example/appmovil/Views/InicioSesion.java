@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -22,7 +20,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.Models.Usuario;
 import com.example.appmovil.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InicioSesion extends AppCompatActivity {
     private EditText etMail,etPass;
@@ -62,6 +59,7 @@ public class InicioSesion extends AppCompatActivity {
                             if (success) {
 
                                 Intent iniciarSesion = new Intent(InicioSesion.this, PaginaInicio.class);
+                                startActivity(iniciarSesion);
                             } else {
                                 new AlertDialog.Builder(InicioSesion.this)
                                         .setTitle("Error")
