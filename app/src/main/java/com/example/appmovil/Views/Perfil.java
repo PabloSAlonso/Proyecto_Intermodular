@@ -20,9 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.appmovil.Adapters.AdaptadorInicio;
+import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.Models.Publicacion;
 import com.example.appmovil.Models.Usuario;
 import com.example.appmovil.R;
@@ -32,13 +35,18 @@ import java.util.ArrayList;
 public class Perfil extends Fragment {
 
     private ImageView imgFotoPerfil;
-    private TextView txtNickname, txtDescripcion;
+    private TextView txtNickname, txtNombre;
     private RecyclerView rvPublicaciones;
-
+    private ProgressBar progressBar;
+    private View statsLayout;
+    
+    private TextView tvPostsCount, tvSeguidoresCount, tvSeguidosCount;
+    
     private Usuario usuario;
     private ArrayList<Publicacion> publicacionesUsuario;
     private Toolbar toolbarPerfil;
     private ActivityResultLauncher<Intent> editarPerfilLauncher;
+    private ApiRest api;
 
     @Override
     public View onCreateView(
@@ -51,21 +59,43 @@ public class Perfil extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+        // Initialize API
+        api = new ApiRest();
 
         toolbarPerfil = view.findViewById(R.id.toolbarPerfil);
         imgFotoPerfil = view.findViewById(R.id.imgFotoPerfil);
         txtNickname = view.findViewById(R.id.txtNickname);
-        txtDescripcion = view.findViewById(R.id.txtDescripcion);
+        txtNombre = view.findViewById(R.id.txtNombre);
         rvPublicaciones = view.findViewById(R.id.rvPublicaciones);
+        progressBar = view.findViewById(R.id.progressBar);
+        
+        // Find stats views if they exist
+        statsLayout = view.findViewById(R.id.statsLayout);
+        
+        // Hide progress initially
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
 
+        // Set up toolbar with edit option
         if (toolbarPerfil != null) {
-            toolbarPerfil.setTitle("Perfil");
+            toolbarPerfil.setTitle("Mi Perfil");
             toolbarPerfil.inflateMenu(R.menu.menu_perfil);
             toolbarPerfil.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.opcion_editar) {
-                    Intent intent = new Intent(getContext(), ModificarPerfil.class);
-                    intent.putExtra("usuario_a_modificar", usuario);
-                    editarPerfilLauncher.launch(intent);
+                    if (usuario != null) {
+                        Intent intent = new Intent(getContext(), ModificarPerfil.class);
+                        intent.putExtra("usuario_a_modificar", usuario);
+                        editarPerfilLauncher.launch(intent);
+                    }
+                    return true;
+                } else if (item.getItemId() == R.id.opcion_cerrar_sesion) {
+                    // Logout
+                    InicioSesion.logout(requireContext());
+                    Intent intent = new Intent(getContext(), InicioSesion.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                     return true;
                 }
                 return false;
@@ -85,24 +115,89 @@ public class Perfil extends Fragment {
 
                                 if (usuarioModificado != null) {
                                     usuario = usuarioModificado;
-                                    txtNickname.setText(usuario.getNickname());
+                                    actualizarUI();
                                 }
                             }
                         }
                 );
 
+        // Get user from SharedPreferences
         usuario = obtenerUsuario();
-        publicacionesUsuario = obtenerPublicacionesUsuario(usuario.getId());
-
-        txtNickname.setText(usuario.getNickname());
-        txtDescripcion.setText("¡Hola! Estoy usando App Movil para compartir mis momentos.");
-        imgFotoPerfil.setImageResource(R.drawable.user_icon);
-
-        AdaptadorInicio adaptador =
-                new AdaptadorInicio(publicacionesUsuario, getContext());
-
-        rvPublicaciones.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvPublicaciones.setAdapter(adaptador);
+        
+        if (usuario != null) {
+            actualizarUI();
+            cargarPublicacionesUsuario();
+        } else {
+            Toast.makeText(getContext(), "Error al cargar usuario", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private void actualizarUI() {
+        if (usuario == null) return;
+        
+        // Update UI with user data
+        if (txtNickname != null) {
+            String nickname = usuario.getNickname();
+            txtNickname.setText("@" + (nickname != null && !nickname.isEmpty() ? nickname : "usuario"));
+        }
+        if (txtNombre != null) {
+            String nombreCompleto = usuario.getNombre();
+            String apellidos = usuario.getApellidos();
+            if (apellidos != null && !apellidos.isEmpty()) {
+                nombreCompleto += " " + apellidos;
+            }
+            txtNombre.setText(nombreCompleto != null ? nombreCompleto : "Usuario");
+        }
+    }
+    
+    private void cargarPublicacionesUsuario() {
+        if (usuario == null || usuario.getId() <= 0) {
+            // Show empty list for invalid user
+            publicacionesUsuario = new ArrayList<>();
+            AdaptadorInicio adaptador = new AdaptadorInicio(publicacionesUsuario, getContext());
+            rvPublicaciones.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvPublicaciones.setAdapter(adaptador);
+            return;
+        }
+        
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        
+        // Get publications from API
+        api.obtenerPublicacionesPorUsuario(usuario.getId(), new ApiRest.PublicationsCallback() {
+            @Override
+            public void onPublicationsResult(boolean success, ArrayList<Publicacion> publicaciones, String errorMessage) {
+                if (getActivity() == null) return;
+                
+                getActivity().runOnUiThread(() -> {
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    
+                    if (success && publicaciones != null) {
+                        publicacionesUsuario = publicaciones;
+                    } else {
+                        // Show empty list if API fails
+                        publicacionesUsuario = new ArrayList<>();
+                    }
+                    
+                    // Update posts count
+                    if (statsLayout != null) {
+                        // Try to find TextViews for stats
+                        View postsView = statsLayout.findViewById(R.id.tvPostsCount);
+                        if (postsView instanceof TextView) {
+                            ((TextView) postsView).setText(String.valueOf(publicacionesUsuario.size()));
+                        }
+                    }
+                    
+                    // Set up RecyclerView
+                    AdaptadorInicio adaptador = new AdaptadorInicio(publicacionesUsuario, getContext());
+                    rvPublicaciones.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rvPublicaciones.setAdapter(adaptador);
+                });
+            }
+        });
     }
 
     @Override
@@ -113,15 +208,35 @@ public class Perfil extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.opcion_editar){
-            Intent modificar_perfil = new Intent(getContext(), ModificarPerfil.class);
-            modificar_perfil.putExtra("usuario_a_modificar", usuario);
-            editarPerfilLauncher.launch(modificar_perfil);
+            if (usuario != null) {
+                Intent modificar_perfil = new Intent(getContext(), ModificarPerfil.class);
+                modificar_perfil.putExtra("usuario_a_modificar", usuario);
+                editarPerfilLauncher.launch(modificar_perfil);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Get user from SharedPreferences (logged in user)
+     */
     private Usuario obtenerUsuario() {
+        int userId = InicioSesion.getUserId(requireContext());
+        String nickname = InicioSesion.getUserNickname(requireContext());
+        String nombre = ApiRest.getUserNombre(requireContext());
+        String apellidos = ApiRest.getUserApellidos(requireContext());
+        
+        if (userId > 0) {
+            Usuario u = new Usuario();
+            u.setId(userId);
+            u.setNickname(nickname != null ? nickname : "");
+            u.setNombre(nombre != null ? nombre : "");
+            u.setApellidos(apellidos != null ? apellidos : "");
+            return u;
+        }
+        
+        // Fallback to mock user if not logged in
         return new Usuario(
                 1,
                 "Nombre",
@@ -133,9 +248,5 @@ public class Perfil extends Fragment {
                 null,
                 null
         );
-    }
-
-    private ArrayList<Publicacion> obtenerPublicacionesUsuario(int idUsuario) {
-        return new ArrayList<>();
     }
 }

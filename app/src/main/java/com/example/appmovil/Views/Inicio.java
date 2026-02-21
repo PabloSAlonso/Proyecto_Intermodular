@@ -1,16 +1,19 @@
 package com.example.appmovil.Views;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.appmovil.API.ApiRest;
 import com.example.appmovil.Adapters.AdaptadorInicio;
@@ -28,6 +31,7 @@ public class Inicio extends Fragment {
     private BottomNavigationView bnv;
     private RecyclerView.LayoutManager layoutManagerPublicaciones;
     private ApiRest api;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,12 +41,12 @@ public class Inicio extends Fragment {
         api = new ApiRest();
         bnv = view.findViewById(R.id.bottomNavigationView);
         rv = view.findViewById(R.id.recyclerView);
+        progressBar = view.findViewById(R.id.progressBar);
 
         layoutManagerPublicaciones = new LinearLayoutManager(getContext());
         rv.setLayoutManager(layoutManagerPublicaciones);
 
-        cargarPublicacionesMock();
-
+        // Initialize adapter with empty list
         adaptadorInicio = new AdaptadorInicio(publicaciones, getContext());
         rv.setAdapter(adaptadorInicio);
 
@@ -50,8 +54,43 @@ public class Inicio extends Fragment {
                 new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL)
         );
 
+        // Load publications from API
+        cargarPublicaciones();
+
         return view;
     }
+    
+    private void cargarPublicaciones() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        
+        api.obtenerPublicaciones(new ApiRest.PublicationsCallback() {
+            @Override
+            public void onPublicationsResult(boolean success, ArrayList<Publicacion> nuevasPublicaciones, String errorMessage) {
+                if (getActivity() == null) return;
+                
+                getActivity().runOnUiThread(() -> {
+                    if (progressBar != null) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    
+                    if (success && nuevasPublicaciones != null) {
+                        publicaciones.clear();
+                        publicaciones.addAll(nuevasPublicaciones);
+                        adaptadorInicio.updateData(publicaciones);
+                    } else {
+                        // If API fails, load mock data for demo
+                        Toast.makeText(getContext(), 
+                                "Cargando publicaciones de ejemplo...", 
+                                Toast.LENGTH_SHORT).show();
+                        cargarPublicacionesMock();
+                    }
+                });
+            }
+        });
+    }
+    
     private void cargarPublicacionesMock() {
         publicaciones.clear();
 
@@ -94,5 +133,8 @@ public class Inicio extends Fragment {
                 67,
                 8
         ));
+        
+        adaptadorInicio.updateData(publicaciones);
     }
 }
+

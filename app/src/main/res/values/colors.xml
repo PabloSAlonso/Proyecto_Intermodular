@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary Colors - Blue theme for Klyer -->
     <color name="blue">#2999FF</color>
-    <color name="background">#FFFFFF</color>
+    <color name="blue_dark">#1A7ACC</color>
+    <color name="blue_light">#5EB3FF</color>
+    
+    <!-- Background Colors -->
+    <color name="background">#F8FBFF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    
+    <!-- Text Colors - Better contrast -->
+    <color name="text">#1A1A2E</color>
+    <color name="text_secondary">#4A4A68</color>
+    <color name="text_hint">#9898A6</color>
+    
+    <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
-    <color name="text">#000000</color>
-    <color name="gray">#3A3A3A</color>
+    <color name="black">#000000</color>
+    
+    <!-- Gray Scale -->
+    <color name="gray">#4A4A68</color>
+    <color name="gray_dark">#2A2A3E</color>
+    <color name="light_gray">#E8EDF2</color>
+    <color name="divider">#DDE3EA</color>
+    
+    <!-- Accent Colors -->
+    <color name="success">#00C853</color>
+    <color name="error">#FF5252</color>
+    <color name="warning">#FFB300</color>
+    
+    <!-- Status Bar -->
+    <color name="status_bar">#1A7ACC</color>
+    
+    <!-- Bottom Navigation -->
+    <color name="bottom_nav_background">#FFFFFF</color>
+    <color name="bottom_nav_selected">#2999FF</color>
+    <color name="bottom_nav_unselected">#9898A6</color>
 </resources>
