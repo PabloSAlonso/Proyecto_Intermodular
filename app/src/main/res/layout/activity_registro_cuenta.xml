@@ -134,12 +134,11 @@
                 app:startIconDrawable="@android:drawable/ic_menu_today">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/ettFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:hint="00/00/0000"
-                    android:inputType="none" />
+                    android:inputType="date" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

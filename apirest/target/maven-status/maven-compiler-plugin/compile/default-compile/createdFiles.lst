@@ -1,4 +1,5 @@
 modelos/Usuario.class
 modelos/Aplicacion.class
 conexion/Conexion.class
+modelos/GestorUsuarios.class
 modelos/Publicacion.class
