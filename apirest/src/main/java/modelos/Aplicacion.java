@@ -13,6 +13,7 @@ public class Aplicacion extends Application {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(Usuario.class);
         classes.add(Publicacion.class);
+        classes.add(GestorUsuarios.class);
         return classes;
     }
 }
