@@ -1,14 +1,28 @@
-# Usa la versión exacta de Tomcat que quieres
+# Stage 1: construir el WAR con Maven
+FROM maven:3.9.3-eclipse-temurin-17 AS build
+WORKDIR /app
+
+# Copiamos pom.xml primero para cachear dependencias
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copiamos el código fuente
+COPY src ./src
+
+# Construimos el WAR
+RUN mvn clean package
+
+# Stage 2: Tomcat
 FROM tomcat:10.0.27-jdk17
 
-# Elimina la app por defecto de Tomcat
+# Limpiamos apps por defecto
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copia tu WAR al directorio webapps y renómbralo a ROOT.war
-COPY target/apirest.war /usr/local/tomcat/webapps/ROOT.war
+# Copiamos el WAR generado desde el stage anterior
+COPY --from=build /app/target/apirest.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expón el puerto 8080 (Render sobrescribirá con la variable PORT)
+# Exponemos puerto 8080
 EXPOSE 8080
 
-# Arranca Tomcat en modo foreground
+# Arrancamos Tomcat
 CMD ["catalina.sh", "run"]

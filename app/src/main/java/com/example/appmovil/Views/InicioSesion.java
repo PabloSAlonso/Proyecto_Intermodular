@@ -23,7 +23,7 @@ import com.example.appmovil.R;
 
 public class InicioSesion extends AppCompatActivity {
     private EditText etMail,etPass;
-    private TextView tvMail, tvPass, tvBienvenido, tvFoot, tvHeader;
+    private TextView tvBienvenido, tvDescripcion, tvHeader;
     private Toolbar tb;
     private Button btnInicio;
     private ApiRest api;
@@ -45,10 +45,8 @@ public class InicioSesion extends AppCompatActivity {
         tvHeader = findViewById(R.id.tvHeader);
         etMail = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPass);
-        tvMail = findViewById(R.id.tvEmail);
-        tvPass = findViewById(R.id.tvPass);
         tvBienvenido = findViewById(R.id.tvBienvenida);
-        tvFoot = findViewById(R.id.tvDescripcion);
+        tvDescripcion = findViewById(R.id.tvDescripcion);
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
