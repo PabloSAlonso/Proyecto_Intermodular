@@ -22,16 +22,16 @@
                     <form>
                         <div class="mb-3">
                             <label class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" placeholder="Formato:micorreo@ejemplo.com" required>
+                            <input type="email" class="form-control" placeholder="Formato:micorreo@ejemplo.com" required id="email">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" placeholder="******" required minlength="6" id="pass">
+                            <input type="password" class="form-control" placeholder="******" required minlength="6" id="password">
                             
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">
+                        <button type="submit" class="btn btn-primary w-100" id="btnIniciarSesion">
                             Iniciar sesión
                         </button>
                     </form>
@@ -51,17 +51,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const checkboxPass = document.getElementById("mostrar_pass");
-        const inputPass = document.getElementById("pass")
+        const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 
-        checkboxPass.addEventListener("change", () => {
-            if (this.checked) {
-                inputPass.type = 'text';
-            } else {
-                inputPass.type = 'password';
+        btnIniciarSesion.addEventListener("click", (e) => {
+            e.preventDefault();
+            
+            // Get values on button click
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Validate required fields
+            if (!email || !password) {
+                alert("Por favor, completa todos los campos");
+                return;
             }
+
+            // Make API call to login
+            fetch(`http://localhost:8080/apirest/rest/usuarios/obtener/${encodeURIComponent(email)}/${encodeURIComponent(password)}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status === 404) {
+                    throw new Error("Email o contraseña incorrectos");
+                } else {
+                    throw new Error("Error en el servidor");
+                }
+            })
+            .then(data => {
+                // Login successful - store user data in sessionStorage
+                sessionStorage.setItem("usuario", JSON.stringify(data));
+                alert("¡Bienvenido, " + data.nombre + "!");
+                window.location.href = "feed.php";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert(error.message);
+            });
         });
     </script>
 </body>
-
-</html>

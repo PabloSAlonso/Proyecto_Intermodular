@@ -11,16 +11,16 @@ import java.sql.ResultSet;
 import org.mindrot.jbcrypt.BCrypt;
 
 import conexion.Conexion;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/usuarios")
 public class Usuario implements Serializable {
@@ -119,7 +119,7 @@ public class Usuario implements Serializable {
             llamadaDriver(ruta_driver);
             Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
-            String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password_hash, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = conexion.prepareStatement(sql);
             // BCrypt.checkpw(passwordIntroducida, passwordGuardadaBD); Comprueba password
@@ -150,7 +150,7 @@ public class Usuario implements Serializable {
             llamadaDriver(ruta_driver);
             Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
-            String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, password=?, foto_perfil=?, fecha_nacimiento=? WHERE id=?";
+String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, password_hash=?, foto_perfil=?, fecha_nacimiento=? WHERE id=?";
 
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, u.getNombre());
@@ -205,25 +205,33 @@ public class Usuario implements Serializable {
             llamadaDriver(ruta_driver);
             Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
-            String sql = "SELECT * FROM usuarios WHERE email=? AND password = ?";
+            // First, get the user by email
+            String sql = "SELECT * FROM usuarios WHERE email = ?";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, email);
-            ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Usuario u = new Usuario();
-                u.id = rs.getInt("id");
-                u.nombre = rs.getString("nombre");
-                u.apellidos = rs.getString("apellidos");
-                u.nickname = rs.getString("nickname");
-                u.email = rs.getString("email");
-                u.password = null;
-                u.foto_perfil = rs.getBlob("foto_perfil");
-                u.fecha_nacimiento = rs.getDate("fecha_nacimiento");
-                u.fecha_creacion_cuenta = rs.getDate("fecha_creacion_cuenta");
+                // Get the hashed password from database
+String passwordHashed = rs.getString("password_hash");
+                
+                // Use BCrypt to verify the password
+                if (BCrypt.checkpw(password, passwordHashed)) {
+                    Usuario u = new Usuario();
+                    u.id = rs.getInt("id");
+                    u.nombre = rs.getString("nombre");
+                    u.apellidos = rs.getString("apellidos");
+                    u.nickname = rs.getString("nickname");
+                    u.email = rs.getString("email");
+                    u.password = null;
+                    u.foto_perfil = rs.getBlob("foto_perfil");
+                    u.fecha_nacimiento = rs.getDate("fecha_nacimiento");
+                    u.fecha_creacion_cuenta = rs.getDate("fecha_creacion_cuenta");
 
-                return Response.ok(u).build();
+                    return Response.ok(u).build();
+                } else {
+                    return Response.status(Response.Status.UNAUTHORIZED).build();
+                }
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
