@@ -90,12 +90,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    private static final String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_klyer";
-    private static final String USER = "freedb_pablillo2k";
+    private static final String URL = "jdbc:postgresql://aws-1-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require";
+    private static final String USER = "postgres.vefvxfzqkwhfetudvnlv";
     private static final String PASSWORD = "bUf*2m9N!w2mmEU";
 
-    String ruta_driver = "org.mariadb.jdbc.Driver";
-    // Conexion c = new Conexion();
+    String ruta_driver = "org.postgresql.Driver";
 
     public void llamadaDriver(String ruta) throws ClassNotFoundException {
         Class.forName(ruta);
@@ -115,7 +114,7 @@ public class Usuario implements Serializable {
     @Path("/insertar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertarUsuario(Usuario u) {
+    public Response registrarUsuario(Usuario u) {
         try {
             llamadaDriver(ruta_driver);
             Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -201,7 +200,7 @@ public class Usuario implements Serializable {
     @Path("/obtener/{email}/{password}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response obtenerUsuario(@PathParam("email") String email, @PathParam("password") String password) {
+    public Response loginUsuario(@PathParam("email") String email, @PathParam("password") String password) {
         try {
             llamadaDriver(ruta_driver);
             Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);

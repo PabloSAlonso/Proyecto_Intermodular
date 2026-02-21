@@ -28,35 +28,35 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Nombre</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required id="nombre">
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required id="apellidos">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Alias de usuario</label>
-                            <input type="text" class="form-control" placeholder="@usuario" required>
+                            <input type="text" class="form-control" placeholder="@usuario" required id="nick">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" placeholder="correo@ejemplo.com" required>
+                            <input type="email" class="form-control" placeholder="correo@ejemplo.com" required id="email">
                         </div>
 
                         <div class="row">
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" required placeholder="Mínimo de 6 caracteres">
+                                <input type="password" class="form-control" required placeholder="Mínimo de 6 caracteres" id="pass">
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Fecha de nacimiento</label>
-                                <input type="date" class="form-control" required>
+                                <input type="date" class="form-control" required id="fechNaci">
                             </div>
                         </div>
 
@@ -67,9 +67,9 @@
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100" id="btnEnviar" disabled>
+                        <button type="submit" class="btn btn-primary w-100" id="btnEnviar">
                             Registrarse
-                            
+
                         </button>
                     </form>
 
@@ -90,12 +90,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const terminos = document.getElementById("terminos");
         const btnEnviar = document.getElementById("btnEnviar");
-        
-        terminos.addEventListener("change", () => {
-            btnEnviar.disabled = !this.checked;
+
+        const nombre = document.getElementById("nombre").value;
+        const apellidos = document.getElementById("apellidos").value;
+        const nick = document.getElementById("nick").value;
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("pass").value;
+        const fechaNaci = document.getElementById("fechNaci").value;
+
+        const fechaCreacion = new Date().toISOString().split('T')[0];
+
+        btnEnviar.addEventListener("click", () => {
+            var request = new Request("http://localhost:8080/apirest/rest");
+            var user = new Usuario(nombre, apellidos, nick, email, pass, null, fechaNaci, fechaCreacion);
+            request.register(user);
         });
     </script>
+
 </body>
 </html>

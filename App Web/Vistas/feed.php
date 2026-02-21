@@ -19,8 +19,10 @@ require_once '../config/Request.php';
 <body>
     <?php require_once '../components/header_feed.php' ?>
 
-
-    <div class="container my-4">
+    <?php $request = new Request("http://localhost:8080/apirest/rest");
+    $publicaciones = $request->getAllPublications();
+    ?>
+    <div class="container my-4">    
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <?php if (empty($publicaciones)): ?>

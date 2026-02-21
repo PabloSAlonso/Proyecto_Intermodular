@@ -70,17 +70,19 @@ class Request
         return $this->delete("/usuarios/eliminar/$id");
     }
 
-
-    public function modificarUser(array $userData)
+    public function modificarUser(array $userData, int $id)
     {
-        return $this->put("/usuarios/modificarUser", $userData);
+        return $this->put("/usuarios/actualizar/$id", $userData);
     }
-
 
     // ==== PUBLICACIONES ====
     public function getAllPublications()
     {
         return $this->get('/publicaciones/todas');
+    }
+    public function getAllPublicationsPerUser(int $id)
+    {
+        return $this->get('/publicaciones/usuario/$id');
     }
     public function createPublication(array $publicationData)
     {

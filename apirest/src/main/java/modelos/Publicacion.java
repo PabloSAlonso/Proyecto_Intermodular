@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -74,8 +75,11 @@ public class Publicacion implements Serializable {
         return comentarios;
     }
 
-    String ruta_driver = "org.mariadb.jdbc.Driver";
-    Conexion c = new Conexion();
+    private static final String URL = "jdbc:postgresql://aws-1-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require";
+    private static final String USER = "postgres.vefvxfzqkwhfetudvnlv";
+    private static final String PASSWORD = "bUf*2m9N!w2mmEU";
+
+    String ruta_driver = "org.postgresql.Driver";
 
     public void llamadaDriver(String ruta) throws ClassNotFoundException {
         Class.forName(ruta);
@@ -87,7 +91,7 @@ public class Publicacion implements Serializable {
     public Response obtenerPublicaciones() {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
             String sql = "SELECT * FROM publicaciones ORDER_BY id_publicacion DESC";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -119,7 +123,7 @@ public class Publicacion implements Serializable {
     public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
             String sql = "SELECT * FROM publicaciones WHERE id_usuario=?";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idUsuario);
@@ -152,7 +156,7 @@ public class Publicacion implements Serializable {
     public Response insertarPublicacion(Publicacion p) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
             String sql = "INSERT INTO publicaciones "
                     + "(id_usuario, fecha_publicacion, imagen, descripcion, likes, comentarios) "
                     + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -180,7 +184,7 @@ public class Publicacion implements Serializable {
     public Response eliminarPublicacion(@PathParam("id") int id) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
             String sql = "DELETE FROM publicaciones WHERE id_publicacion=?";
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -206,7 +210,7 @@ public class Publicacion implements Serializable {
     public Response obtenerPublicacion(@PathParam("id") int id) {
         try {
             llamadaDriver(ruta_driver);
-            Connection conexion = c.getConexion();
+            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
 
             String sql = "SELECT * FROM publicaciones WHERE id_publicacion=?";
             PreparedStatement ps = conexion.prepareStatement(sql);

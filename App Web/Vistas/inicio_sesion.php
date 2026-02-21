@@ -28,7 +28,7 @@
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
                             <input type="password" class="form-control" placeholder="******" required minlength="6" id="pass">
-                            <span>Acepto los términos y condiciones </span><input type="checkbox" id="mostrar_pass">
+                            
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">

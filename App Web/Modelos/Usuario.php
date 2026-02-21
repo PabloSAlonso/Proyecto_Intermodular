@@ -5,57 +5,17 @@ require_once '../config/Request.php';
 class Usuario
 {
     public $id, $nombre, $apellidos, $nickname, $email, $password, $foto_perfil, $fecha_nacimiento, $fecha_creacion_cuenta;
-    private Request $request;
-    public function __construct()
+
+    public function __construct($id, $nombre, $apellidos, $nickname, $email, $password, $foto_perfil, $fecha_nacimiento, $fecha_creacion_cuenta)
     {
-        $this->request = new Request("http://10.0.2.2:8080/apirest/rest");
-    }
-
-    public function getUsuarios()
-    {
-        return $this->request->get('/usuarios');
-    }
-
-    public function setUsuario($id, $nombre, $apellidos, $nickname, $email, $password, $foto_perfil, $fecha_nacimiento, $fecha_creacion_cuenta)
-    {
-        $data = [
-            'id' => $id,
-            'nombre' => $nombre,
-            'apellidos' => $apellidos,
-            'nickname' => $nickname,
-            'email' => $email,
-            'password' => $password,
-            'foto_perfil' => $foto_perfil,
-            'fecha_nacimiento' => $fecha_nacimiento,
-            'fecha_creacion' => $fecha_creacion_cuenta
-        ];
-
-        return $this->request->post('/usuarios', $data);
-    }
-
-    public function editar($id)
-    {
-        return $this->request->get("/usuarios/insertar");
-    }
-
-    public function actualizar($id, $nombre, $apellidos, $nickname, $email, $password, $foto_perfil, $fecha_nacimiento, $fecha_creacion_cuenta)
-    {
-        $data = [
-            'nombre' => $nombre,
-            'apellidos' => $apellidos,
-            'nickname' => $nickname,
-            'email' => $email,
-            'password' => $password,
-            'foto_perfil' => $foto_perfil,
-            'fecha_nacimiento' => $fecha_nacimiento,
-            'fecha_creacion' => $fecha_creacion_cuenta
-        ];
-
-        return $this->request->put("/usuarios/actualizar/{$id}", $data);
-    }
-
-    public function borrar($id)
-    {
-        return $this->request->delete("/usuarios/borrar/{$id}");
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->apellidos = $apellidos;
+        $this->nickname = $nickname;
+        $this->email = $email;
+        $this->password = $password;
+        $this->foto_perfil = $foto_perfil;
+        $this->fecha_nacimiento = $fecha_nacimiento;
+        $this->fecha_creacion_cuenta = $fecha_creacion_cuenta;
     }
 }
