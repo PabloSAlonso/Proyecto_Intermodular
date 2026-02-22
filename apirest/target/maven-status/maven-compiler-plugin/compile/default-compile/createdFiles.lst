@@ -1,5 +1,1 @@
-modelos\GestorUsuarios.class
-modelos\Aplicacion.class
-conexion\Conexion.class
-modelos\Usuario.class
-modelos\Publicacion.class
+modelos/CorsFilter.class
