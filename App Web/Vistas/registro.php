@@ -541,7 +541,7 @@
             btnEnviar.textContent = 'Creando cuenta...';
 
             try {
-                const response = await fetch('http://localhost:8080/apirest/rest/usuarios/insertar', {
+                const response = await fetch('https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/insertar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
