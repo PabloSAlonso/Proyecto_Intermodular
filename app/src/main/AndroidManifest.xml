@@ -16,10 +16,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Feed"
+            android:name=".KlyerFeed"
             android:exported="false" />
         <activity
-            android:name=".Intro"
+            android:name=".KlyerIntro"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,14 +28,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".KlyerLogin"
             android:exported="false"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".CompleteProfile"
+            android:name=".KlyerCompleteProfile"
             android:exported="false" />
     </application>
 

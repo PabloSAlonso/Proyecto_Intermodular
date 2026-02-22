@@ -222,6 +222,37 @@ public class GestorUsuarios {
         }
     }
 
+    @Path("/obtenerId/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerUsuarioPorId(@PathParam("id") int id) {
+        String sql = "SELECT id, nombre, apellidos, nickname, email, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta "
+                + "FROM usuarios WHERE id = ?";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Usuario u = new Usuario();
+                    u.setId(rs.getInt("id"));
+                    u.setNombre(rs.getString("nombre"));
+                    u.setApellidos(rs.getString("apellidos"));
+                    u.setNickname(rs.getString("nickname"));
+                    u.setEmail(rs.getString("email"));
+                    u.setPassword(null);
+                    u.setFoto_perfil(rs.getBlob("foto_perfil"));
+                    u.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
+                    u.setFecha_creacion_cuenta(rs.getDate("fecha_creacion_cuenta"));
+                    return Response.ok(u).build();
+                }
+            }
+            return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener usuario por id").build();
+        }
+    }
+
     @Path("/obtenerTodos")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -10,9 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Intro extends AppCompatActivity {
-
-    private Button btnLogin, btnRegister;
+public class KlyerIntro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +24,10 @@ public class Intro extends AppCompatActivity {
             return insets;
         });
 
-        btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
+        Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnRegister = findViewById(R.id.btnRegister);
 
-        btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(Intro.this, Login.class);
-            startActivity(intent);
-        });
-
-        btnRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(Intro.this, Register.class);
-            startActivity(intent);
-        });
+        btnLogin.setOnClickListener(v -> startActivity(new Intent(KlyerIntro.this, KlyerLogin.class)));
+        btnRegister.setOnClickListener(v -> startActivity(new Intent(KlyerIntro.this, Register.class)));
     }
 }

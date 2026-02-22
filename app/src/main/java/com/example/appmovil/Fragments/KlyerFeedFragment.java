@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appmovil.Adapters.AdapterFeed;
 import com.example.appmovil.ApiRest.Api_Gets;
 import com.example.appmovil.ApiRest.Api_Inserts;
-import com.example.appmovil.Feed;
+import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.Publicaciones.Habit;
 import com.example.appmovil.R;
 import com.example.appmovil.UserSession;
@@ -103,7 +103,7 @@ public class KlyerFeedFragment extends Fragment {
         android.graphics.Canvas canvas = new android.graphics.Canvas(bitmap);
         
         android.graphics.Paint bgPaint = new android.graphics.Paint();
-        bgPaint.setColor(android.graphics.Color.parseColor("#FACC15")); // Yellow color
+        bgPaint.setColor(android.graphics.Color.parseColor("#0F766E"));
         bgPaint.setStyle(android.graphics.Paint.Style.FILL);
         canvas.drawCircle(size / 2f, size / 2f, size / 2f, bgPaint);
         
@@ -174,14 +174,14 @@ public class KlyerFeedFragment extends Fragment {
     }
 
     private void showLoading() {
-        if (getActivity() instanceof Feed) {
-            ((Feed) getActivity()).showLoading();
+        if (getActivity() instanceof KlyerFeed) {
+            ((KlyerFeed) getActivity()).showLoading();
         }
     }
 
     private void hideLoading() {
-        if (getActivity() instanceof Feed) {
-            ((Feed) getActivity()).hideLoading();
+        if (getActivity() instanceof KlyerFeed) {
+            ((KlyerFeed) getActivity()).hideLoading();
         }
     }
 

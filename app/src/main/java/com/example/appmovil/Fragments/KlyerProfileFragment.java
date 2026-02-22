@@ -19,8 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.appmovil.ApiRest.Api_Gets;
-import com.example.appmovil.Feed;
-import com.example.appmovil.Intro;
+import com.example.appmovil.KlyerFeed;
+import com.example.appmovil.KlyerIntro;
 import com.example.appmovil.R;
 import com.example.appmovil.UserSession;
 import com.google.android.material.button.MaterialButton;
@@ -204,7 +204,7 @@ public class KlyerProfileFragment extends Fragment {
             session.logout();
         }
 
-        Intent intent = new Intent(getActivity(), Intro.class);
+        Intent intent = new Intent(getActivity(), KlyerIntro.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         
@@ -214,8 +214,8 @@ public class KlyerProfileFragment extends Fragment {
     }
 
     private void loadFragment(Fragment fragment) {
-        if (getActivity() instanceof Feed) {
-            ((Feed) getActivity()).loadFragment(fragment);
+        if (getActivity() instanceof KlyerFeed) {
+            ((KlyerFeed) getActivity()).loadFragment(fragment);
         }
     }
 }
