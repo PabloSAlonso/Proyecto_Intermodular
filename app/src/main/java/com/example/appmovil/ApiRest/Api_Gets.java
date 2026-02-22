@@ -42,19 +42,21 @@ public class Api_Gets {
         void onResult(boolean result);
     }
 
-    public void getUser(String username, String passwordHash, ApiCallback callback) {
+    public void getUser(String username, String password, ApiCallback callback) {
         new Thread(() -> {
             HttpURLConnection connection = null;
             try {
-                String encodedUser = URLEncoder.encode(username, "UTF-8").replace("+", "%20");
-                URL url = new URL(BASE_URL + "/users?search=" + encodedUser);
-
+                // Use correct login endpoint from backend: /usuarios/obtener/{email}/{password}
+                // For username login, we need to first get all users and find by username
+                URL url = new URL(BASE_URL + "/usuarios/obtenerTodos");
+                
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setConnectTimeout(10000);
 
                 int responseCode = connection.getResponseCode();
+                Log.d(TAG, "getUser response code: " + responseCode);
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -69,11 +71,13 @@ public class Api_Gets {
                     int id = -1;
                     boolean found = false;
 
+                    // Find user by nickname (username)
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject userObj = jsonArray.getJSONObject(i);
-                        if (userObj.optString("username", "").equalsIgnoreCase(username)) {
+                        if (userObj.optString("nickname", "").equalsIgnoreCase(username)) {
                             id = userObj.optInt("id", -1);
                             found = true;
+                            Log.d(TAG, "User found: " + username + " with ID: " + id);
                             break;
                         }
                     }
@@ -81,13 +85,14 @@ public class Api_Gets {
                     if (found) {
                         callback.onResult(true, id);
                     } else {
+                        Log.d(TAG, "User not found: " + username);
                         callback.onResult(false, -1);
                     }
                 } else {
                     callback.onResult(false, -1);
                 }
             } catch (IOException | JSONException e) {
-                Log.e(TAG, "Error en getUser (search): " + e.getMessage());
+                Log.e(TAG, "Error en getUser: " + e.getMessage());
                 callback.onResult(false, -1);
             } finally {
                 if (connection != null) {

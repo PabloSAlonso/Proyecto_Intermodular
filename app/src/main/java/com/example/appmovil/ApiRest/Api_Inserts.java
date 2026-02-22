@@ -76,17 +76,19 @@ public class Api_Inserts {
         new Thread(() -> {
             HttpURLConnection connection = null;
             try {
-                URL url = new URL(BASE_URL + "/users");
+                // Use correct endpoint matching backend
+                URL url = new URL(BASE_URL + "/usuarios/insertar");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
                 connection.setDoOutput(true);
 
+                // Create JSON with correct field names matching backend model
                 JSONObject json = new JSONObject();
-                json.put("name", name);
-                json.put("username", username);
+                json.put("nombre", name);  // backend expects "nombre"
+                json.put("nickname", username);  // backend expects "nickname"
                 json.put("email", email);
-                json.put("password_hash", password);
+                json.put("password", password);  // backend expects "password" (not hashed, it uses BCrypt internally)
 
                 try (OutputStream os = connection.getOutputStream()) {
                     byte[] input = json.toString().getBytes(StandardCharsets.UTF_8);
@@ -94,11 +96,14 @@ public class Api_Inserts {
                 }
 
                 int responseCode = connection.getResponseCode();
+                Log.d(TAG, "Insert user response code: " + responseCode);
+                
                 if (callback != null) {
                     callback.onResult(responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED);
                 }
 
             } catch (IOException | JSONException e) {
+                Log.e(TAG, "Error inserting user: " + e.getMessage());
                 if (callback != null) {
                     callback.onResult(false);
                 }

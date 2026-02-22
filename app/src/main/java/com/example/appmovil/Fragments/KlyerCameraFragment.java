@@ -33,7 +33,7 @@ import com.example.appmovil.R;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class CameraFragment extends Fragment {
+public class KlyerCameraFragment extends Fragment {
 
     private ImageView ivPreview;
     private EditText etDescription;

@@ -17,13 +17,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.appmovil.Fragments.CameraFragment;
-import com.example.appmovil.Fragments.FeedFragment;
-import com.example.appmovil.Fragments.HabitsFragment;
-import com.example.appmovil.Fragments.ProfileFragment;
-import com.example.appmovil.Fragments.SocialFragment;
+import com.example.appmovil.Fragments.KlyerCameraFragment;
+import com.example.appmovil.Fragments.KlyerFeedFragment;
+import com.example.appmovil.Fragments.KlyerHabitsFragment;
+import com.example.appmovil.Fragments.KlyerProfileFragment;
+import com.example.appmovil.Fragments.KlyerSocialFragment;
 
-public class Feed extends AppCompatActivity {
+public class KlyerFeed extends AppCompatActivity {
 
     private FrameLayout btnHome, btnHabits, btnCamera, btnSocial, btnProfile;
     private ImageView ivHome, ivHabits, ivCamera, ivSocial, ivProfile;
@@ -119,7 +119,7 @@ public class Feed extends AppCompatActivity {
 
     public void navigateToHome() {
         updateNavUI(R.id.btn_nav_home);
-        loadFragment(new FeedFragment());
+        loadFragment(new KlyerFeedFragment());
     }
 
     private void initNav() {
@@ -135,11 +135,11 @@ public class Feed extends AppCompatActivity {
         ivSocial = findViewById(R.id.iv_social_icon);
         // ivProfile ya no se usa, ahora usamos ivNavAvatar
 
-        btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new FeedFragment()); });
-        btnHabits.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_habits); loadFragment(new HabitsFragment()); });
-        btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new CameraFragment()); });
-        btnSocial.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_social); loadFragment(new SocialFragment()); });
-        btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new ProfileFragment()); });
+        btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new KlyerFeedFragment()); });
+        btnHabits.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_habits); loadFragment(new KlyerHabitsFragment()); });
+        btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new KlyerCameraFragment()); });
+        btnSocial.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_social); loadFragment(new KlyerSocialFragment()); });
+        btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new KlyerProfileFragment()); });
     }
 
     private void updateNavUI(int selectedId) {
