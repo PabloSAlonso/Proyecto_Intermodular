@@ -541,7 +541,7 @@
             btnEnviar.textContent = 'Creando cuenta...';
 
             try {
-                const response = await fetch('https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/insertar', {
+                const response = await fetch('api_registro.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -556,7 +556,7 @@
                         window.location.href = 'inicio_sesion.php';
                     }, 2000);
                 } else {
-                    const errorText = await response.text();
+                    const errorText = (await response.text()).toLowerCase();
                     if (errorText.includes('nickname') || errorText.includes('unique')) {
                         showError('El nombre de usuario ya está en uso.');
                     } else if (errorText.includes('email') || errorText.includes('unique')) {
@@ -583,4 +583,3 @@
 </body>
 
 </html>
-
