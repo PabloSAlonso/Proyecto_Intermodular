@@ -34,7 +34,7 @@
 
     <!-- Fragments -->
     <string name="nav_home">Inicio</string>
-    <string name="nav_habits">Posts</string>
+    <string name="nav_posts">Posts</string>
     <string name="nav_social">Social</string>
     <string name="nav_profile">Perfil</string>
     <string name="nav_camera">Cámara</string>

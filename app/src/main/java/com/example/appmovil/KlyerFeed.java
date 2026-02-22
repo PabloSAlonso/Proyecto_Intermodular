@@ -19,20 +19,20 @@ import androidx.fragment.app.Fragment;
 
 import com.example.appmovil.Fragments.KlyerCameraFragment;
 import com.example.appmovil.Fragments.KlyerFeedFragment;
-import com.example.appmovil.Fragments.KlyerHabitsFragment;
+import com.example.appmovil.Fragments.KlyerPostsFragment;
 import com.example.appmovil.Fragments.KlyerProfileFragment;
 import com.example.appmovil.Fragments.KlyerSocialFragment;
 
 public class KlyerFeed extends AppCompatActivity {
 
-    private FrameLayout btnHome, btnHabits, btnCamera, btnSocial, btnProfile;
-    private ImageView ivHome, ivHabits, ivCamera, ivSocial, ivProfile;
+    private FrameLayout btnHome, btnPosts, btnCamera, btnSocial, btnProfile;
+    private ImageView ivHome, ivPosts, ivCamera, ivSocial, ivProfile;
     private ImageView ivNavAvatar;
     private TextView tvNavAvatarLetter;
     private FrameLayout loadingOverlay;
     private int colorActive = Color.parseColor("#0F766E");
     private int colorInactive = Color.parseColor("#7A8AA0");
-    private UserSession session;
+    private KlyerUserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class KlyerFeed extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_feed);
 
-        session = new UserSession(this);
+        session = new KlyerUserSession(this);
         loadingOverlay = findViewById(R.id.loading_overlay);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -124,19 +124,19 @@ public class KlyerFeed extends AppCompatActivity {
 
     private void initNav() {
         btnHome = findViewById(R.id.btn_nav_home);
-        btnHabits = findViewById(R.id.btn_nav_habits);
+        btnPosts = findViewById(R.id.btn_nav_posts);
         btnCamera = findViewById(R.id.btn_nav_camera);
         btnSocial = findViewById(R.id.btn_nav_social);
         btnProfile = findViewById(R.id.btn_nav_profile);
 
         ivHome = findViewById(R.id.iv_home_icon);
-        ivHabits = findViewById(R.id.iv_habits_icon);
+        ivPosts = findViewById(R.id.iv_posts_icon);
         ivCamera = findViewById(R.id.iv_camera_icon);
         ivSocial = findViewById(R.id.iv_social_icon);
         // ivProfile ya no se usa, ahora usamos ivNavAvatar
 
         btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new KlyerFeedFragment()); });
-        btnHabits.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_habits); loadFragment(new KlyerHabitsFragment()); });
+        btnPosts.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_posts); loadFragment(new KlyerPostsFragment()); });
         btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new KlyerCameraFragment()); });
         btnSocial.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_social); loadFragment(new KlyerSocialFragment()); });
         btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new KlyerProfileFragment()); });
@@ -144,7 +144,7 @@ public class KlyerFeed extends AppCompatActivity {
 
     private void updateNavUI(int selectedId) {
         ivHome.setColorFilter(colorInactive);
-        ivHabits.setColorFilter(colorInactive);
+        ivPosts.setColorFilter(colorInactive);
         ivCamera.setColorFilter(colorInactive);
         ivSocial.setColorFilter(colorInactive);
         
@@ -168,8 +168,8 @@ public class KlyerFeed extends AppCompatActivity {
 
         if (selectedId == R.id.btn_nav_home) {
             ivHome.setColorFilter(colorActive);
-        } else if (selectedId == R.id.btn_nav_habits) {
-            ivHabits.setColorFilter(colorActive);
+        } else if (selectedId == R.id.btn_nav_posts) {
+            ivPosts.setColorFilter(colorActive);
         } else if (selectedId == R.id.btn_nav_camera) {
             ivCamera.setColorFilter(colorActive);
         } else if (selectedId == R.id.btn_nav_social) {

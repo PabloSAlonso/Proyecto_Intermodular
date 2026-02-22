@@ -37,14 +37,14 @@ public class KlyerCameraFragment extends Fragment {
 
     private ImageView ivPreview;
     private EditText etDescription;
-    private AutoCompleteTextView spinnerHabitType;
+    private AutoCompleteTextView spinnerPostType;
     private Button btnCamera, btnGallery, btnPost;
     private Bitmap selectedBitmap;
     private Api_Inserts apiInserts;
     private FrameLayout loadingOverlay;
 
-    // Habit types matching the web app
-    private final String[] habitTypes = {
+    // Post types matching the web app
+    private final String[] postTypes = {
             "Ejercicio",
             "Lectura",
             "Meditación",
@@ -53,7 +53,7 @@ public class KlyerCameraFragment extends Fragment {
             "Otro"
     };
 
-    private final String[] habitTypeEmojis = {
+    private final String[] postTypeEmojis = {
             "💪 Ejercicio",
             "📚 Lectura",
             "🧘 Meditación",
@@ -97,20 +97,20 @@ public class KlyerCameraFragment extends Fragment {
         apiInserts = new Api_Inserts();
         ivPreview = view.findViewById(R.id.ivPreview);
         etDescription = view.findViewById(R.id.etDescription);
-        spinnerHabitType = view.findViewById(R.id.spinnerHabitType);
+        spinnerPostType = view.findViewById(R.id.spinnerHabitType);
         btnCamera = view.findViewById(R.id.btnCamera);
         btnGallery = view.findViewById(R.id.btnGallery);
         btnPost = view.findViewById(R.id.btnPost);
         loadingOverlay = view.findViewById(R.id.camera_loading_overlay);
 
-        // Setup habit type dropdown
+        // Setup post type dropdown
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_dropdown_item_1line,
-                habitTypeEmojis
+                postTypeEmojis
         );
-        spinnerHabitType.setAdapter(adapter);
-        spinnerHabitType.setText(habitTypeEmojis[0], false);
+        spinnerPostType.setAdapter(adapter);
+        spinnerPostType.setText(postTypeEmojis[0], false);
 
         if (btnCamera != null) {
             btnCamera.setOnClickListener(v -> {
@@ -127,26 +127,26 @@ public class KlyerCameraFragment extends Fragment {
 
         if (btnPost != null) {
             btnPost.setOnClickListener(v -> {
-                postHabit();
+                postPost();
             });
         }
 
         return view;
     }
 
-    private void postHabit() {
-        if (etDescription == null || spinnerHabitType == null) {
+    private void postPost() {
+        if (etDescription == null || spinnerPostType == null) {
             return;
         }
         
         String description = etDescription.getText().toString().trim();
-        String selectedType = spinnerHabitType.getText().toString();
+        String selectedType = spinnerPostType.getText().toString();
         
-        // Get plain habit type without emoji
-        String habitType = selectedType;
-        for (int i = 0; i < habitTypeEmojis.length; i++) {
-            if (selectedType.equals(habitTypeEmojis[i])) {
-                habitType = habitTypes[i];
+        // Get plain post type without emoji
+        String postType = selectedType;
+        for (int i = 0; i < postTypeEmojis.length; i++) {
+            if (selectedType.equals(postTypeEmojis[i])) {
+                postType = postTypes[i];
                 break;
             }
         }
@@ -168,12 +168,12 @@ public class KlyerCameraFragment extends Fragment {
 
         String imageBase64 = encodeImageToBase64(selectedBitmap);
 
-        apiInserts.addHabit(userId, description, imageBase64, habitType, success -> {
+        apiInserts.addPost(userId, description, imageBase64, postType, success -> {
             if (isAdded() && getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     hideLoading();
                     if (success) {
-                        Toast.makeText(getContext(), "¡Hábito compartido!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "¡Publicación compartida!", Toast.LENGTH_SHORT).show();
                         // Clear form
                         etDescription.setText("");
                         ivPreview.setImageResource(android.R.drawable.ic_menu_camera);
@@ -184,7 +184,7 @@ public class KlyerCameraFragment extends Fragment {
                             ((KlyerFeed) getActivity()).navigateToHome();
                         }
                     } else {
-                        Toast.makeText(getContext(), "Error al compartir hábito", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Error al compartir publicación", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

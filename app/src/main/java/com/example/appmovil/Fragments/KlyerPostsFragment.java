@@ -20,16 +20,16 @@ import com.example.appmovil.Adapters.AdapterFeed;
 import com.example.appmovil.ApiRest.Api_Gets;
 import com.example.appmovil.ApiRest.Api_Inserts;
 import com.example.appmovil.KlyerFeed;
-import com.example.appmovil.Publicaciones.Habit;
+import com.example.appmovil.Publicaciones.Post;
 import com.example.appmovil.R;
 
 import java.util.ArrayList;
 
-public class KlyerHabitsFragment extends Fragment {
+public class KlyerPostsFragment extends Fragment {
 
-    private RecyclerView rvMyHabits;
+    private RecyclerView rvMyPosts;
     private AdapterFeed adapter;
-    private final ArrayList<Habit> listaHabitos = new ArrayList<>();
+    private final ArrayList<Post> listaPosts = new ArrayList<>();
     private Api_Gets apiGets;
     private Api_Inserts apiInserts;
     private int myUserId;
@@ -39,13 +39,13 @@ public class KlyerHabitsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_habits, container, false);
+        View view = inflater.inflate(R.layout.fragment_posts, container, false);
 
         apiGets = new Api_Gets();
         apiInserts = new Api_Inserts();
         
-        rvMyHabits = view.findViewById(R.id.rvMyHabits);
-        rvMyHabits.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvMyPosts = view.findViewById(R.id.rvMyPosts);
+        rvMyPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         loadingOverlay = view.findViewById(R.id.loading_overlay);
         emptyState = view.findViewById(R.id.emptyState);
 
@@ -58,10 +58,10 @@ public class KlyerHabitsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadMyHabits();
+        loadMyPosts();
     }
 
-    private void loadMyHabits() {
+    private void loadMyPosts() {
         if (myUserId == -1) {
             showEmptyState();
             return;
@@ -69,16 +69,16 @@ public class KlyerHabitsFragment extends Fragment {
 
         showLoading();
 
-        apiGets.getHabitsByUserId(myUserId, habits -> {
+        apiGets.getPostsByUserId(myUserId, posts -> {
             if (isAdded() && getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     hideLoading();
-                    if (habits != null && !habits.isEmpty()) {
-                        listaHabitos.clear();
-                        listaHabitos.addAll(habits);
-                        adapter = new AdapterFeed(listaHabitos, myUserId, apiInserts, () -> loadMyHabits());
-                        rvMyHabits.setAdapter(adapter);
-                        rvMyHabits.setVisibility(View.VISIBLE);
+                    if (posts != null && !posts.isEmpty()) {
+                        listaPosts.clear();
+                        listaPosts.addAll(posts);
+                        adapter = new AdapterFeed(listaPosts, myUserId, apiInserts, () -> loadMyPosts());
+                        rvMyPosts.setAdapter(adapter);
+                        rvMyPosts.setVisibility(View.VISIBLE);
                         emptyState.setVisibility(View.GONE);
                     } else {
                         showEmptyState();
@@ -89,7 +89,7 @@ public class KlyerHabitsFragment extends Fragment {
     }
 
     private void showEmptyState() {
-        rvMyHabits.setVisibility(View.GONE);
+        rvMyPosts.setVisibility(View.GONE);
         emptyState.setVisibility(View.VISIBLE);
     }
 
@@ -105,3 +105,4 @@ public class KlyerHabitsFragment extends Fragment {
         }
     }
 }
+
