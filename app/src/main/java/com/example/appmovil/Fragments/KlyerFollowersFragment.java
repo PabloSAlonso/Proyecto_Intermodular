@@ -19,7 +19,7 @@ import com.example.appmovil.R;
 
 import java.util.ArrayList;
 
-public class FollowersFragment extends Fragment {
+public class KlyerFollowersFragment extends Fragment {
 
     private RecyclerView rvUsers;
     private AdapterFollowers adapter;
@@ -29,8 +29,8 @@ public class FollowersFragment extends Fragment {
     private TextView tvEmpty;
     private String fragmentType;
 
-    public static FollowersFragment newInstance(int userId, String type) {
-        FollowersFragment fragment = new FollowersFragment();
+    public static KlyerFollowersFragment newInstance(int userId, String type) {
+        KlyerFollowersFragment fragment = new KlyerFollowersFragment();
         Bundle args = new Bundle();
         args.putInt("userId", userId);
         args.putString("type", type);

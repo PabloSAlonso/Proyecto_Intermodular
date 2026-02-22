@@ -16,45 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="#F5F5F5"
-            app:cardCornerRadius="24dp"
+            app:cardCornerRadius="0dp"
             app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:padding="24dp">
-
-                <FrameLayout
-                    android:layout_width="120dp"
-                    android:layout_height="120dp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        app:cardCornerRadius="60dp"
-                        app:cardElevation="8dp">
-
-                        <ImageView
-                            android:id="@+id/ivAvatar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:background="@drawable/ic_launcher_background"/>
-
-                        <TextView
-                            android:id="@+id/tvAvatarLetter"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="U"
-                            android:textColor="#FFFFFF"
-                            android:textSize="48sp"
-                            android:textStyle="bold"
-                            android:background="@drawable/ic_launcher_background"/>
-                    </com.google.android.material.card.MaterialCardView>
-                </FrameLayout>
 
                 <TextView
                     android:id="@+id/tvName"
@@ -65,18 +35,18 @@
                     android:textColor="#212121"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:letterSpacing="0.05"
                     android:text="username"
                     android:textColor="#2196F3"
                     android:textSize="28sp"
-                    android:textStyle="bold|italic"
-                    android:letterSpacing="0.05" />
+                    android:textStyle="bold|italic" />
 
                 <TextView
                     android:id="@+id/tvEmail"
@@ -86,7 +56,7 @@
                     android:text="email@ejemplo.com"
                     android:textColor="#757575"
                     android:textSize="14sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvBio"
@@ -94,36 +64,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
+                    android:lineSpacingMultiplier="1.3"
+                    android:paddingHorizontal="8dp"
                     android:text="Tu bio aquí..."
                     android:textColor="#757575"
                     android:textSize="14sp"
-                    android:lineSpacingMultiplier="1.3"
-                    android:visibility="gone"
-                    android:paddingHorizontal="8dp"/>
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="80dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="#E0E0E0"/>
+                    android:background="#E0E0E0" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/layoutFollowers"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="8dp">
 
                         <TextView
@@ -133,14 +103,14 @@
                             android:text="0"
                             android:textColor="#212121"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Seguidores"
                             android:textColor="#757575"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -148,11 +118,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="8dp">
 
                         <TextView
@@ -162,22 +132,22 @@
                             android:text="0"
                             android:textColor="#212121"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Siguiendo"
                             android:textColor="#757575"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="8dp">
 
                         <TextView
@@ -187,14 +157,14 @@
                             android:text="0"
                             android:textColor="#212121"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Posts"
                             android:textColor="#757575"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -225,9 +195,9 @@
             android:textColor="#EF4444"
             android:textSize="16sp"
             app:backgroundTint="#F5F5F5"
-            app:cornerRadius="16dp"
+            app:cornerRadius="0dp"
             app:icon="@android:drawable/ic_lock_power_off"
-            app:iconTint="#EF4444"/>
+            app:iconTint="#EF4444" />
 
     </LinearLayout>
 </ScrollView>

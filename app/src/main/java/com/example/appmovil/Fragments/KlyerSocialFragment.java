@@ -29,7 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
-public class SocialFragment extends Fragment {
+public class KlyerSocialFragment extends Fragment {
 
     private RecyclerView rvUsers;
     private AdapterUsers adapter;

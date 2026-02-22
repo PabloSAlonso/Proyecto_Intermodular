@@ -25,7 +25,7 @@ import com.example.appmovil.R;
 
 import java.util.ArrayList;
 
-public class HabitsFragment extends Fragment {
+public class KlyerHabitsFragment extends Fragment {
 
     private RecyclerView rvMyHabits;
     private AdapterFeed adapter;

@@ -19,28 +19,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Overlay de Carga -->
-    <FrameLayout
-        android:id="@+id/loading_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99FFFFFF"
-        android:visibility="gone"
-        android:clickable="true"
-        android:focusable="true"
-        android:elevation="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            app:indicatorColor="#2196F3"
-            app:trackThickness="4dp" />
-    </FrameLayout>
 
     <!-- Bottom Navigation - Diseño limpio -->
     <com.google.android.material.card.MaterialCardView
@@ -48,14 +26,13 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
         app:cardBackgroundColor="#F5F5F5"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="0dp"
         app:cardElevation="4dp"
-        app:strokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,9 +44,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless">
+                android:focusable="true">
+
                 <ImageView
                     android:id="@+id/iv_home_icon"
                     android:layout_width="26dp"
@@ -103,9 +81,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless">
+                android:focusable="true">
+
                 <ImageView
                     android:id="@+id/iv_camera_icon"
                     android:layout_width="26dp"
@@ -120,9 +99,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless">
+                android:focusable="true">
+
                 <ImageView
                     android:id="@+id/iv_social_icon"
                     android:layout_width="26dp"
@@ -137,10 +117,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless">
-                
+                android:focusable="true">
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_profile_avatar"
                     android:layout_width="32dp"
@@ -149,19 +129,19 @@
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
-                    
+
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_launcher_background">
-                        
+
                         <ImageView
                             android:id="@+id/iv_nav_avatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:visibility="gone"/>
-                        
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/tv_nav_avatar_letter"
                             android:layout_width="match_parent"
@@ -170,7 +150,7 @@
                             android:text="U"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
