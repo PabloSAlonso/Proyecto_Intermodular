@@ -25,7 +25,7 @@ import com.example.appmovil.ApiRest.Api_Inserts;
 import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.Publicaciones.Post;
 import com.example.appmovil.R;
-import com.example.appmovil.KlyerUserSession;
+import com.example.appmovil.UserSession;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class KlyerFeedFragment extends Fragment {
     private int myUserId;
     private View emptyState;
     private ShapeableImageView ivProfileTop;
-    private KlyerUserSession userSession;
+    private UserSession userSession;
 
     @Nullable
     @Override
@@ -53,7 +53,7 @@ public class KlyerFeedFragment extends Fragment {
         emptyState = view.findViewById(R.id.emptyState);
         
         ivProfileTop = view.findViewById(R.id.ivProfileTop);
-        userSession = new KlyerUserSession(requireContext());
+        userSession = new UserSession(requireContext());
 
         SharedPreferences prefs = requireActivity().getSharedPreferences("BettrPrefs", Context.MODE_PRIVATE);
         myUserId = prefs.getInt("userId", -1);

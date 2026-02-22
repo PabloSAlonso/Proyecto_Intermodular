@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class KlyerProfileFragment extends Fragment {
 
-    private TextView tvName, tvUsername, tvEmail, tvBio, tvFollowers, tvFollowing, tvPostsCount, tvAvatarLetter;
+    private TextView tvName, tvUsername, tvEmail, tvBio, tvFollowers, tvFollowing, tvHabitsCount, tvAvatarLetter;
     private ImageView ivAvatar;
     private View layoutFollowers, layoutFollowing;
     private FrameLayout loadingOverlay;

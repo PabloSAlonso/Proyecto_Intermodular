@@ -39,6 +39,7 @@ public class KlyerSocialFragment extends Fragment {
     private UserSession session;
     private int myUserId;
     private TextInputEditText etSearch;
+    private TextInputLayout tilSearch;
     private FrameLayout loadingOverlay;
     private View emptyState;
 
@@ -217,6 +218,4 @@ public class KlyerSocialFragment extends Fragment {
         if (rvUsers != null) rvUsers.setVisibility(View.VISIBLE);
         if (emptyState != null) emptyState.setVisibility(View.GONE);
     }
-
-    private TextInputLayout tilSearch;
 }

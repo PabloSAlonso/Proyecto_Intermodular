@@ -32,7 +32,7 @@ public class KlyerFeed extends AppCompatActivity {
     private FrameLayout loadingOverlay;
     private int colorActive = Color.parseColor("#0F766E");
     private int colorInactive = Color.parseColor("#7A8AA0");
-    private KlyerUserSession session;
+    private UserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class KlyerFeed extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_feed);
 
-        session = new KlyerUserSession(this);
+        session = new UserSession(this);
         loadingOverlay = findViewById(R.id.loading_overlay);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
