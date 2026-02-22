@@ -541,13 +541,28 @@
             btnEnviar.textContent = 'Creando cuenta...';
 
             try {
-                const response = await fetch('../api_registro.php', {
+                const requestConfig = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(userData)
-                });
+                };
+
+                const endpoints = ['api_registro.php', '../api_registro.php', '/api_registro.php'];
+                let response = null;
+
+                for (const endpoint of endpoints) {
+                    const candidate = await fetch(endpoint, requestConfig);
+                    if (candidate.status !== 404) {
+                        response = candidate;
+                        break;
+                    }
+                }
+
+                if (!response) {
+                    throw new Error('REGISTRO_ENDPOINT_NOT_FOUND');
+                }
 
                 if (response.ok) {
                     showSuccess('¡Cuenta creada! Redirigiendo al login...');
@@ -567,7 +582,11 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showError('Error de conexión. Verifica que la API esté funcionando.');
+                if (error.message === 'REGISTRO_ENDPOINT_NOT_FOUND') {
+                    showError('No se encontró el endpoint de registro (api_registro.php).');
+                } else {
+                    showError('Error de conexión. Verifica que la API esté funcionando.');
+                }
             } finally {
                 btnEnviar.disabled = false;
                 btnEnviar.classList.remove('loading');
