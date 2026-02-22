@@ -15,8 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.appmovil.ApiRest.Api_Inserts;
-import com.example.appmovil.ApiRest.Api_Gets;
+import com.example.appmovil.ApiRest.KlyerApiInserts;
+import com.example.appmovil.ApiRest.KlyerApiGets;
 import com.example.appmovil.UserSession;
 
 import java.security.MessageDigest;
@@ -24,8 +24,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class Register extends AppCompatActivity {
     private EditText etName, etUsername, etEmail, etPassword, etConfirmPassword;
-    private Api_Inserts apiInserts;
-    private Api_Gets apiGets;
+    private KlyerApiInserts apiInserts;
+    private KlyerApiGets apiGets;
     private FrameLayout loadingOverlay;
 
     @Override
@@ -34,8 +34,8 @@ public class Register extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-        apiInserts = new Api_Inserts();
-        apiGets = new Api_Gets();
+        apiInserts = new KlyerApiInserts();
+        apiGets = new KlyerApiGets();
         loadingOverlay = findViewById(R.id.loading_overlay);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
@@ -116,12 +116,13 @@ public class Register extends AppCompatActivity {
         }
 
         showLoading();
-        String passwordHash = hashPassword(password);
+        // Send password without hashing - backend uses BCrypt
+        String passwordToSend = password;
 
-        apiInserts.insertUsuario(name, username, email, passwordHash, success -> {
+        apiInserts.insertUsuario(name, username, email, passwordToSend, success -> {
             if (success) {
                 // After successful registration, get the user ID by logging in
-                apiGets.getUser(username, passwordHash, (loginSuccess, userId) -> {
+                apiGets.getUser(username, passwordToSend, (loginSuccess, userId) -> {
                     runOnUiThread(() -> {
                         hideLoading();
                         if (loginSuccess && userId > 0) {
