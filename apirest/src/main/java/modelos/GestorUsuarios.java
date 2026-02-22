@@ -1,10 +1,11 @@
 package modelos;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,47 +24,74 @@ import javax.ws.rs.core.Response;
 
 @Path("/usuarios")
 public class GestorUsuarios {
-    
-    private static final String URL = "jdbc:postgresql://aws-1-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require";
-    private static final String USER = "postgres.vefvxfzqkwhfetudvnlv";
-    private static final String PASSWORD = "bUf*2m9N!w2mmEU";
 
-    String ruta_driver = "org.postgresql.Driver";
+    private static final String DRIVER = "org.postgresql.Driver";
 
-    public void llamadaDriver(String ruta) throws ClassNotFoundException {
-        Class.forName(ruta);
+    public static class LoginRequest {
+        private String email;
+        private String password;
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 
-    // {
-    // "nombre":"",
-    // "apellidos":"",
-    // "nickname":"",
-    // "email":"",
-    // "password":"",
-    // "foto_perfil":"",
-    // "fecha_nacimiento":"",
-    // "fecha_creacion_cuenta":"",
-    // }
+    private static String readEnv(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalStateException("Missing environment variable: " + key);
+        }
+        return value;
+    }
+
+    private Connection openConnection() throws Exception {
+        Class.forName(DRIVER);
+        String url = readEnv("DB_URL");
+        String user = readEnv("DB_USER");
+        String password = readEnv("DB_PASSWORD");
+        return DriverManager.getConnection(url, user, password);
+    }
 
     @Path("/insertar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response registrarUsuario(Usuario u) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        if (u == null || u.getNombre() == null || u.getApellidos() == null || u.getNickname() == null
+                || u.getEmail() == null || u.getPassword() == null || u.getFecha_nacimiento() == null
+                || u.getFecha_creacion_cuenta() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Datos de usuario incompletos").build();
+        }
 
-String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password_hash, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password_hash, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            // BCrypt.checkpw(passwordIntroducida, passwordGuardadaBD); Comprueba password
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             String passwordHashed = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
             ps.setString(1, u.getNombre());
             ps.setString(2, u.getApellidos());
             ps.setString(3, u.getNickname());
             ps.setString(4, u.getEmail());
             ps.setString(5, passwordHashed);
-            ps.setBlob(6, u.getFoto_perfil());
+            if (u.getFoto_perfil() != null) {
+                ps.setBlob(6, u.getFoto_perfil());
+            } else {
+                ps.setNull(6, Types.BINARY);
+            }
             ps.setDate(7, u.getFecha_nacimiento());
             ps.setDate(8, u.getFecha_creacion_cuenta());
 
@@ -71,108 +99,126 @@ String sql = "INSERT INTO usuarios (nombre, apellidos, nickname, email, password
             u.setPassword(null);
             return Response.status(Response.Status.CREATED).entity(u).build();
 
+        } catch (SQLException e) {
+            if ("23505".equals(e.getSQLState())) {
+                return Response.status(Response.Status.CONFLICT).entity("nickname o email ya existe").build();
+            }
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error SQL al registrar usuario").build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error interno al registrar usuario").build();
         }
     }
 
     @Path("/actualizar/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response actualizarUsuario(@PathParam("id") int id, Usuario u) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        if (u == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Body requerido").build();
+        }
 
-String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, password_hash=?, foto_perfil=?, fecha_nacimiento=? WHERE id=?";
+        String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, "
+                + "password_hash=COALESCE(?, password_hash), foto_perfil=?, fecha_nacimiento=? WHERE id=?";
 
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             ps.setString(1, u.getNombre());
             ps.setString(2, u.getApellidos());
             ps.setString(3, u.getNickname());
             ps.setString(4, u.getEmail());
-            ps.setString(5, u.getPassword());
-            ps.setBlob(6, u.getFoto_perfil());
+
+            if (u.getPassword() != null && !u.getPassword().trim().isEmpty()) {
+                ps.setString(5, BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12)));
+            } else {
+                ps.setNull(5, Types.VARCHAR);
+            }
+
+            if (u.getFoto_perfil() != null) {
+                ps.setBlob(6, u.getFoto_perfil());
+            } else {
+                ps.setNull(6, Types.BINARY);
+            }
             ps.setDate(7, u.getFecha_nacimiento());
             ps.setInt(8, id);
 
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 return Response.ok().build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
             }
+            return Response.status(Response.Status.NOT_FOUND).build();
 
+        } catch (SQLException e) {
+            if ("23505".equals(e.getSQLState())) {
+                return Response.status(Response.Status.CONFLICT).entity("nickname o email ya existe").build();
+            }
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error SQL al actualizar usuario").build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error interno al actualizar usuario").build();
         }
     }
 
     @Path("/eliminar/{id}")
     @DELETE
     public Response eliminarUsuario(@PathParam("id") int id) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        String sql = "DELETE FROM usuarios WHERE id=?";
 
-            String sql = "DELETE FROM usuarios WHERE id=?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setInt(1, id);
 
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 return Response.ok().build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
             }
+            return Response.status(Response.Status.NOT_FOUND).build();
 
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @Path("/obtener/{email}/{password}")
-    @GET
+    @Path("/login")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response loginUsuario(@PathParam("email") String email, @PathParam("password") String password) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+    public Response loginUsuario(LoginRequest login) {
+        if (login == null || login.getEmail() == null || login.getPassword() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("email y password son obligatorios").build();
+        }
 
-            // First, get the user by email
-            String sql = "SELECT * FROM usuarios WHERE email = ?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, email);
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                // Get the hashed password from database
-                String passwordHashed = rs.getString("password_hash");
-                
-                // Use BCrypt to verify the password
-                if (BCrypt.checkpw(password, passwordHashed)) {
-                    Usuario u = new Usuario();
-                    u.setId(rs.getInt("id"));
-                    u.setNombre(rs.getString("nombre"));
-                    u.setApellidos(rs.getString("apellidos"));
-                    u.setNickname(rs.getString("nickname"));
-                    u.setEmail(rs.getString("email"));
-                    u.setPassword(null);
-                    u.setFoto_perfil(rs.getBlob("foto_perfil"));
-                    u.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
-                    u.setFecha_creacion_cuenta(rs.getDate("fecha_creacion_cuenta"));
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-                    return Response.ok(u).build();
-                } else {
-                    return Response.status(Response.Status.UNAUTHORIZED).build();
+            ps.setString(1, login.getEmail());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String passwordHashed = rs.getString("password_hash");
+                    if (passwordHashed != null && BCrypt.checkpw(login.getPassword(), passwordHashed)) {
+                        Usuario u = new Usuario();
+                        u.setId(rs.getInt("id"));
+                        u.setNombre(rs.getString("nombre"));
+                        u.setApellidos(rs.getString("apellidos"));
+                        u.setNickname(rs.getString("nickname"));
+                        u.setEmail(rs.getString("email"));
+                        u.setPassword(null);
+                        u.setFoto_perfil(rs.getBlob("foto_perfil"));
+                        u.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
+                        u.setFecha_creacion_cuenta(rs.getDate("fecha_creacion_cuenta"));
+
+                        return Response.ok(u).build();
+                    }
+                    return Response.status(Response.Status.UNAUTHORIZED).entity("Credenciales invalidas").build();
                 }
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error interno en login").build();
         }
     }
 
@@ -180,13 +226,12 @@ String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, pa
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerTodosLosUsuarios() {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        String sql = "SELECT id, nombre, apellidos, nickname, email, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta "
+                + "FROM usuarios ORDER BY id";
 
-            String sql = "SELECT id, nombre, apellidos, nickname, email, foto_perfil, fecha_nacimiento, fecha_creacion_cuenta FROM usuarios ORDER BY id";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             List<Usuario> usuarios = new ArrayList<>();
             while (rs.next()) {
@@ -196,19 +241,17 @@ String sql = "UPDATE usuarios SET nombre=?, apellidos=?, nickname=?, email=?, pa
                 u.setApellidos(rs.getString("apellidos"));
                 u.setNickname(rs.getString("nickname"));
                 u.setEmail(rs.getString("email"));
-                u.setPassword(null); // No enviar password
+                u.setPassword(null);
                 u.setFoto_perfil(rs.getBlob("foto_perfil"));
                 u.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
                 u.setFecha_creacion_cuenta(rs.getDate("fecha_creacion_cuenta"));
                 usuarios.add(u);
             }
 
-            conexion.close();
             return Response.ok(usuarios).build();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener usuarios: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener usuarios").build();
         }
     }
 }

@@ -67,16 +67,17 @@
             }
 
             // Make API call to login
-            fetch(`https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/obtener/${encodeURIComponent(email)}/${encodeURIComponent(password)}`, {
-                method: "GET",
+            fetch(`https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/login`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                body: JSON.stringify({ email, password })
             })
             .then(response => {
                 if (response.ok) {
                     return response.json();
-                } else if (response.status === 404) {
+                } else if (response.status === 401 || response.status === 404) {
                     throw new Error("Email o contraseña incorrectos");
                 } else {
                     throw new Error("Error en el servidor");

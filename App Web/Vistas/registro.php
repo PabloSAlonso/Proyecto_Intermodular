@@ -541,7 +541,7 @@
             btnEnviar.textContent = 'Creando cuenta...';
 
             try {
-                const response = await fetch('https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/insertar', {
+                const response = await fetch('../api_registro.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -567,7 +567,7 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showError('Error de conexión o CORS. Verifica que Render tenga desplegado el fix de CORS.');
+                showError('Error de conexión. Verifica que la API esté funcionando.');
             } finally {
                 btnEnviar.disabled = false;
                 btnEnviar.classList.remove('loading');

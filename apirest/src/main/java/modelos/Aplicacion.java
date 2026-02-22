@@ -14,7 +14,6 @@ public class Aplicacion extends Application {
         classes.add(Usuario.class);
         classes.add(Publicacion.class);
         classes.add(GestorUsuarios.class);
-        classes.add(CorsFilter.class);
         return classes;
     }
 }

@@ -7,14 +7,13 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 
-import conexion.Conexion;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,6 +33,8 @@ public class Publicacion implements Serializable {
 
     private ArrayList<Publicacion> publicaciones;
 
+    private static final String DRIVER = "org.postgresql.Driver";
+
     public Publicacion() {
     }
 
@@ -45,6 +46,22 @@ public class Publicacion implements Serializable {
         this.descripcion = descripcion;
         this.likes = likes;
         this.comentarios = comentarios;
+    }
+
+    private static String readEnv(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalStateException("Missing environment variable: " + key);
+        }
+        return value;
+    }
+
+    private Connection openConnection() throws Exception {
+        Class.forName(DRIVER);
+        String url = readEnv("DB_URL");
+        String user = readEnv("DB_USER");
+        String password = readEnv("DB_PASSWORD");
+        return DriverManager.getConnection(url, user, password);
     }
 
     public int getId_publicacion() {
@@ -75,26 +92,16 @@ public class Publicacion implements Serializable {
         return comentarios;
     }
 
-    private static final String URL = "jdbc:postgresql://aws-1-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require";
-    private static final String USER = "postgres.vefvxfzqkwhfetudvnlv";
-    private static final String PASSWORD = "bUf*2m9N!w2mmEU";
-
-    String ruta_driver = "org.postgresql.Driver";
-
-    public void llamadaDriver(String ruta) throws ClassNotFoundException {
-        Class.forName(ruta);
-    }
-
     @Path("/todas")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPublicaciones() {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            String sql = "SELECT * FROM publicaciones ORDER_BY id_publicacion DESC";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        String sql = "SELECT * FROM publicaciones ORDER BY id_publicacion DESC";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
             publicaciones = new ArrayList<>();
             while (rs.next()) {
                 Publicacion p = new Publicacion();
@@ -105,15 +112,13 @@ public class Publicacion implements Serializable {
                 p.descripcion = rs.getString("descripcion");
                 p.likes = rs.getInt("likes");
                 p.comentarios = rs.getInt("comentarios");
-
                 publicaciones.add(p);
             }
 
             return Response.ok(publicaciones).build();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener publicaciones").build();
         }
     }
 
@@ -121,50 +126,57 @@ public class Publicacion implements Serializable {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            String sql = "SELECT * FROM publicaciones WHERE id_usuario=?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idUsuario);
-            ResultSet rs = ps.executeQuery();
-            publicaciones = new ArrayList<>();
-            while (rs.next()) {
-                Publicacion p = new Publicacion();
-                p.id_publicacion = rs.getInt("id_publicacion");
-                p.id_usuario = rs.getInt("id_usuario");
-                p.fecha_publicacion = rs.getDate("fecha_publicacion");
-                p.imagen = rs.getBlob("imagen");
-                p.descripcion = rs.getString("descripcion");
-                p.likes = rs.getInt("likes");
-                p.comentarios = rs.getInt("comentarios");
+        String sql = "SELECT * FROM publicaciones WHERE id_usuario=? ORDER BY id_publicacion DESC";
 
-                publicaciones.add(p);
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                publicaciones = new ArrayList<>();
+                while (rs.next()) {
+                    Publicacion p = new Publicacion();
+                    p.id_publicacion = rs.getInt("id_publicacion");
+                    p.id_usuario = rs.getInt("id_usuario");
+                    p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                    p.imagen = rs.getBlob("imagen");
+                    p.descripcion = rs.getString("descripcion");
+                    p.likes = rs.getInt("likes");
+                    p.comentarios = rs.getInt("comentarios");
+                    publicaciones.add(p);
+                }
             }
 
             return Response.ok(publicaciones).build();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener publicaciones de usuario").build();
         }
     }
 
     @Path("/insertar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response insertarPublicacion(Publicacion p) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            String sql = "INSERT INTO publicaciones "
-                    + "(id_usuario, fecha_publicacion, imagen, descripcion, likes, comentarios) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+        if (p == null || p.getId_usuario() <= 0 || p.getFecha_publicacion() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Datos de publicacion incompletos").build();
+        }
 
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        String sql = "INSERT INTO publicaciones "
+                + "(id_usuario, fecha_publicacion, imagen, descripcion, likes, comentarios) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             ps.setInt(1, p.getId_usuario());
             ps.setDate(2, p.getFecha_publicacion());
-            ps.setBlob(3, p.getImagen());
+            if (p.getImagen() != null) {
+                ps.setBlob(3, p.getImagen());
+            } else {
+                ps.setNull(3, Types.BINARY);
+            }
             ps.setString(4, p.getDescripcion());
             ps.setInt(5, p.getLikes());
             ps.setInt(6, p.getComentarios());
@@ -174,33 +186,28 @@ public class Publicacion implements Serializable {
             return Response.status(Response.Status.CREATED).entity(p).build();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al insertar publicacion").build();
         }
     }
 
     @Path("/eliminar/{id}")
     @DELETE
     public Response eliminarPublicacion(@PathParam("id") int id) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        String sql = "DELETE FROM publicaciones WHERE id_publicacion=?";
 
-            String sql = "DELETE FROM publicaciones WHERE id_publicacion=?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             ps.setInt(1, id);
-
             int filas = ps.executeUpdate();
 
             if (filas > 0) {
                 return Response.ok().build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
             }
+            return Response.status(Response.Status.NOT_FOUND).build();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al eliminar publicacion").build();
         }
     }
 
@@ -208,33 +215,31 @@ public class Publicacion implements Serializable {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPublicacion(@PathParam("id") int id) {
-        try {
-            llamadaDriver(ruta_driver);
-            Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        String sql = "SELECT * FROM publicaciones WHERE id_publicacion=?";
 
-            String sql = "SELECT * FROM publicaciones WHERE id_publicacion=?";
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Publicacion p = new Publicacion();
+                    p.id_publicacion = rs.getInt("id_publicacion");
+                    p.id_usuario = rs.getInt("id_usuario");
+                    p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                    p.imagen = rs.getBlob("imagen");
+                    p.descripcion = rs.getString("descripcion");
+                    p.likes = rs.getInt("likes");
+                    p.comentarios = rs.getInt("comentarios");
 
-            if (rs.next()) {
-                Publicacion p = new Publicacion();
-                p.id_publicacion = rs.getInt("id_publicacion");
-                p.id_usuario = rs.getInt("id_usuario");
-                p.fecha_publicacion = rs.getDate("fecha_publicacion");
-                p.imagen = rs.getBlob("imagen");
-                p.descripcion = rs.getString("descripcion");
-                p.likes = rs.getInt("likes");
-                p.comentarios = rs.getInt("comentarios");
-
-                return Response.ok(p).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
+                    return Response.ok(p).build();
+                }
             }
 
+            return Response.status(Response.Status.NOT_FOUND).build();
+
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener publicacion").build();
         }
     }
 }

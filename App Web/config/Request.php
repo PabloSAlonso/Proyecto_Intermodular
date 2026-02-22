@@ -9,7 +9,7 @@ class Request
         $this->baseUrl = rtrim($baseUrl, '/');
     }
 
-    private function request(string $method, string $url, array $data = null)
+    private function request(string $method, string $url, ?array $data = null)
     {
         $ch = curl_init($this->baseUrl . $url);
 
@@ -59,7 +59,10 @@ class Request
     // ==== USUARIOS ====
     public function login(string $email, string $password)
     {
-        return $this->get("/usuarios/obtener/$email/$password");
+        return $this->post('/usuarios/login', [
+            'email' => $email,
+            'password' => $password
+        ]);
     }
     public function register(array $userData)
     {
