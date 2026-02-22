@@ -30,8 +30,8 @@ public class KlyerFeed extends AppCompatActivity {
     private ImageView ivNavAvatar;
     private TextView tvNavAvatarLetter;
     private FrameLayout loadingOverlay;
-    private int colorActive = Color.parseColor("#FACC15");
-    private int colorInactive = Color.parseColor("#9CA3AF");
+    private int colorActive = Color.parseColor("#0F766E");
+    private int colorInactive = Color.parseColor("#7A8AA0");
     private UserSession session;
 
     @Override

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#0B1220</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grey">#383838</color>
-    <color name="yellow">#E2CB38</color>
-    
-    <!-- New White and Blue Theme Colors -->
-    <color name="blue_primary">#2196F3</color>
-    <color name="blue_dark">#1976D2</color>
-    <color name="blue_light">#64B5F6</color>
-    <color name="white_background">#FFFFFF</color>
-    <color name="white_light">#F5F5F5</color>
-    <color name="grey_light">#E0E0E0</color>
-    <color name="text_dark">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <color name="grey">#5E6B80</color>
+    <color name="yellow">#F59E0B</color>
+
+    <color name="blue_primary">#0F766E</color>
+    <color name="blue_dark">#115E59</color>
+    <color name="blue_light">#14B8A6</color>
+
+    <color name="white_background">#EEF2FF</color>
+    <color name="white_light">#F8FAFC</color>
+    <color name="grey_light">#DCE3EE</color>
+    <color name="text_dark">#102A43</color>
+    <color name="text_secondary">#62748A</color>
+
+    <color name="accent_coral">#F25C54</color>
+    <color name="surface_card">#FFFFFF</color>
 </resources>

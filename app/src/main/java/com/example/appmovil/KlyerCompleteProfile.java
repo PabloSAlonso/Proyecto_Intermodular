@@ -1,9 +1,7 @@
 package com.example.appmovil;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,17 +20,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.appmovil.ApiRest.Api_Inserts;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class CompleteProfile extends AppCompatActivity {
+public class KlyerCompleteProfile extends AppCompatActivity {
     private TextInputEditText etBio;
     private ImageView ivAvatar;
     private Bitmap avatarBitmap;
-    private Api_Inserts apiInserts;
     private FrameLayout loadingOverlay;
 
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
@@ -53,8 +49,7 @@ public class CompleteProfile extends AppCompatActivity {
                     try {
                         avatarBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                         ivAvatar.setImageBitmap(avatarBitmap);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (IOException ignored) {
                     }
                 }
             }
@@ -66,7 +61,6 @@ public class CompleteProfile extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_complete_profile);
 
-        apiInserts = new Api_Inserts();
         etBio = findViewById(R.id.etBio);
         ivAvatar = findViewById(R.id.ivAvatar);
         Button btnSelectImage = findViewById(R.id.btnSelectImage);
@@ -79,13 +73,8 @@ public class CompleteProfile extends AppCompatActivity {
             return insets;
         });
 
-        if (btnSelectImage != null) {
-            btnSelectImage.setOnClickListener(v -> showImageSourceDialog());
-        }
-
-        if (btnFinish != null) {
-            btnFinish.setOnClickListener(v -> finishProfile());
-        }
+        btnSelectImage.setOnClickListener(v -> showImageSourceDialog());
+        btnFinish.setOnClickListener(v -> finishProfile());
     }
 
     private void showImageSourceDialog() {
@@ -104,39 +93,26 @@ public class CompleteProfile extends AppCompatActivity {
     }
 
     private void finishProfile() {
-        String bio = etBio.getText().toString().trim();
-        
-        SharedPreferences prefs = getSharedPreferences("BettrPrefs", Context.MODE_PRIVATE);
-        int userId = prefs.getInt("userId", -1);
-
-        if (userId == -1) {
-            return;
-        }
-
         showLoading();
+        UserSession session = new UserSession(this);
 
-        String avatarBase64 = "";
-        if (avatarBitmap != null) {
-            avatarBase64 = encodeImageToBase64(avatarBitmap);
+        if (etBio != null) {
+            session.setUserBio(etBio.getText() == null ? "" : etBio.getText().toString().trim());
         }
 
-        apiInserts.updateUserProfile(userId, bio, avatarBase64, success -> {
-            runOnUiThread(() -> {
-                hideLoading();
-                if (success) {
-                    Intent intent = new Intent(CompleteProfile.this, Feed.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        });
+        if (avatarBitmap != null) {
+            session.setUserAvatar(encodeImageToBase64(avatarBitmap));
+        }
+
+        hideLoading();
+        startActivity(new Intent(KlyerCompleteProfile.this, KlyerFeed.class));
+        finish();
     }
 
     private String encodeImageToBase64(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
-        byte[] byteArray = outputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.NO_WRAP);
     }
 
     private void showLoading() {

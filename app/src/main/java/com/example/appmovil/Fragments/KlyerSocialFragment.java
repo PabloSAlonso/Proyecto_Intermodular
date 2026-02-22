@@ -21,7 +21,7 @@ import com.example.appmovil.Adapters.AdapterUsers;
 import com.example.appmovil.ApiRest.Api_Gets;
 import com.example.appmovil.ApiRest.Api_Inserts;
 import com.example.appmovil.Dao.User;
-import com.example.appmovil.Feed;
+import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.R;
 import com.example.appmovil.UserSession;
 import com.google.android.material.textfield.TextInputEditText;
@@ -197,14 +197,14 @@ public class KlyerSocialFragment extends Fragment {
     }
 
     private void showLoading() {
-        if (getActivity() instanceof Feed) {
-            ((Feed) getActivity()).showLoading();
+        if (getActivity() instanceof KlyerFeed) {
+            ((KlyerFeed) getActivity()).showLoading();
         }
     }
 
     private void hideLoading() {
-        if (getActivity() instanceof Feed) {
-            ((Feed) getActivity()).hideLoading();
+        if (getActivity() instanceof KlyerFeed) {
+            ((KlyerFeed) getActivity()).hideLoading();
         }
     }
 

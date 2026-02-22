@@ -27,7 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.appmovil.ApiRest.Api_Inserts;
-import com.example.appmovil.Feed;
+import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.R;
 
 import java.io.ByteArrayOutputStream;
@@ -180,8 +180,8 @@ public class KlyerCameraFragment extends Fragment {
                         selectedBitmap = null;
                         
                         // Navigate to home
-                        if (getActivity() instanceof Feed) {
-                            ((Feed) getActivity()).navigateToHome();
+                        if (getActivity() instanceof KlyerFeed) {
+                            ((KlyerFeed) getActivity()).navigateToHome();
                         }
                     } else {
                         Toast.makeText(getContext(), "Error al compartir hábito", Toast.LENGTH_SHORT).show();

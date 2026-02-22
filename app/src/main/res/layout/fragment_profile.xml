@@ -3,201 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/bg_screen"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="14dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#F5F5F5"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="4dp">
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/surface_card"
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:gravity="center_horizontal"
+                android:padding="22dp">
 
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Usuario"
-                    android:textColor="#212121"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    app:cardCornerRadius="43dp"
+                    app:cardBackgroundColor="#D8EEE9">
 
-                <TextView
-                    android:id="@+id/tvUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:letterSpacing="0.05"
-                    android:text="username"
-                    android:textColor="#2196F3"
-                    android:textSize="28sp"
-                    android:textStyle="bold|italic" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tvEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="email@ejemplo.com"
-                    android:textColor="#757575"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tvBio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:lineSpacingMultiplier="1.3"
-                    android:paddingHorizontal="8dp"
-                    android:text="Tu bio aquí..."
-                    android:textColor="#757575"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-
-                <View
-                    android:layout_width="80dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="#E0E0E0" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/layoutFollowers"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        <ImageView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
 
                         <TextView
-                            android:id="@+id/tvFollowers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="#212121"
-                            android:textSize="22sp"
+                            android:id="@+id/tvAvatarLetter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="U"
+                            android:textColor="@color/blue_dark"
+                            android:textSize="30sp"
                             android:textStyle="bold" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Seguidores"
-                            android:textColor="#757575"
-                            android:textSize="12sp" />
+                <TextView android:id="@+id/tvName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textColor="@color/text_dark" android:textSize="22sp" android:textStyle="bold" android:visibility="gone" />
+                <TextView android:id="@+id/tvUsername" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/blue_primary" android:textSize="18sp" android:textStyle="bold" />
+                <TextView android:id="@+id/tvEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textColor="@color/text_secondary" android:visibility="gone" />
+                <TextView android:id="@+id/tvBio" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:gravity="center" android:textColor="@color/text_secondary" android:visibility="gone" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:orientation="horizontal">
+                    <LinearLayout android:id="@+id/layoutFollowers" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="6dp">
+                        <TextView android:id="@+id/tvFollowers" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" android:textColor="@color/text_dark" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Seguidores" android:textColor="@color/text_secondary" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layoutFollowing"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <TextView
-                            android:id="@+id/tvFollowing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="#212121"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Siguiendo"
-                            android:textColor="#757575"
-                            android:textSize="12sp" />
+                    <LinearLayout android:id="@+id/layoutFollowing" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="6dp">
+                        <TextView android:id="@+id/tvFollowing" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" android:textColor="@color/text_dark" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Siguiendo" android:textColor="@color/text_secondary" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <TextView
-                            android:id="@+id/tvHabitsCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="#212121"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Posts"
-                            android:textColor="#757575"
-                            android:textSize="12sp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="6dp">
+                        <TextView android:id="@+id/tvHabitsCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textStyle="bold" android:textColor="@color/text_dark" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Posts" android:textColor="@color/text_secondary" />
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <FrameLayout
-            android:id="@+id/loading_overlay"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:visibility="gone">
-
+        <FrameLayout android:id="@+id/loading_overlay" android:layout_width="match_parent" android:layout_height="100dp" android:visibility="gone">
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:indeterminate="true"
-                app:indicatorColor="#2196F3"
-                app:trackThickness="4dp"/>
+                app:indicatorColor="@color/blue_primary" />
         </FrameLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:text="Cerrar Sesión"
-            android:textColor="#EF4444"
-            android:textSize="16sp"
-            app:backgroundTint="#F5F5F5"
-            app:cornerRadius="0dp"
-            app:icon="@android:drawable/ic_lock_power_off"
-            app:iconTint="#EF4444" />
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+            android:text="Cerrar sesión"
+            android:textColor="@color/accent_coral"
+            app:backgroundTint="@color/surface_card"
+            app:strokeColor="@color/accent_coral"
+            app:strokeWidth="1dp" />
 
     </LinearLayout>
 </ScrollView>

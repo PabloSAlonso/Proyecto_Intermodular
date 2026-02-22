@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appmovil.Adapters.AdapterFeed;
 import com.example.appmovil.ApiRest.Api_Gets;
 import com.example.appmovil.ApiRest.Api_Inserts;
-import com.example.appmovil.Feed;
+import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.Publicaciones.Habit;
 import com.example.appmovil.R;
 
