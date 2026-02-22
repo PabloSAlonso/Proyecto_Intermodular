@@ -44,7 +44,7 @@ public class KlyerPostsFragment extends Fragment {
         apiGets = new Api_Gets();
         apiInserts = new Api_Inserts();
         
-        rvMyPosts = view.findViewById(R.id.rvMyPosts);
+        rvMyPosts = view.findViewById(R.id.rvMyHabits);
         rvMyPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         loadingOverlay = view.findViewById(R.id.loading_overlay);
         emptyState = view.findViewById(R.id.emptyState);
