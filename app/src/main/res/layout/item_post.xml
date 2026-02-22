@@ -6,8 +6,10 @@
     android:layout_marginHorizontal="12dp"
     android:layout_marginBottom="10dp"
     app:cardBackgroundColor="@color/surface_card"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="1dp">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/grey_light">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +25,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivProfilePost"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:src="@drawable/logoklyer"
                 app:shapeAppearanceOverlay="@style/CircleImage" />
 
@@ -40,34 +42,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="@color/text_dark" />
+                    android:textColor="@color/text_dark"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tvPostInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvHabitType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
                 android:background="@drawable/bg_habit_type_badge"
-                android:textColor="@color/blue_dark"
-                android:textSize="12sp"
+                android:textColor="@color/blue_primary"
+                android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvPostImage"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp">
 
             <ImageView
@@ -84,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textColor="@color/text_dark"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

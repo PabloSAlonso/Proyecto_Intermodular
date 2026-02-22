@@ -15,22 +15,22 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="16dp"
             app:cardBackgroundColor="@color/surface_card"
-            app:cardElevation="2dp">
+            app:cardElevation="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
-                android:padding="22dp">
+                android:padding="18dp">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="86dp"
-                    android:layout_height="86dp"
-                    app:cardCornerRadius="43dp"
-                    app:cardBackgroundColor="#D8EEE9">
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    app:cardCornerRadius="36dp"
+                    app:cardBackgroundColor="@color/grey_light">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="U"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="30sp"
+                            android:textColor="@color/blue_primary"
+                            android:textSize="26sp"
                             android:textStyle="bold" />
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
