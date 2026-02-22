@@ -16,7 +16,7 @@ class Publicacion
 
     public function __construct()
     {
-        $this->request = new Request("http://10.0.2.2:8080/apirest/rest");
+        $this->request = new Request("https://proyecto-intermodular-kpzv.onrender.com/rest");
     }
 
     

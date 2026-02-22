@@ -1,23 +1,41 @@
 <resources>
-    <string name="app_name">Klyer</string>
-    <string name="mensaje_bienvenida">Bienvenido a Klyer</string>
-    <string name="mensaje_cerrarsesion">¿Seguro que desea cerrar la sesion?</string>
-    <string name="mensaje_virales">Vea a continuación las publicaciones mas virales de la página</string>
-    <string name="mensaje_registro">¿Todavia no tienes una cuenta? Registrate ya gratis!</string>
-    <string name="mensaje_recibirmensaje">Tienes un nuevo mensaje de</string>
-    <string name="mensaje_publicacion">a quien sigues, a hecho una publicación</string>
-    <string name="mensaje_password">Contraseña</string>
-    <string name="mensaje_footer">Todos los derechos reservados.</string>
-    <string name="mensaje_valorar">Valóranos</string>
-    <string name="mensaje_poneremail">micorreo@ejemplo.com</string>
-    <string name="mensaje_nomcompleto">Nombre y Apellidos</string>
-    <string name="mensaje_nombreusuario">Nombre de Usuario</string>
-    <string name="mensaje_fechanac">Fecha de Nacimiento</string>
-    <string name="mensaje_registrarcorreo">Correo Electrónico</string>
-    <string name="mensaje_captarclientes">La innovación total respecto al mundo de las redes sociales, empieza ya a chatear con todo tipo de personas y entidades de la manera mas comoda y elegante posible</string>
-    <string name="mensaje_cuentaexistente">¿Ya tienes una cuenta? inicia sesion</string>
-    <string name="mensaje_registrate">Registrarse</string>
-    <string name="mensaje_pagprincipal">Página Principal</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<string name="app_name">Klyer</string>
+    <string name="title_activity_login">Iniciar Sesión</string>
+
+    <!-- Intro -->
+    <string name="welcome_bettr">Bienvenido a Klyer</string>
+    <string name="intro_desc">Sigue tu progreso. Mejora cada día.\nKlyer te ayuda a convertir datos en mejores decisiones.</string>
+    <string name="btn_login">Iniciar Sesión</string>
+    <string name="btn_register">Crear cuenta</string>
+
+    <!-- Login/Register -->
+    <string name="welcome_back">Bienvenido de nuevo</string>
+    <string name="login_subtitle">Inicia sesión en tu cuenta</string>
+    <string name="prompt_email">Correo electrónico</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="no_account">¿No tienes cuenta? Regístrate</string>
+    <string name="already_account">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="username">Nombre de usuario</string>
+
+    <!-- Complete Profile -->
+    <string name="complete_profile">Completa tu perfil</string>
+    <string name="select_photo">Seleccionar foto</string>
+    <string name="bio_hint">Cuéntanos algo sobre ti</string>
+    <string name="finish">Finalizar</string>
+
+    <!-- Camera / Post -->
+    <string name="share_habit">Comparte tu post</string>
+    <string name="btn_camera">Cámara</string>
+    <string name="btn_gallery">Galería</string>
+    <string name="post_description">Escribe una descripción...</string>
+    <string name="btn_post">Publicar Post</string>
+
+    <!-- Fragments -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_habits">Posts</string>
+    <string name="nav_social">Social</string>
+    <string name="nav_profile">Perfil</string>
+    <string name="nav_camera">Cámara</string>
 </resources>
