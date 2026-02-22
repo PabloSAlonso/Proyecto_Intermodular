@@ -1,11 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="Base.Theme.AppMovil"
-        parent="Theme.Material3.DayNight.NoActionBar">
-
-        <item name="colorPrimary">@color/blue</item>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Klyer" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="materialButtonStyle">@style/SquareButton</item>
     </style>
 
-    <style name="Theme.AppMovil" parent="Base.Theme.AppMovil" />
+    <style name="Theme.Klyer" parent="Base.Theme.Klyer" />
 
+    <style name="CircleImage">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Square button style -->
+    <style name="SquareButton" parent="Widget.Material3.Button">
+        <item name="cornerRadius">8dp</item>
+    </style>
 </resources>

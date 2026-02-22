@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/klyer_home"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/nav_habits"
+        android:icon="@drawable/klyer_mail"
+        android:title="Feed" />
+    <item
+        android:id="@+id/nav_camera"
+        android:icon="@drawable/klyer_camera"
+        android:title="" />
+    <item
+        android:id="@+id/nav_social"
+        android:icon="@drawable/klyer_notifications"
+        android:title="Notis" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/klyer_profile"
+        android:title="Perfil" />
+</menu>
