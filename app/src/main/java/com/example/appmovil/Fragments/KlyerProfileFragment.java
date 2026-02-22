@@ -27,7 +27,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends Fragment {
+public class KlyerProfileFragment extends Fragment {
 
     private TextView tvName, tvUsername, tvEmail, tvBio, tvFollowers, tvFollowing, tvHabitsCount, tvAvatarLetter;
     private ImageView ivAvatar;
@@ -69,13 +69,13 @@ public class ProfileFragment extends Fragment {
 
         if (layoutFollowers != null) {
             layoutFollowers.setOnClickListener(v -> {
-                loadFragment(FollowersFragment.newInstance(myUserId, "followers"));
+                loadFragment(KlyerFollowersFragment.newInstance(myUserId, "followers"));
             });
         }
 
         if (layoutFollowing != null) {
             layoutFollowing.setOnClickListener(v -> {
-                loadFragment(FollowersFragment.newInstance(myUserId, "following"));
+                loadFragment(KlyerFollowersFragment.newInstance(myUserId, "following"));
             });
         }
 

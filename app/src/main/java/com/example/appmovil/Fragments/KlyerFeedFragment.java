@@ -29,7 +29,7 @@ import com.example.appmovil.UserSession;
 
 import java.util.ArrayList;
 
-public class FeedFragment extends Fragment {
+public class KlyerFeedFragment extends Fragment {
 
     private RecyclerView rvFeed;
     private AdapterFeed adapter;
