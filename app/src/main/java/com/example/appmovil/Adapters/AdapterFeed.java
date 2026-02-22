@@ -13,19 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmovil.ApiRest.Api_Inserts;
-import com.example.appmovil.Publicaciones.Habit;
+import com.example.appmovil.Publicaciones.Post;
 import com.example.appmovil.R;
 
 import java.util.ArrayList;
 
 public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> {
-    private ArrayList<Habit> listaHabitos;
+    private ArrayList<Post> listaPosts;
     private int userId;
     private Api_Inserts apiInserts;
     private Runnable onLikeChanged;
 
-    public AdapterFeed(ArrayList<Habit> listaHabitos, int userId, Api_Inserts apiInserts, Runnable onLikeChanged) {
-        this.listaHabitos = listaHabitos;
+    public AdapterFeed(ArrayList<Post> listaPosts, int userId, Api_Inserts apiInserts, Runnable onLikeChanged) {
+        this.listaPosts = listaPosts;
         this.userId = userId;
         this.apiInserts = apiInserts;
         this.onLikeChanged = onLikeChanged;
@@ -40,31 +40,31 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Habit habit = listaHabitos.get(position);
+        Post post = listaPosts.get(position);
         
-        holder.tvUserName.setText("@" + habit.getNombreUsuario());
+        holder.tvUserName.setText("@" + post.getNombreUsuario());
         
-        String habitType = habit.getHabitType();
-        if (habitType != null && !habitType.isEmpty()) {
-            String emoji = getHabitEmoji(habitType);
-            holder.tvHabitType.setText(emoji + " " + habitType);
-            holder.tvHabitType.setVisibility(View.VISIBLE);
+        String postType = post.getPostType();
+        if (postType != null && !postType.isEmpty()) {
+            String emoji = getPostEmoji(postType);
+            holder.tvPostType.setText(emoji + " " + postType);
+            holder.tvPostType.setVisibility(View.VISIBLE);
         } else {
-            holder.tvHabitType.setVisibility(View.GONE);
+            holder.tvPostType.setVisibility(View.GONE);
         }
         
-        String timeAgo = getTimeAgo(habit.getCreatedAt());
+        String timeAgo = getTimeAgo(post.getCreatedAt());
         holder.tvPostInfo.setText("• " + timeAgo);
         
-        if (habit.getDescripcion() != null && !habit.getDescripcion().isEmpty()) {
-            holder.tvDescription.setText(habit.getDescripcion());
+        if (post.getDescripcion() != null && !post.getDescripcion().isEmpty()) {
+            holder.tvDescription.setText(post.getDescripcion());
             holder.tvDescription.setVisibility(View.VISIBLE);
         } else {
             holder.tvDescription.setVisibility(View.GONE);
         }
         
-        if (habit.getUserAvatar() != null && !habit.getUserAvatar().isEmpty()) {
-            Bitmap avatar = decodeBase64(habit.getUserAvatar());
+        if (post.getUserAvatar() != null && !post.getUserAvatar().isEmpty()) {
+            Bitmap avatar = decodeBase64(post.getUserAvatar());
             if (avatar != null) {
                 holder.ivProfilePost.setImageBitmap(avatar);
             } else {
@@ -74,8 +74,8 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
             holder.ivProfilePost.setImageResource(R.drawable.logoklyer);
         }
 
-        if (habit.getImageUrl() != null && !habit.getImageUrl().isEmpty()) {
-            Bitmap postImage = decodeBase64(habit.getImageUrl());
+        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+            Bitmap postImage = decodeBase64(post.getImageUrl());
             if (postImage != null) {
                 holder.ivPostImage.setImageBitmap(postImage);
                 holder.cvPostImage.setVisibility(View.VISIBLE);
@@ -87,8 +87,8 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         }
     }
 
-    private String getHabitEmoji(String habitType) {
-        switch (habitType) {
+    private String getPostEmoji(String postType) {
+        switch (postType) {
             case "Ejercicio": return "💪";
             case "Lectura": return "📚";
             case "Meditación": return "🧘";
@@ -131,11 +131,11 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return listaHabitos.size();
+        return listaPosts.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUserName, tvPostInfo, tvDescription, tvHabitType;
+        TextView tvUserName, tvPostInfo, tvDescription, tvPostType;
         ImageView ivPostImage, ivProfilePost;
         View cvPostImage;
 
@@ -144,7 +144,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
             tvUserName = itemView.findViewById(R.id.tvUserName);
             tvPostInfo = itemView.findViewById(R.id.tvPostInfo);
             tvDescription = itemView.findViewById(R.id.tvDescription);
-            tvHabitType = itemView.findViewById(R.id.tvHabitType);
+            tvPostType = itemView.findViewById(R.id.tvPostType);
             ivPostImage = itemView.findViewById(R.id.ivPostImage);
             ivProfilePost = itemView.findViewById(R.id.ivProfilePost);
             cvPostImage = itemView.findViewById(R.id.cvPostImage);

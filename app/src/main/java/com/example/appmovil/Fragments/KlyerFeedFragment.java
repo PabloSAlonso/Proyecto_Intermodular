@@ -23,9 +23,9 @@ import com.example.appmovil.Adapters.AdapterFeed;
 import com.example.appmovil.ApiRest.Api_Gets;
 import com.example.appmovil.ApiRest.Api_Inserts;
 import com.example.appmovil.KlyerFeed;
-import com.example.appmovil.Publicaciones.Habit;
+import com.example.appmovil.Publicaciones.Post;
 import com.example.appmovil.R;
-import com.example.appmovil.UserSession;
+import com.example.appmovil.KlyerUserSession;
 
 import java.util.ArrayList;
 
@@ -33,13 +33,13 @@ public class KlyerFeedFragment extends Fragment {
 
     private RecyclerView rvFeed;
     private AdapterFeed adapter;
-    private final ArrayList<Habit> listaHabitos = new ArrayList<>();
+    private final ArrayList<Post> listaPosts = new ArrayList<>();
     private Api_Gets apiGets;
     private Api_Inserts apiInserts;
     private int myUserId;
     private View emptyState;
     private ShapeableImageView ivProfileTop;
-    private UserSession userSession;
+    private KlyerUserSession userSession;
 
     @Nullable
     @Override
@@ -53,7 +53,7 @@ public class KlyerFeedFragment extends Fragment {
         emptyState = view.findViewById(R.id.emptyState);
         
         ivProfileTop = view.findViewById(R.id.ivProfileTop);
-        userSession = new UserSession(requireContext());
+        userSession = new KlyerUserSession(requireContext());
 
         SharedPreferences prefs = requireActivity().getSharedPreferences("BettrPrefs", Context.MODE_PRIVATE);
         myUserId = prefs.getInt("userId", -1);
@@ -141,25 +141,25 @@ public class KlyerFeedFragment extends Fragment {
 
         showLoading();
 
-        apiGets.getSocialFeed(myUserId, habits -> {
+        apiGets.getSocialFeed(myUserId, posts -> {
             if (isAdded() && getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     hideLoading();
-                    if (habits != null && !habits.isEmpty()) {
-                        listaHabitos.clear();
-                        listaHabitos.addAll(habits);
-                        adapter = new AdapterFeed(listaHabitos, myUserId, apiInserts, () -> loadPosts());
+                    if (posts != null && !posts.isEmpty()) {
+                        listaPosts.clear();
+                        listaPosts.addAll(posts);
+                        adapter = new AdapterFeed(listaPosts, myUserId, apiInserts, () -> loadPosts());
                         rvFeed.setAdapter(adapter);
                         hideEmptyState();
                         
-                        for (Habit habit : listaHabitos) {
-                            final int habitPosition = listaHabitos.indexOf(habit);
-                            apiGets.checkIfLiked(habit.getId(), myUserId, liked -> {
+                        for (Post post : listaPosts) {
+                            final int postPosition = listaPosts.indexOf(post);
+                            apiGets.checkIfLiked(post.getId(), myUserId, liked -> {
                                 if (isAdded() && getActivity() != null) {
                                     getActivity().runOnUiThread(() -> {
-                                        habit.setLiked(liked);
-                                        if (adapter != null && habitPosition >= 0) {
-                                            adapter.notifyItemChanged(habitPosition);
+                                        post.setLiked(liked);
+                                        if (adapter != null && postPosition >= 0) {
+                                            adapter.notifyItemChanged(postPosition);
                                         }
                                     });
                                 }

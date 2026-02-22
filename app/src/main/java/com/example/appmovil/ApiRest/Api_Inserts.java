@@ -22,6 +22,10 @@ public class Api_Inserts {
         void onResult(boolean success);
     }
 
+    public void addPost(int userId, String description, String imageBase64, String postType, ApiInsertCallback callback) {
+        addHabit(userId, description, imageBase64, postType, callback);
+    }
+
     public void addHabit(int userId, String description, String imageBase64, String habitType, ApiInsertCallback callback) {
         new Thread(() -> {
             HttpURLConnection connection = null;

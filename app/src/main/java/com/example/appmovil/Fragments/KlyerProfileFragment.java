@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class KlyerProfileFragment extends Fragment {
 
-    private TextView tvName, tvUsername, tvEmail, tvBio, tvFollowers, tvFollowing, tvHabitsCount, tvAvatarLetter;
+    private TextView tvName, tvUsername, tvEmail, tvBio, tvFollowers, tvFollowing, tvPostsCount, tvAvatarLetter;
     private ImageView ivAvatar;
     private View layoutFollowers, layoutFollowing;
     private FrameLayout loadingOverlay;
@@ -175,7 +175,7 @@ public class KlyerProfileFragment extends Fragment {
         });
     }
 
-    private void updateStatsUI(int followers, int following, int habits) {
+    private void updateStatsUI(int followers, int following, int posts) {
         if (tvFollowers != null) {
             tvFollowers.setText(String.valueOf(followers));
         }
@@ -183,7 +183,7 @@ public class KlyerProfileFragment extends Fragment {
             tvFollowing.setText(String.valueOf(following));
         }
         if (tvHabitsCount != null) {
-            tvHabitsCount.setText(String.valueOf(habits));
+            tvHabitsCount.setText(String.valueOf(posts));
         }
     }
 

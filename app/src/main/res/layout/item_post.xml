@@ -54,12 +54,12 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvHabitType"
+                android:id="@+id/tvPostType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="3dp"
-                android:background="@drawable/bg_habit_type_badge"
+                android:background="@drawable/bg_post_type_badge"
                 android:textColor="@color/blue_primary"
                 android:textSize="10sp"
                 android:textStyle="bold" />

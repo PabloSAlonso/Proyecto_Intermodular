@@ -3,7 +3,7 @@ package com.example.appmovil.ApiRest;
 import android.util.Log;
 
 import com.example.appmovil.Dao.User;
-import com.example.appmovil.Publicaciones.Habit;
+import com.example.appmovil.Publicaciones.Post;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,11 +34,11 @@ public class Api_Gets {
     }
 
     public interface StatsCallback {
-        void onResult(int followers, int following, int habits);
+        void onResult(int followers, int following, int posts);
     }
 
-    public interface HabitsCallback {
-        void onResult(ArrayList<Habit> habits);
+    public interface PostsCallback {
+        void onResult(ArrayList<Post> posts);
     }
 
     public interface UsersCallback {
@@ -103,8 +103,8 @@ public class Api_Gets {
         }).start();
     }
 
-    public void getSocialFeed(int userId, HabitsCallback callback) {
-        getHabits(callback);
+    public void getSocialFeed(int userId, PostsCallback callback) {
+        getPosts(callback);
     }
 
     public void searchUsers(String query, UsersCallback callback) {
@@ -134,8 +134,8 @@ public class Api_Gets {
         }).start();
     }
 
-    public void getHabits(HabitsCallback callback) {
-        new Thread(() -> callback.onResult(fetchHabitsFromEndpoint(API_ROOT + "/publicaciones/todas"))).start();
+    public void getPosts(PostsCallback callback) {
+        new Thread(() -> callback.onResult(fetchPostsFromEndpoint(API_ROOT + "/publicaciones/todas"))).start();
     }
 
     public void getUserById(int userId, UserCallback callback) {
@@ -167,14 +167,14 @@ public class Api_Gets {
     }
 
     public void getUserStats(int userId, StatsCallback callback) {
-        getHabitsByUserId(userId, habits -> callback.onResult(0, 0, habits == null ? 0 : habits.size()));
+        getPostsByUserId(userId, posts -> callback.onResult(0, 0, posts == null ? 0 : posts.size()));
     }
 
-    public void getHabitsByUserId(int userId, HabitsCallback callback) {
-        new Thread(() -> callback.onResult(fetchHabitsFromEndpoint(API_ROOT + "/publicaciones/usuario/" + userId))).start();
+    public void getPostsByUserId(int userId, PostsCallback callback) {
+        new Thread(() -> callback.onResult(fetchPostsFromEndpoint(API_ROOT + "/publicaciones/usuario/" + userId))).start();
     }
 
-    public void checkIfLiked(int habitId, int userId, BooleanCallback callback) {
+    public void checkIfLiked(int postId, int userId, BooleanCallback callback) {
         callback.onResult(false);
     }
 
@@ -216,9 +216,9 @@ public class Api_Gets {
         }
     }
 
-    private ArrayList<Habit> fetchHabitsFromEndpoint(String endpoint) {
+    private ArrayList<Post> fetchPostsFromEndpoint(String endpoint) {
         HttpURLConnection connection = null;
-        ArrayList<Habit> habits = new ArrayList<>();
+        ArrayList<Post> posts = new ArrayList<>();
 
         try {
             Map<Integer, User> usersById = new HashMap<>();
@@ -242,7 +242,7 @@ public class Api_Gets {
                     String username = user != null ? user.getUsername() : ("user" + userId);
                     String avatar = user != null ? user.getAvatarUrl() : "";
 
-                    habits.add(new Habit(
+                    posts.add(new Post(
                             obj.optInt("id_publicacion", 0),
                             username,
                             avatar,
@@ -263,7 +263,7 @@ public class Api_Gets {
             }
         }
 
-        return habits;
+        return posts;
     }
 
     private User parseUser(JSONObject obj) {
