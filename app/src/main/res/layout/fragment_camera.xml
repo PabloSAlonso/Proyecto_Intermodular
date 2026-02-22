@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
+    android:background="#FFFFFF"
     android:padding="24dp">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/share_habit"
-        android:textColor="#FFFFFF"
+        android:textColor="#212121"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,13 +25,13 @@
         android:layout_width="289dp"
         android:layout_height="227dp"
         android:layout_marginTop="32dp"
-        app:cardBackgroundColor="#1A1A1A"
+        app:cardBackgroundColor="#F5F5F5"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCameraTitle"
-        app:strokeColor="#2A2E33"
+        app:strokeColor="#E0E0E0"
         app:strokeWidth="1dp">
 
         <ImageView
@@ -40,7 +40,7 @@
             android:layout_height="227dp"
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_menu_camera"
-            app:tint="#3F444D" />
+            app:tint="#757575" />
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
@@ -61,11 +61,11 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="@string/btn_camera"
-            app:backgroundTint="#2A2E33"
+            app:backgroundTint="#F5F5F5"
             app:cornerRadius="16dp"
             app:icon="@android:drawable/ic_menu_camera"
-            app:iconTint="#FACC15"
-            android:textColor="#FFFFFF" />
+            app:iconTint="#2196F3"
+            android:textColor="#212121" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGallery"
@@ -75,11 +75,11 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:text="@string/btn_gallery"
-            app:backgroundTint="#2A2E33"
+            app:backgroundTint="#F5F5F5"
             app:cornerRadius="16dp"
             app:icon="@android:drawable/ic_menu_gallery"
-            app:iconTint="#FACC15"
-            android:textColor="#FFFFFF" />
+            app:iconTint="#2196F3"
+            android:textColor="#212121" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -88,12 +88,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:hint="@string/post_description"
-        app:boxBackgroundColor="#1A1A1A"
+        app:boxBackgroundColor="#F5F5F5"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
-        app:hintTextColor="#9CA3AF"
+        app:hintTextColor="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llButtons">
@@ -102,23 +102,21 @@
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF" />
+            android:textColor="#212121" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Habit Type Spinner -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilHabitType"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Tipo de Hábito"
-        app:boxBackgroundColor="#1A1A1A"
+        android:hint="Categoría de hábito"
+        app:boxBackgroundColor="#F5F5F5"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
-        app:hintTextColor="#9CA3AF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilDescription">
@@ -127,20 +125,16 @@
             android:id="@+id/spinnerHabitType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#9CA3AF"/>
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Overlay de Carga específico para el fragmento -->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPost"
         android:layout_width="365dp"
         android:layout_height="61dp"
-        android:backgroundTint="#FACC15"
+        android:backgroundTint="#2196F3"
         android:text="@string/btn_post"
-        android:textColor="#1C1F22"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -153,7 +147,7 @@
         android:id="@+id/camera_loading_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#B3121212"
+        android:background="#B3FFFFFF"
         android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
@@ -164,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            app:indicatorColor="#FACC15"
+            app:indicatorColor="#2196F3"
             app:trackThickness="4dp" />
     </FrameLayout>
 

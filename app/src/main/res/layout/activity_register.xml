@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1F22">
+    android:background="#FFFFFF">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLogo"
@@ -13,7 +13,7 @@
         android:layout_height="120dp"
         app:cardCornerRadius="26dp"
         app:cardElevation="8dp"
-        app:cardBackgroundColor="#2A2E33"
+        app:cardBackgroundColor="#F5F5F5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
             android:id="@+id/imgLogo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/logobettr"
+            android:src="@drawable/logoklyer"
             android:scaleType="centerCrop"/>
     </com.google.android.material.card.MaterialCardView>
 
@@ -34,7 +34,7 @@
         android:text="@string/btn_register"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
+        android:textColor="#212121"
         app:layout_constraintTop_toBottomOf="@id/cardLogo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="Únete a Bettr hoy"
-        android:textColor="#D1D5DB"
+        android:text="Únete a Klyer hoy"
+        android:textColor="#757575"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,9 +58,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/full_name"
         app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#2A2E33"
-        app:boxStrokeColor="#FACC15"
-        app:hintTextColor="#D1D5DB"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxStrokeColor="#2196F3"
+        app:hintTextColor="#757575"
         app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
@@ -76,7 +76,7 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#212121"
             android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,9 +86,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/username"
         app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#2A2E33"
-        app:boxStrokeColor="#FACC15"
-        app:hintTextColor="#D1D5DB"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxStrokeColor="#2196F3"
+        app:hintTextColor="#757575"
         app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
@@ -104,7 +104,7 @@
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#212121"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,9 +114,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/prompt_email"
         app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#2A2E33"
-        app:boxStrokeColor="#FACC15"
-        app:hintTextColor="#D1D5DB"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxStrokeColor="#2196F3"
+        app:hintTextColor="#757575"
         app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
@@ -132,7 +132,7 @@
             android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#212121"
             android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,9 +143,9 @@
         android:hint="@string/prompt_password"
         app:passwordToggleEnabled="true"
         app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#2A2E33"
-        app:boxStrokeColor="#FACC15"
-        app:hintTextColor="#D1D5DB"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxStrokeColor="#2196F3"
+        app:hintTextColor="#757575"
         app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
@@ -161,7 +161,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#212121"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,9 +172,9 @@
         android:hint="@string/confirm_password"
         app:passwordToggleEnabled="true"
         app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#2A2E33"
-        app:boxStrokeColor="#FACC15"
-        app:hintTextColor="#D1D5DB"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxStrokeColor="#2196F3"
+        app:hintTextColor="#757575"
         app:boxCornerRadiusTopStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
@@ -190,7 +190,7 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
+            android:textColor="#212121"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,8 +201,8 @@
         android:text="@string/btn_register"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="#1C1F22"
-        android:backgroundTint="#FACC15"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#2196F3"
         app:cornerRadius="20dp"
         app:layout_constraintTop_toBottomOf="@id/tilConfirmPassword"
         app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +217,7 @@
         android:layout_height="wrap_content"
         android:text="@string/already_account"
         android:textSize="14sp"
-        android:textColor="#FACC15"
+        android:textColor="#2196F3"
         app:layout_constraintTop_toBottomOf="@id/btnRegister"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -239,7 +239,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            app:indicatorColor="#FACC15"
+            app:indicatorColor="#2196F3"
             app:trackThickness="4dp" />
     </FrameLayout>
 

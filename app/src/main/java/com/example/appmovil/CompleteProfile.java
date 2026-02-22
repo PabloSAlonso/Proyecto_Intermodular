@@ -1,4 +1,4 @@
-package com.example.bettr;
+package com.example.appmovil;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +22,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.bettr.ApiRest.Api_Inserts;
+import com.example.appmovil.ApiRest.Api_Inserts;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;

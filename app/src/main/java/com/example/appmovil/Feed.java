@@ -1,4 +1,4 @@
-package com.example.bettr;
+package com.example.appmovil;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,11 +17,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.bettr.Fragments.CameraFragment;
-import com.example.bettr.Fragments.FeedFragment;
-import com.example.bettr.Fragments.HabitsFragment;
-import com.example.bettr.Fragments.ProfileFragment;
-import com.example.bettr.Fragments.SocialFragment;
+import com.example.appmovil.Fragments.CameraFragment;
+import com.example.appmovil.Fragments.FeedFragment;
+import com.example.appmovil.Fragments.HabitsFragment;
+import com.example.appmovil.Fragments.ProfileFragment;
+import com.example.appmovil.Fragments.SocialFragment;
 
 public class Feed extends AppCompatActivity {
 
@@ -184,4 +184,3 @@ public class Feed extends AppCompatActivity {
                 .commit();
     }
 }
-

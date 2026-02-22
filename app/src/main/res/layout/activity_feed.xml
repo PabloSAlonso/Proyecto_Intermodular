@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="#121212">
+    android:background="#FFFFFF">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -23,7 +23,7 @@
         android:id="@+id/loading_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99121212"
+        android:background="#99FFFFFF"
         android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            app:indicatorColor="#FACC15"
+            app:indicatorColor="#2196F3"
             app:trackThickness="4dp" />
     </FrameLayout>
 
@@ -49,9 +49,9 @@
         android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="#1E1E1E"
+        app:cardBackgroundColor="#F5F5F5"
         app:cardCornerRadius="30dp"
-        app:cardElevation="8dp"
+        app:cardElevation="4dp"
         app:strokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_slideshow"
-                    app:tint="#FACC15" />
+                    app:tint="#2196F3" />
             </FrameLayout>
 
             <FrameLayout
@@ -95,7 +95,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_view"
-                    app:tint="#6B7280" />
+                    app:tint="#757575" />
             </FrameLayout>
 
             <FrameLayout
@@ -112,7 +112,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_camera"
-                    app:tint="#6B7280" />
+                    app:tint="#757575" />
             </FrameLayout>
 
             <FrameLayout
@@ -129,7 +129,7 @@
                     android:layout_height="26dp"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_share"
-                    app:tint="#6B7280" />
+                    app:tint="#757575" />
             </FrameLayout>
 
             <FrameLayout

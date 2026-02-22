@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="#FFFFFF">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSearch"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Buscar usuarios..."
-        app:boxBackgroundColor="#1A1A1A"
+        app:boxBackgroundColor="#F5F5F5"
         app:boxCornerRadiusBottomEnd="24dp"
         app:boxCornerRadiusBottomStart="24dp"
         app:boxCornerRadiusTopEnd="24dp"
@@ -21,7 +21,7 @@
         app:boxStrokeWidthFocused="1dp"
         app:endIconMode="custom"
         app:endIconDrawable="@android:drawable/ic_menu_search"
-        app:hintTextColor="#9CA3AF"
+        app:hintTextColor="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +30,7 @@
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF" />
+            android:textColor="#212121" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -60,14 +60,14 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@android:drawable/ic_menu_search"
-            app:tint="#9CA3AF" />
+            app:tint="#757575" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="No se encontraron usuarios"
-            android:textColor="#9CA3AF"
+            android:textColor="#757575"
             android:textSize="16sp" />
 
         <TextView
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Prueba con otro criterio de búsqueda"
-            android:textColor="#6B7280"
+            android:textColor="#9E9E9E"
             android:textSize="14sp" />
     </LinearLayout>
 
