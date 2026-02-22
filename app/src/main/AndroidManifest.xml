@@ -12,11 +12,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bettr"
+        android:theme="@style/Theme.Klyer"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Views.InicioApp"
+            android:name=".Feed"
+            android:exported="false" />
+        <activity
+            android:name=".Intro"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,18 +28,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Views.ModificarPerfil"
+            android:name=".Login"
+            android:exported="false"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".Views.RegistroCuenta"
+            android:name=".CompleteProfile"
             android:exported="false" />
-        <activity
-            android:name=".Views.InicioSesion"
-            android:exported="false" />
-        <activity
-            android:name=".Views.PaginaInicio"
-            android:exported="false">
-        </activity>
     </application>
 
 </manifest>

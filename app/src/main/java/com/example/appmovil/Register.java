@@ -1,4 +1,4 @@
-package com.example.bettr;
+package com.example.appmovil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.bettr.ApiRest.Api_Inserts;
-import com.example.bettr.ApiRest.Api_Gets;
-import com.example.bettr.UserSession;
+import com.example.appmovil.ApiRest.Api_Inserts;
+import com.example.appmovil.ApiRest.Api_Gets;
+import com.example.appmovil.UserSession;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -189,4 +189,3 @@ public class Register extends AppCompatActivity {
         }
     }
 }
-

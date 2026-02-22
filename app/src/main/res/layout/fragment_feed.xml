@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="#FFFFFF">
 
     <!-- Barra Superior -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/logobettr"
+            android:src="@drawable/logoklyer"
             app:shapeAppearanceOverlay="@style/CircleImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,8 +31,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bettr"
-            android:textColor="#FACC15"
+            android:text="Klyer"
+            android:textColor="#2196F3"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,11 +49,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="4dp"
-        app:cardBackgroundColor="#1A1A1A"
+        app:cardBackgroundColor="#F5F5F5"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:strokeWidth="1dp"
-        app:strokeColor="#2A2E33"
+        app:strokeColor="#E0E0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar">
@@ -93,14 +93,14 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@android:drawable/ic_menu_slideshow"
-            app:tint="#9CA3AF" />
+            app:tint="#757575" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="No hay publicaciones"
-            android:textColor="#9CA3AF"
+            android:textColor="#757575"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -108,8 +108,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Sigue a otros usuarios para ver sus hábitos"
-            android:textColor="#6B7280"
+            android:text="Sigue a otros usuarios para ver sus posts"
+            android:textColor="#9CA3AF"
             android:textSize="14sp"
             android:gravity="center"
             android:paddingHorizontal="32dp" />

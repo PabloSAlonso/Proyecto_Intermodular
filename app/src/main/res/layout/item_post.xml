@@ -7,9 +7,9 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     android:layout_marginHorizontal="8dp"
-    app:cardBackgroundColor="#1A1A1A"
+    app:cardBackgroundColor="#F5F5F5"
     app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
+    app:cardElevation="2dp"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/logobettr"
+            android:src="@drawable/logoklyer"
             app:shapeAppearanceOverlay="@style/CircleImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,39 +35,34 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Usuario"
-            android:textColor="#FFFFFF"
+            android:textColor="#212121"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tvPostInfo"
             app:layout_constraintStart_toEndOf="@+id/ivProfilePost"
-            app:layout_constraintTop_toTopOf="@+id/ivProfilePost"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <!-- Habit Type Badge -->
-        <TextView
-            android:id="@+id/tvHabitType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="2dp"
-            android:text="💪 Ejercicio"
-            android:textColor="#FACC15"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-            app:layout_constraintStart_toEndOf="@+id/tvUserName"
-            app:layout_constraintTop_toTopOf="@+id/tvUserName" />
+            app:layout_constraintTop_toTopOf="@+id/ivProfilePost" />
 
         <!-- Time info -->
         <TextView
             android:id="@+id/tvPostInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="• hace 1h"
-            android:textColor="#6B7280"
+            android:layout_marginStart="4dp"
+            android:text="• 2h"
+            android:textColor="#757575"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+            app:layout_constraintStart_toEndOf="@+id/tvUserName"
+            app:layout_constraintTop_toTopOf="@+id/tvUserName" />
+
+        <!-- Habit Type Badge -->
+        <TextView
+            android:id="@+id/tvHabitType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="💪 Ejercicio"
+            android:textColor="#757575"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivProfilePost"
             app:layout_constraintStart_toStartOf="@+id/tvUserName"
             app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
@@ -82,17 +77,15 @@
             app:layout_constraintDimensionRatio="4:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivProfilePost">
+            app:layout_constraintTop_toBottomOf="@+id/tvHabitType">
 
             <ImageView
                 android:id="@+id/ivPostImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logobettr" />
+                android:src="@drawable/logoklyer" />
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Acciones -->
 
         <!-- Descripción -->
         <TextView
@@ -100,8 +93,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="2dp"
-            android:text="Descripción del hábito..."
-            android:textColor="#D1D5DB"
+            android:layout_marginTop="8dp"
+            android:text="Descripción del post..."
+            android:textColor="#212121"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
