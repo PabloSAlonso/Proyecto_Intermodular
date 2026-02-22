@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../src/styles.css">
     <style>
-        /* Elegant Blue-White Design */
         :root {
             --primary: #0ea5e9;
             --primary-dark: #0284c7;
@@ -116,7 +115,6 @@
             margin: 0;
         }
 
-        /* Form Styles */
         .form-group {
             margin-bottom: 20px;
         }
@@ -179,7 +177,6 @@
             }
         }
 
-        /* Checkbox */
         .checkbox-wrapper {
             display: flex;
             align-items: flex-start;
@@ -214,7 +211,6 @@
             text-decoration: underline;
         }
 
-        /* Button */
         .btn-submit {
             width: 100%;
             padding: 16px 24px;
@@ -269,7 +265,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Messages */
         .message {
             padding: 14px 18px;
             border-radius: 12px;
@@ -530,7 +525,6 @@
                 return;
             }
 
-            // Prepare data
             const userData = {
                 nombre: nombre,
                 apellidos: apellidos,
@@ -542,7 +536,6 @@
                 fecha_creacion_cuenta: new Date().toISOString().split('T')[0]
             };
 
-            // Loading state
             btnEnviar.disabled = true;
             btnEnviar.classList.add('loading');
             btnEnviar.textContent = 'Creando cuenta...';
@@ -582,7 +575,6 @@
             }
         });
 
-        // Clear messages on input
         document.querySelectorAll('#registroForm input').forEach(input => {
             input.addEventListener('input', hideMessages);
         });

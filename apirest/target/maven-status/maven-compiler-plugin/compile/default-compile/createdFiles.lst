@@ -1,5 +1,5 @@
-modelos/Usuario.class
-modelos/Aplicacion.class
-conexion/Conexion.class
-modelos/GestorUsuarios.class
-modelos/Publicacion.class
+modelos\GestorUsuarios.class
+modelos\Aplicacion.class
+conexion\Conexion.class
+modelos\Usuario.class
+modelos\Publicacion.class
