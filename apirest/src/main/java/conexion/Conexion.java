@@ -6,16 +6,23 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    private static final String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_klyer";
-    private static final String USER = "freedb_pablillo2k";
-    private static final String PASSWORD = "bUf*2m9N!w2mmEU";
-
     private Connection conexion;
+
+    private static String readEnv(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalStateException("Missing environment variable: " + key);
+        }
+        return value;
+    }
 
     public Conexion() {
         try {
-            conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexión exitosa a la base de datos");
+            String url = readEnv("DB_URL");
+            String user = readEnv("DB_USER");
+            String password = readEnv("DB_PASSWORD");
+            conexion = DriverManager.getConnection(url, user, password);
+            System.out.println("Conexion exitosa a la base de datos");
         } catch (SQLException e) {
             System.out.println("Error al conectar con la base de datos");
             e.printStackTrace();
@@ -30,10 +37,9 @@ public class Conexion {
         try {
             if (conexion != null && !conexion.isClosed()) {
                 conexion.close();
-                System.out.println("Conexión cerrada");
+                System.out.println("Conexion cerrada");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             e.printStackTrace();
         }
     }
