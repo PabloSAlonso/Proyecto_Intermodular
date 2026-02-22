@@ -2,7 +2,7 @@
 session_start();
 require_once "../config/Request.php";
 
-$request = new Request("http://localhost:8080/apirest/rest");
+$request = new Request("https://proyecto-intermodular-kpzv.onrender.com/rest");
 
 $mensaje = "";
 

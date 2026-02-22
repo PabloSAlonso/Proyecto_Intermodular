@@ -19,7 +19,7 @@ require_once '../config/Request.php';
 <body>
     <?php require_once '../components/header_feed.php' ?>
 
-    <?php $request = new Request("http://localhost:8080/apirest/rest");
+    <?php $request = new Request("https://proyecto-intermodular-kpzv.onrender.com/rest");
     $publicaciones = $request->getAllPublications();
     ?>
     <div class="container my-4">    

@@ -67,7 +67,7 @@
             }
 
             // Make API call to login
-            fetch(`http://localhost:8080/apirest/rest/usuarios/obtener/${encodeURIComponent(email)}/${encodeURIComponent(password)}`, {
+            fetch(`https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/obtener/${encodeURIComponent(email)}/${encodeURIComponent(password)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
