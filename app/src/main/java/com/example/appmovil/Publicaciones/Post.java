@@ -13,7 +13,6 @@ public class Post {
     private String createdAt;
     private boolean isLiked;
 
-    // Constructor original para compatibilidad
     public Post(String nombreUsuario, String userAvatar, String imageUrl, String descripcion, String info, int likes, int streak) {
         this.nombreUsuario = nombreUsuario;
         this.userAvatar = userAvatar;
@@ -24,7 +23,6 @@ public class Post {
         this.streak = streak;
     }
 
-    // Nuevo constructor con todos los campos
     public Post(int id, String nombreUsuario, String userAvatar, String imageUrl, String descripcion, String postType, int likes, int streak, String createdAt) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;

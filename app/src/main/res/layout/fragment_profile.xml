@@ -48,7 +48,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="U"
-                            android:textColor="@color/blue_primary"
+                            android:textColor="@color/blue_dark"
                             android:textSize="26sp"
                             android:textStyle="bold" />
                     </FrameLayout>
@@ -90,9 +90,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="14dp"
             android:text="Cerrar sesión"
-            android:textColor="@color/accent_coral"
+            android:textColor="@color/blue_dark"
             app:backgroundTint="@color/surface_card"
-            app:strokeColor="@color/accent_coral"
+            app:strokeColor="@color/blue_dark"
             app:strokeWidth="1dp" />
 
     </LinearLayout>

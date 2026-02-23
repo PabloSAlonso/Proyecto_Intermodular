@@ -64,7 +64,7 @@ require_once '../config/Request.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Simple like button functionality
+
         document.querySelectorAll('.like-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 this.classList.toggle('liked');

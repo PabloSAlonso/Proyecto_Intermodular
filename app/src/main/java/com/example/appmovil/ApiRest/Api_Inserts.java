@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class Api_Inserts {
     private static final String TAG = "Api_Inserts";
-    private static final String API_ROOT = "https://proyecto-intermodular-kpzv.onrender.com/rest";
+    private static final String API_ROOT = "https://localhost:8080/rest";
 
     public interface ApiInsertCallback {
         void onResult(boolean success);

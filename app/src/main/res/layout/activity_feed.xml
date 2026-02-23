@@ -35,7 +35,14 @@
             android:orientation="horizontal">
 
             <FrameLayout android:id="@+id/btn_nav_home" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
-                <ImageView android:id="@+id/iv_home_icon" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/klyer_home" app:tint="@color/blue_primary" />
+
+                <ImageView
+                    android:id="@+id/iv_home_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/klyer_home"
+                    app:tint="@color/blue_dark" />
             </FrameLayout>
             <FrameLayout android:id="@+id/btn_nav_posts" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
                 <ImageView android:id="@+id/iv_posts_icon" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/text_secondary" />
@@ -56,7 +63,15 @@
                     app:cardBackgroundColor="@color/grey_light">
                     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
                         <ImageView android:id="@+id/iv_nav_avatar" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:visibility="gone" />
-                        <TextView android:id="@+id/tv_nav_avatar_letter" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="U" android:textColor="@color/blue_dark" android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_nav_avatar_letter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="U"
+                            android:textColor="@color/blue_dark"
+                            android:textStyle="bold" />
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>

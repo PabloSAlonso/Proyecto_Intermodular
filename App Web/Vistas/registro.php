@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear cuenta | KLYER</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../src/styles.css">
+    
     <style>
         :root {
             --primary: #0ea5e9;
@@ -315,8 +313,7 @@
                 border-color: rgba(16, 185, 129, 0.3);
             }
         }
-
-        /* Login Link */
+        
         .login-section {
             text-align: center;
             margin-top: 28px;
@@ -348,7 +345,6 @@
             text-decoration: underline;
         }
 
-        /* Hint text */
         .hint {
             font-size: 12px;
             color: var(--gray);
