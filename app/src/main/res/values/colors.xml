@@ -5,9 +5,9 @@
     <color name="grey">#5E6B80</color>
     <color name="yellow">#F59E0B</color>
 
-    <color name="blue_primary">#0F766E</color>
-    <color name="blue_dark">#115E59</color>
-    <color name="blue_light">#14B8A6</color>
+    <color name="blue_primary">#03A9F4</color>
+    <color name="blue_dark">#3F51B5</color>
+    <color name="blue_light">#00BCD4</color>
 
     <color name="white_background">#EEF2FF</color>
     <color name="white_light">#F8FAFC</color>
