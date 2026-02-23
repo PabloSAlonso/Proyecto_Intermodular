@@ -59,12 +59,8 @@ public class KlyerCompleteProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_complete_profile);
 
-        etBio = findViewById(R.id.etBio);
         ivAvatar = findViewById(R.id.ivAvatar);
-        Button btnSelectImage = findViewById(R.id.btnSelectImage);
-        Button btnFinish = findViewById(R.id.btnFinishProfile);
         loadingOverlay = findViewById(R.id.loading_overlay);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
@@ -73,8 +69,6 @@ public class KlyerCompleteProfile extends AppCompatActivity {
             return insets;
         });
 
-        btnSelectImage.setOnClickListener(v -> showImageSourceDialog());
-        btnFinish.setOnClickListener(v -> finishProfile());
     }
 
     private void showImageSourceDialog() {

@@ -44,18 +44,6 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         
         holder.tvUserName.setText("@" + post.getNombreUsuario());
         
-        String postType = post.getPostType();
-        if (postType != null && !postType.isEmpty()) {
-            String emoji = getPostEmoji(postType);
-            holder.tvPostType.setText(emoji + " " + postType);
-            holder.tvPostType.setVisibility(View.VISIBLE);
-        } else {
-            holder.tvPostType.setVisibility(View.GONE);
-        }
-        
-        String timeAgo = getTimeAgo(post.getCreatedAt());
-        holder.tvPostInfo.setText("• " + timeAgo);
-        
         if (post.getDescripcion() != null && !post.getDescripcion().isEmpty()) {
             holder.tvDescription.setText(post.getDescripcion());
             holder.tvDescription.setVisibility(View.VISIBLE);
@@ -87,38 +75,8 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         }
     }
 
-    private String getPostEmoji(String postType) {
-        switch (postType) {
-            case "Ejercicio": return "💪";
-            case "Lectura": return "📚";
-            case "Meditación": return "🧘";
-            case "Estudio": return "📖";
-            case "Saludable": return "🥗";
-            default: return "⭐";
-        }
-    }
 
-    private String getTimeAgo(String dateString) {
-        if (dateString == null || dateString.isEmpty()) return "ahora";
-        
-        try {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", java.util.Locale.getDefault());
-            sdf.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
-            java.util.Date date = sdf.parse(dateString.substring(0, Math.min(dateString.length(), 19)));
-            
-            if (date == null) return "ahora";
-            
-            long diff = System.currentTimeMillis() - date.getTime();
-            
-            if (diff < 60000) return "ahora";
-            if (diff < 3600000) return Math.floor(diff / 60000) + "m";
-            if (diff < 86400000) return Math.floor(diff / 3600000) + "h";
-            if (diff < 604800000) return Math.floor(diff / 86400000) + "d";
-            return Math.floor(diff / 604800000) + "sem";
-        } catch (Exception e) {
-            return "recientemente";
-        }
-    }
+
 
     private Bitmap decodeBase64(String input) {
         try {
@@ -142,9 +100,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvUserName);
-            tvPostInfo = itemView.findViewById(R.id.tvPostInfo);
             tvDescription = itemView.findViewById(R.id.tvDescription);
-            tvPostType = itemView.findViewById(R.id.tvPostType);
             ivPostImage = itemView.findViewById(R.id.ivPostImage);
             ivProfilePost = itemView.findViewById(R.id.ivProfilePost);
             cvPostImage = itemView.findViewById(R.id.cvPostImage);

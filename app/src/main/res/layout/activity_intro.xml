@@ -57,7 +57,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Crear cuenta"
         android:textColor="@color/blue_primary"

@@ -80,6 +80,22 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/btn_nav_social"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/iv_social_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_share"
+                    app:tint="@color/text_secondary" />
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/btn_nav_profile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -91,7 +107,8 @@
                     android:layout_height="34dp"
                     android:layout_gravity="center"
                     app:cardBackgroundColor="@color/grey_light"
-                    app:cardCornerRadius="17dp">
+                    app:cardCornerRadius="17dp"
+                    app:cardElevation="0dp">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -104,6 +121,14 @@
                             android:scaleType="centerCrop"
                             android:visibility="gone" />
 
+                        <TextView
+                            android:id="@+id/tv_nav_avatar_letter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>

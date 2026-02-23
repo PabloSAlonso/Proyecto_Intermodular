@@ -48,15 +48,8 @@ public class KlyerProfileFragment extends Fragment {
         
         tvName = view.findViewById(R.id.tvName);
         tvUsername = view.findViewById(R.id.tvUsername);
-        tvEmail = view.findViewById(R.id.tvEmail);
-        tvBio = view.findViewById(R.id.tvBio);
-        tvFollowers = view.findViewById(R.id.tvFollowers);
-        tvFollowing = view.findViewById(R.id.tvFollowing);
         tvHabitsCount = view.findViewById(R.id.tvHabitsCount);
-        tvAvatarLetter = view.findViewById(R.id.tvAvatarLetter);
         ivAvatar = view.findViewById(R.id.ivAvatar);
-        layoutFollowers = view.findViewById(R.id.layoutFollowers);
-        layoutFollowing = view.findViewById(R.id.layoutFollowing);
         loadingOverlay = view.findViewById(R.id.loading_overlay);
         btnLogout = view.findViewById(R.id.btnLogout);
 
