@@ -1,0 +1,194 @@
+package ejem1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+
+@Path("/publicaciones")
+public class GestorPublicaciones {
+    
+    private static String readEnv(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalStateException("Missing environment variable: " + key);
+        }
+        return value;
+    }
+
+    private Connection openConnection() throws Exception {
+        Class.forName(DRIVER);
+        String url = readEnv("DB_URL");
+        String user = readEnv("DB_USER");
+        String password = readEnv("DB_PASSWORD");
+        return DriverManager.getConnection(url, user, password);
+    }
+
+    @Path("/todas")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicaciones() {
+        String sql = "SELECT * FROM publicaciones ORDER BY id_publicacion DESC";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            publicaciones = new ArrayList<>();
+            while (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.id_publicacion = rs.getInt("id_publicacion");
+                p.id_usuario = rs.getInt("id_usuario");
+                p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                p.imagen = rs.getBlob("imagen");
+                p.descripcion = rs.getString("descripcion");
+                p.likes = rs.getInt("likes");
+                p.comentarios = rs.getInt("comentarios");
+                publicaciones.add(p);
+            }
+
+            return Response.ok(publicaciones).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener publicaciones").build();
+        }
+    }
+
+    @Path("/usuario/{id_usuario}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
+        String sql = "SELECT * FROM publicaciones WHERE id_usuario=? ORDER BY id_publicacion DESC";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                publicaciones = new ArrayList<>();
+                while (rs.next()) {
+                    Publicacion p = new Publicacion();
+                    p.id_publicacion = rs.getInt("id_publicacion");
+                    p.id_usuario = rs.getInt("id_usuario");
+                    p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                    p.imagen = rs.getBlob("imagen");
+                    p.descripcion = rs.getString("descripcion");
+                    p.likes = rs.getInt("likes");
+                    p.comentarios = rs.getInt("comentarios");
+                    publicaciones.add(p);
+                }
+            }
+
+            return Response.ok(publicaciones).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener publicaciones de usuario").build();
+        }
+    }
+
+    @Path("/insertar")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response insertarPublicacion(Publicacion p) {
+        if (p == null || p.getId_usuario() <= 0 || p.getFecha_publicacion() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Datos de publicacion incompletos").build();
+        }
+
+        String sql = "INSERT INTO publicaciones "
+                + "(id_usuario, fecha_publicacion, imagen, descripcion, likes, comentarios) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, p.getId_usuario());
+            ps.setDate(2, p.getFecha_publicacion());
+            if (p.getImagen() != null) {
+                ps.setBlob(3, p.getImagen());
+            } else {
+                ps.setNull(3, Types.BINARY);
+            }
+            ps.setString(4, p.getDescripcion());
+            ps.setInt(5, p.getLikes());
+            ps.setInt(6, p.getComentarios());
+
+            ps.executeUpdate();
+
+            return Response.status(Response.Status.CREATED).entity(p).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al insertar publicacion").build();
+        }
+    }
+
+    @Path("/eliminar/{id}")
+    @DELETE
+    public Response eliminarPublicacion(@PathParam("id") int id) {
+        String sql = "DELETE FROM publicaciones WHERE id_publicacion=?";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                return Response.ok().build();
+            }
+            return Response.status(Response.Status.NOT_FOUND).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al eliminar publicacion").build();
+        }
+    }
+
+    @Path("/obtener/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPublicacion(@PathParam("id") int id) {
+        String sql = "SELECT * FROM publicaciones WHERE id_publicacion=?";
+
+        try (Connection conexion = openConnection();
+                PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Publicacion p = new Publicacion();
+                    p.id_publicacion = rs.getInt("id_publicacion");
+                    p.id_usuario = rs.getInt("id_usuario");
+                    p.fecha_publicacion = rs.getDate("fecha_publicacion");
+                    p.imagen = rs.getBlob("imagen");
+                    p.descripcion = rs.getString("descripcion");
+                    p.likes = rs.getInt("likes");
+                    p.comentarios = rs.getInt("comentarios");
+
+                    return Response.ok(p).build();
+                }
+            }
+
+            return Response.status(Response.Status.NOT_FOUND).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al obtener publicacion").build();
+        }
+    }
+}
