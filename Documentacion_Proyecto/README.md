@@ -70,10 +70,14 @@ La finalidad es documentar el progreso del proyecto, facilitar su seguimiento y 
   (pendiente verificación de existencia en el inicio de sesión).
 
 #### 2ª semana
-- (Pendiente de documentación)
+- Aplicación de los últimos cambios visuales en la aplicación web.
+- Mejora del diseño y ajustes de interfaz en la aplicación móvil.
+- Corrección de estilos y coherencia visual entre ambas aplicaciones.
 
 #### 3ª semana
-- (Pendiente de documentación)
+- Implementación completa de la API REST en la aplicación web.
+- Integración de la API REST en la aplicación móvil.
+- Conexión definitiva entre frontend y backend en ambas aplicaciones.
 
 #### 4ª semana
 - (Pendiente de documentación)
