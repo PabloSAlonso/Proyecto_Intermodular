@@ -33,8 +33,6 @@ public class Publicacion implements Serializable {
     private int likes;
     private int comentarios;
 
-    private ArrayList<Publicacion> publicaciones;
-
     public Publicacion() {
     }
 
