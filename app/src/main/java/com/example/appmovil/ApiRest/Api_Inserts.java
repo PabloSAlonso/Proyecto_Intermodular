@@ -42,7 +42,7 @@ public class Api_Inserts {
                 JSONObject json = new JSONObject();
                 json.put("id_usuario", userId);
                 json.put("fecha_publicacion", new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date()));
-                json.put("imagen", JSONObject.NULL);
+                json.put("imagen", imageBase64);
                 json.put("descripcion", description == null ? "" : description);
                 json.put("likes", 0);
                 json.put("comentarios", 0);
@@ -71,14 +71,14 @@ public class Api_Inserts {
                 URL url = new URL(API_ROOT + "/usuarios/insertar");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                connection.setRequestProperty("Content-Type", "application/json");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setConnectTimeout(12000);
                 connection.setReadTimeout(12000);
                 connection.setDoOutput(true);
 
                 String firstName = name;
-                String lastName = "";
+                String lastName = " "; 
                 if (name != null && name.contains(" ")) {
                     int lastSpace = name.lastIndexOf(' ');
                     firstName = name.substring(0, lastSpace);
@@ -86,12 +86,13 @@ public class Api_Inserts {
                 }
 
                 JSONObject json = new JSONObject();
+                json.put("id", 0);
                 json.put("nombre", firstName);
                 json.put("apellidos", lastName);
-                json.put("nickname", username != null ? username : "");
-                json.put("email", email != null ? email : "");
-                json.put("password", password != null ? password : "");
-                json.put("foto_perfil", JSONObject.NULL);
+                json.put("nickname", username == null ? "" : username);
+                json.put("email", email == null ? "" : email);
+                json.put("password", password == null ? "" : password);
+                json.put("foto_perfil", "");
 
                 try (OutputStream os = connection.getOutputStream()) {
                     os.write(json.toString().getBytes(StandardCharsets.UTF_8));
@@ -99,9 +100,8 @@ public class Api_Inserts {
 
                 int code = connection.getResponseCode();
                 callback.onResult(code == HttpURLConnection.HTTP_OK || code == HttpURLConnection.HTTP_CREATED);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IOException | JSONException e) {
+                Log.e(TAG, "Error inserting user", e);
                 callback.onResult(false);
             } finally {
                 if (connection != null) {

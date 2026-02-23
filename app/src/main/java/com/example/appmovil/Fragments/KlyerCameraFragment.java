@@ -1,11 +1,8 @@
 package com.example.appmovil.Fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -29,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.example.appmovil.ApiRest.Api_Inserts;
 import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.R;
+import com.example.appmovil.UserSession;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -42,8 +40,8 @@ public class KlyerCameraFragment extends Fragment {
     private Bitmap selectedBitmap;
     private Api_Inserts apiInserts;
     private FrameLayout loadingOverlay;
+    private UserSession session;
 
-    // Post types matching the web app
     private final String[] postTypes = {
             "Ejercicio",
             "Lectura",
@@ -67,9 +65,10 @@ public class KlyerCameraFragment extends Fragment {
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     Bundle extras = result.getData().getExtras();
-                    selectedBitmap = (Bitmap) extras.get("data");
-                    ivPreview.setImageBitmap(selectedBitmap);
-                    ivPreview.setImageTintList(null);
+                    if (extras != null) {
+                        selectedBitmap = (Bitmap) extras.get("data");
+                        ivPreview.setImageBitmap(selectedBitmap);
+                    }
                 }
             }
     );
@@ -81,7 +80,6 @@ public class KlyerCameraFragment extends Fragment {
                     try {
                         selectedBitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), uri);
                         ivPreview.setImageBitmap(selectedBitmap);
-                        ivPreview.setImageTintList(null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -95,6 +93,8 @@ public class KlyerCameraFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
 
         apiInserts = new Api_Inserts();
+        session = new UserSession(requireContext());
+        
         ivPreview = view.findViewById(R.id.ivPreview);
         etDescription = view.findViewById(R.id.etDescription);
         spinnerPostType = view.findViewById(R.id.spinnerHabitType);
@@ -103,14 +103,15 @@ public class KlyerCameraFragment extends Fragment {
         btnPost = view.findViewById(R.id.btnPost);
         loadingOverlay = view.findViewById(R.id.camera_loading_overlay);
 
-        // Setup post type dropdown
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_dropdown_item_1line,
                 postTypeEmojis
         );
-        spinnerPostType.setAdapter(adapter);
-        spinnerPostType.setText(postTypeEmojis[0], false);
+        if (spinnerPostType != null) {
+            spinnerPostType.setAdapter(adapter);
+            spinnerPostType.setText(postTypeEmojis[0], false);
+        }
 
         if (btnCamera != null) {
             btnCamera.setOnClickListener(v -> {
@@ -142,7 +143,7 @@ public class KlyerCameraFragment extends Fragment {
         String description = etDescription.getText().toString().trim();
         String selectedType = spinnerPostType.getText().toString();
         
-        String postType = selectedType;
+        String postType = "Otro";
         for (int i = 0; i < postTypeEmojis.length; i++) {
             if (selectedType.equals(postTypeEmojis[i])) {
                 postType = postTypes[i];
@@ -157,11 +158,11 @@ public class KlyerCameraFragment extends Fragment {
 
         showLoading();
 
-        SharedPreferences prefs = requireActivity().getSharedPreferences("BettrPrefs", Context.MODE_PRIVATE);
-        int userId = prefs.getInt("userId", -1);
+        int userId = session.getUserId();
 
         if (userId == -1) {
             hideLoading();
+            Toast.makeText(getContext(), "Error: Sesión no válida", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -190,7 +191,7 @@ public class KlyerCameraFragment extends Fragment {
 
     private String encodeImageToBase64(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream);
         byte[] byteArray = outputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }

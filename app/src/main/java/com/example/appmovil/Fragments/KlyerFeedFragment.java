@@ -11,13 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.imageview.ShapeableImageView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.appmovil.Adapters.AdapterFeed;
 import com.example.appmovil.ApiRest.Api_Gets;
@@ -26,12 +25,14 @@ import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.Publicaciones.Post;
 import com.example.appmovil.R;
 import com.example.appmovil.UserSession;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
 public class KlyerFeedFragment extends Fragment {
 
     private RecyclerView rvFeed;
+    private SwipeRefreshLayout swipeRefresh;
     private AdapterFeed adapter;
     private final ArrayList<Post> listaPosts = new ArrayList<>();
     private Api_Gets apiGets;
@@ -50,15 +51,22 @@ public class KlyerFeedFragment extends Fragment {
         apiInserts = new Api_Inserts();
         rvFeed = view.findViewById(R.id.rvFeed);
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-        emptyState = view.findViewById(R.id.emptyState);
         
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        emptyState = view.findViewById(R.id.emptyState);
         ivProfileTop = view.findViewById(R.id.ivProfileTop);
+        
         userSession = new UserSession(requireContext());
-
         SharedPreferences prefs = requireActivity().getSharedPreferences("BettrPrefs", Context.MODE_PRIVATE);
         myUserId = prefs.getInt("userId", -1);
-        
+
+        if (swipeRefresh != null) {
+            swipeRefresh.setColorSchemeResources(R.color.blue_primary);
+            swipeRefresh.setOnRefreshListener(this::loadPosts);
+        }
+
         loadUserAvatar();
+        loadPosts();
 
         return view;
     }
@@ -76,15 +84,11 @@ public class KlyerFeedFragment extends Fragment {
                             if (avatar != null) {
                                 ivProfileTop.setImageBitmap(avatar);
                             } else {
-                                Bitmap initialAvatar = generateInitialAvatar(user.getUsername());
-                                ivProfileTop.setImageBitmap(initialAvatar);
+                                ivProfileTop.setImageBitmap(generateInitialAvatar(user.getUsername()));
                             }
                         } else {
-                            Bitmap initialAvatar = generateInitialAvatar(user.getUsername());
-                            ivProfileTop.setImageBitmap(initialAvatar);
+                            ivProfileTop.setImageBitmap(generateInitialAvatar(user.getUsername()));
                         }
-                    } else {
-                        ivProfileTop.setImageResource(R.drawable.logoklyer);
                     }
                 });
             }
@@ -92,29 +96,20 @@ public class KlyerFeedFragment extends Fragment {
     }
     
     private Bitmap generateInitialAvatar(String username) {
-        if (username == null || username.isEmpty()) {
-            return null;
-        }
-        
+        if (username == null || username.isEmpty()) return null;
         String initial = username.substring(0, 1).toUpperCase();
-        
         int size = 200;
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         android.graphics.Canvas canvas = new android.graphics.Canvas(bitmap);
-        
         android.graphics.Paint bgPaint = new android.graphics.Paint();
         bgPaint.setColor(android.graphics.Color.parseColor("#0F766E"));
-        bgPaint.setStyle(android.graphics.Paint.Style.FILL);
         canvas.drawCircle(size / 2f, size / 2f, size / 2f, bgPaint);
-        
         android.graphics.Paint textPaint = new android.graphics.Paint();
         textPaint.setColor(android.graphics.Color.WHITE);
         textPaint.setTextSize(100);
         textPaint.setTextAlign(android.graphics.Paint.Align.CENTER);
         textPaint.setAntiAlias(true);
-        
         canvas.drawText(initial, size / 2f, size / 2f + 35, textPaint);
-        
         return bitmap;
     }
     
@@ -127,44 +122,33 @@ public class KlyerFeedFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadPosts();
-    }
-
     private void loadPosts() {
         if (myUserId == -1) {
+            if (swipeRefresh != null) swipeRefresh.setRefreshing(false);
             showEmptyState();
             return;
         }
 
-        showLoading();
+        if (swipeRefresh != null && !swipeRefresh.isRefreshing()) {
+            showLoading();
+        }
 
         apiGets.getSocialFeed(myUserId, posts -> {
             if (isAdded() && getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     hideLoading();
+                    if (swipeRefresh != null) swipeRefresh.setRefreshing(false);
+                    
                     if (posts != null && !posts.isEmpty()) {
                         listaPosts.clear();
                         listaPosts.addAll(posts);
-                        adapter = new AdapterFeed(listaPosts, myUserId, apiInserts, () -> loadPosts());
-                        rvFeed.setAdapter(adapter);
-                        hideEmptyState();
-                        
-                        for (Post post : listaPosts) {
-                            final int postPosition = listaPosts.indexOf(post);
-                            apiGets.checkIfLiked(post.getId(), myUserId, liked -> {
-                                if (isAdded() && getActivity() != null) {
-                                    getActivity().runOnUiThread(() -> {
-                                        post.setLiked(liked);
-                                        if (adapter != null && postPosition >= 0) {
-                                            adapter.notifyItemChanged(postPosition);
-                                        }
-                                    });
-                                }
-                            });
+                        if (adapter == null) {
+                            adapter = new AdapterFeed(listaPosts, myUserId, apiInserts, this::loadPosts);
+                            rvFeed.setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
                         }
+                        hideEmptyState();
                     } else {
                         showEmptyState();
                     }
