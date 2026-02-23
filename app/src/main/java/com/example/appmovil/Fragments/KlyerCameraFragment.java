@@ -35,7 +35,6 @@ public class KlyerCameraFragment extends Fragment {
 
     private ImageView ivPreview;
     private EditText etDescription;
-    private AutoCompleteTextView spinnerPostType;
     private Button btnCamera, btnGallery, btnPost;
     private Bitmap selectedBitmap;
     private Api_Inserts apiInserts;
@@ -107,14 +106,12 @@ public class KlyerCameraFragment extends Fragment {
     }
 
     private void postPost() {
-        if (etDescription == null || spinnerPostType == null) {
+        if (etDescription == null) {
             return;
         }
         
         String description = etDescription.getText().toString().trim();
-        String selectedType = spinnerPostType.getText().toString();
 
-        
         if (selectedBitmap == null || description.isEmpty()) {
             Toast.makeText(getContext(), "Añade una imagen y descripción", Toast.LENGTH_SHORT).show();
             return;
