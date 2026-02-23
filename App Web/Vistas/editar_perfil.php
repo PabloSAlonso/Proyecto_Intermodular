@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ];
 
     try {
-        $response = $request->modificarUser($data);
+        $response = $request->modificarUser($data, $id_usuario);
 
         if ($response != null) {
             $mensaje = "Perfil actualizado correctamente";

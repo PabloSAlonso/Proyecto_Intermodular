@@ -30,6 +30,7 @@ public class GestorUsuarios {
     private static final String DRIVER = "org.postgresql.Driver";
 
     public static class LoginRequest {
+
         private String email;
         private String password;
 
@@ -48,6 +49,7 @@ public class GestorUsuarios {
         public void setPassword(String password) {
             this.password = password;
         }
+        
     }
 
     private static String readEnv(String key) {
