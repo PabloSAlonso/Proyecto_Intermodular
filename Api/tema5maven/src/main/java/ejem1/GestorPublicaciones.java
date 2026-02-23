@@ -165,7 +165,6 @@ public class GestorPublicaciones {
 
         try (Connection conexion = openConnection();
                 PreparedStatement ps = conexion.prepareStatement(sql)) {
-
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -181,7 +180,6 @@ public class GestorPublicaciones {
                     return Response.ok(p).build();
                 }
             }
-
             return Response.status(Response.Status.NOT_FOUND).build();
 
         } catch (Exception e) {
