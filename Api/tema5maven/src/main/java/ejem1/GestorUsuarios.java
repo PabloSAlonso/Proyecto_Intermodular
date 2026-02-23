@@ -22,7 +22,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
+// http://localhost:8080/tema5maven/rest/usuarios/insertar
 
 @Path("/usuarios")
 public class GestorUsuarios {
