@@ -35,8 +35,6 @@ public class Publicacion implements Serializable {
 
     private ArrayList<Publicacion> publicaciones;
 
-    private static final String DRIVER = "org.postgresql.Driver";
-
     public Publicacion() {
     }
 
@@ -48,22 +46,6 @@ public class Publicacion implements Serializable {
         this.descripcion = descripcion;
         this.likes = likes;
         this.comentarios = comentarios;
-    }
-
-    private static String readEnv(String key) {
-        String value = System.getenv(key);
-        if (value == null || value.trim().isEmpty()) {
-            throw new IllegalStateException("Missing environment variable: " + key);
-        }
-        return value;
-    }
-
-    private Connection openConnection() throws Exception {
-        Class.forName(DRIVER);
-        String url = readEnv("DB_URL");
-        String user = readEnv("DB_USER");
-        String password = readEnv("DB_PASSWORD");
-        return DriverManager.getConnection(url, user, password);
     }
 
     public int getId_publicacion() {
