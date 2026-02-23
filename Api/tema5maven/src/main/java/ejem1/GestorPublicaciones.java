@@ -24,6 +24,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/publicaciones")
 public class GestorPublicaciones {
+    private static final String DRIVER = "org.postgresql.Driver";
     
     private static String readEnv(String key) {
         String value = System.getenv(key);
