@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appmovil.ApiRest.Api_Gets;
+import com.example.appmovil.Dao.User;
 
 public class KlyerLogin extends AppCompatActivity {
 
@@ -61,34 +62,28 @@ public class KlyerLogin extends AppCompatActivity {
         }
 
         showLoading();
-        apiGets.getUser(emailOrNick, password, (success, userId) -> runOnUiThread(() -> {
-            if (!success || userId <= 0) {
-                hideLoading();
-                Toast.makeText(KlyerLogin.this, "Credenciales inválidas", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            apiGets.getUserById(userId, user -> runOnUiThread(() -> {
+        apiGets.getUser(emailOrNick, password, user -> {
+            runOnUiThread(() -> {
                 hideLoading();
                 if (user == null) {
-                    Toast.makeText(KlyerLogin.this, "Error al cargar perfil", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KlyerLogin.this, "Credenciales inválidas", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 UserSession session = new UserSession(KlyerLogin.this);
                 session.saveUserData(
-                        userId,
-                        user.getUsername(),
-                        user.getName(),
-                        user.getEmail(),
-                        user.getAvatarUrl(),
-                        ""
+                        user.getId(),
+                        user.getUsername() != null ? user.getUsername() : "",
+                        user.getName() != null ? user.getName() : "",
+                        user.getEmail() != null ? user.getEmail() : "",
+                        user.getAvatarUrl() != null ? user.getAvatarUrl() : "",
+                        user.getDescription() != null ? user.getDescription() : ""
                 );
 
                 startActivity(new Intent(KlyerLogin.this, KlyerFeed.class));
                 finish();
-            }));
-        }));
+            });
+        });
     }
 
     private void showLoading() {

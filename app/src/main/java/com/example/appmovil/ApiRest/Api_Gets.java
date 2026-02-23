@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -22,13 +21,10 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Api_Gets {
-    private static final String API_ROOT = "https://proyecto-intermodular-kpzv.onrender.com/rest";
+    private static final String API_ROOT = "http://10.0.2.2:8080/tema5maven/rest";
     private static final String TAG = "Api_Gets";
 
-    public interface ApiCallback {
-        void onResult(boolean success, int userId);
-    }
-
+    // Unified callback for user operations
     public interface UserCallback {
         void onResult(User user);
     }
@@ -49,56 +45,60 @@ public class Api_Gets {
         void onResult(boolean result);
     }
 
-    public void getUser(String emailOrNick, String password, ApiCallback callback) {
+    public void getUser(String emailOrNick, String password, UserCallback callback) {
         new Thread(() -> {
+            HttpURLConnection connection = null;
             try {
-                ArrayList<User> users = fetchUsers();
-                User matched = null;
-                String probe = emailOrNick == null ? "" : emailOrNick.trim().toLowerCase(Locale.ROOT);
+                URL url = new URL(API_ROOT + "/usuarios/login/" + emailOrNick + "/" + password);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(12000);
+                connection.setReadTimeout(12000);
 
-                for (User user : users) {
-                    String username = user.getUsername() == null ? "" : user.getUsername().toLowerCase(Locale.ROOT);
-                    String email = user.getEmail() == null ? "" : user.getEmail().toLowerCase(Locale.ROOT);
-                    if (probe.equals(username) || probe.equals(email)) {
-                        matched = user;
-                        break;
-                    }
-                }
-
-                if (matched == null || matched.getEmail() == null || matched.getEmail().isEmpty()) {
-                    callback.onResult(false, -1);
-                    return;
-                }
-
-                HttpURLConnection connection = null;
-                try {
-                    URL url = new URL(API_ROOT + "/usuarios/login");
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    connection.setRequestProperty("Accept", "application/json");
-                    connection.setConnectTimeout(12000);
-                    connection.setReadTimeout(12000);
-                    connection.setDoOutput(true);
-
-                    JSONObject body = new JSONObject();
-                    body.put("email", matched.getEmail());
-                    body.put("password", password);
-
-                    try (OutputStream os = connection.getOutputStream()) {
-                        os.write(body.toString().getBytes(StandardCharsets.UTF_8));
-                    }
-
-                    int code = connection.getResponseCode();
-                    callback.onResult(code == HttpURLConnection.HTTP_OK, code == HttpURLConnection.HTTP_OK ? matched.getId() : -1);
-                } finally {
-                    if (connection != null) {
-                        connection.disconnect();
-                    }
+                int code = connection.getResponseCode();
+                if (code == HttpURLConnection.HTTP_OK) {
+                    JSONObject obj = new JSONObject(readResponse(connection));
+                    User user = parseUser(obj);
+                    callback.onResult(user);
+                } else {
+                    callback.onResult(null);
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Error en login", e);
-                callback.onResult(false, -1);
+                Log.e(TAG, "Error en login GET", e);
+                callback.onResult(null);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }).start();
+    }
+
+    public void getUserById(int userId, UserCallback callback) {
+        new Thread(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(API_ROOT + "/usuarios/obtenerId/" + userId);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(12000);
+                connection.setReadTimeout(12000);
+
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    JSONObject obj = new JSONObject(readResponse(connection));
+                    callback.onResult(parseUser(obj));
+                } else {
+                    callback.onResult(null);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error getting user by ID", e);
+                callback.onResult(null);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
         }).start();
     }
@@ -136,34 +136,6 @@ public class Api_Gets {
 
     public void getPosts(PostsCallback callback) {
         new Thread(() -> callback.onResult(fetchPostsFromEndpoint(API_ROOT + "/publicaciones/todas"))).start();
-    }
-
-    public void getUserById(int userId, UserCallback callback) {
-        new Thread(() -> {
-            HttpURLConnection connection = null;
-            try {
-                URL url = new URL(API_ROOT + "/usuarios/obtenerId/" + userId);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "application/json");
-                connection.setConnectTimeout(12000);
-                connection.setReadTimeout(12000);
-
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    JSONObject obj = new JSONObject(readResponse(connection));
-                    callback.onResult(parseUser(obj));
-                } else {
-                    callback.onResult(null);
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "Error getting user by ID", e);
-                callback.onResult(null);
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-        }).start();
     }
 
     public void getUserStats(int userId, StatsCallback callback) {
@@ -267,14 +239,18 @@ public class Api_Gets {
     }
 
     private User parseUser(JSONObject obj) {
+        String nombre = obj.optString("nombre", "");
+        String apellidos = obj.optString("apellidos", "");
+        String fullName = (nombre + " " + apellidos).trim();
+
         User user = new User(
                 obj.optInt("id", 0),
-                obj.optString("nombre", ""),
+                fullName,
                 obj.optString("nickname", ""),
                 obj.optString("foto_perfil", "")
         );
         user.setEmail(obj.optString("email", ""));
-        user.setDescription("");
+        user.setDescription(obj.optString("descripcion", ""));
         return user;
     }
 
