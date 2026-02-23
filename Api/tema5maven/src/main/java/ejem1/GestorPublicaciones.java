@@ -4,18 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.mindrot.jbcrypt.BCrypt;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -56,13 +51,13 @@ public class GestorPublicaciones {
             publicaciones = new ArrayList<>();
             while (rs.next()) {
                 Publicacion p = new Publicacion();
-                p.id_publicacion = rs.getInt("id_publicacion");
-                p.id_usuario = rs.getInt("id_usuario");
-                p.fecha_publicacion = rs.getDate("fecha_publicacion");
-                p.imagen = rs.getBlob("imagen");
-                p.descripcion = rs.getString("descripcion");
-                p.likes = rs.getInt("likes");
-                p.comentarios = rs.getInt("comentarios");
+                p.setId_publicacion(rs.getInt("id_publicacion"));
+                p.setId_usuario(rs.getInt("id_usuario"));
+                p.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+                p.setImagen(rs.getBlob("imagen"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setLikes(rs.getInt("likes"));
+                p.setComentarios(rs.getInt("comentarios"));
                 publicaciones.add(p);
             }
 
@@ -87,13 +82,13 @@ public class GestorPublicaciones {
                 publicaciones = new ArrayList<>();
                 while (rs.next()) {
                     Publicacion p = new Publicacion();
-                    p.id_publicacion = rs.getInt("id_publicacion");
-                    p.id_usuario = rs.getInt("id_usuario");
-                    p.fecha_publicacion = rs.getDate("fecha_publicacion");
-                    p.imagen = rs.getBlob("imagen");
-                    p.descripcion = rs.getString("descripcion");
-                    p.likes = rs.getInt("likes");
-                    p.comentarios = rs.getInt("comentarios");
+                    p.setId_publicacion(rs.getInt("id_publicacion"));
+                    p.setId_usuario(rs.getInt("id_usuario"));
+                    p.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+                    p.setImagen(rs.getBlob("imagen"));
+                    p.setDescripcion(rs.getString("descripcion"));
+                    p.setLikes(rs.getInt("likes"));
+                    p.setComentarios(rs.getInt("comentarios"));
                     publicaciones.add(p);
                 }
             }
@@ -175,13 +170,13 @@ public class GestorPublicaciones {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Publicacion p = new Publicacion();
-                    p.id_publicacion = rs.getInt("id_publicacion");
-                    p.id_usuario = rs.getInt("id_usuario");
-                    p.fecha_publicacion = rs.getDate("fecha_publicacion");
-                    p.imagen = rs.getBlob("imagen");
-                    p.descripcion = rs.getString("descripcion");
-                    p.likes = rs.getInt("likes");
-                    p.comentarios = rs.getInt("comentarios");
+                    p.setId_publicacion(rs.getInt("id_publicacion"));
+                    p.setId_usuario(rs.getInt("id_usuario"));
+                    p.setFecha_publicacion(rs.getDate("fecha_publicacion"));
+                    p.setImagen(rs.getBlob("imagen"));
+                    p.setDescripcion(rs.getString("descripcion"));
+                    p.setLikes(rs.getInt("likes"));
+                    p.setComentarios(rs.getInt("comentarios"));
 
                     return Response.ok(p).build();
                 }

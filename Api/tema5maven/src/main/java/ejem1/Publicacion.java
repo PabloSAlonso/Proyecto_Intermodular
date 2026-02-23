@@ -24,7 +24,6 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/publicaciones")
 public class Publicacion implements Serializable {
-
     private int id_publicacion;
     private int id_usuario;
     private Date fecha_publicacion;
@@ -72,5 +71,33 @@ public class Publicacion implements Serializable {
 
     public int getComentarios() {
         return comentarios;
+    }
+
+    public void setId_publicacion(int id_publicacion) {
+        this.id_publicacion = id_publicacion;
+    }
+
+    public void setComentarios(int comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setFecha_publicacion(Date fecha_publicacion) {
+        this.fecha_publicacion = fecha_publicacion;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public void setImagen(Blob imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }
