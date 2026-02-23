@@ -60,16 +60,14 @@ public class KlyerFeed extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Recargar avatar cuando vuelve a la actividad
+
         loadUserAvatarInNav();
     }
 
-    /**
-     * Cargar el avatar del usuario en la barra de navegación
-     */
+
     private void loadUserAvatarInNav() {
         ivNavAvatar = findViewById(R.id.iv_nav_avatar);
-        tvNavAvatarLetter = findViewById(R.id.tv_nav_avatar_letter);
+
         
         if (ivNavAvatar == null || tvNavAvatarLetter == null) {
             return;
@@ -78,14 +76,12 @@ public class KlyerFeed extends AppCompatActivity {
         String name = session.getUserName();
         String avatar = session.getUserAvatar();
 
-        // Mostrar la primera letra del nombre
         if (name != null && !name.isEmpty()) {
             tvNavAvatarLetter.setText(name.substring(0, 1).toUpperCase());
         } else {
             tvNavAvatarLetter.setText("U");
         }
 
-        // Cargar avatar desde Base64
         if (avatar != null && !avatar.isEmpty()) {
             try {
                 byte[] decodedString = Base64.decode(avatar, Base64.DEFAULT);
@@ -126,19 +122,15 @@ public class KlyerFeed extends AppCompatActivity {
         btnHome = findViewById(R.id.btn_nav_home);
         btnPosts = findViewById(R.id.btn_nav_posts);
         btnCamera = findViewById(R.id.btn_nav_camera);
-        btnSocial = findViewById(R.id.btn_nav_social);
         btnProfile = findViewById(R.id.btn_nav_profile);
 
         ivHome = findViewById(R.id.iv_home_icon);
         ivPosts = findViewById(R.id.iv_posts_icon);
         ivCamera = findViewById(R.id.iv_camera_icon);
-        ivSocial = findViewById(R.id.iv_social_icon);
-        // ivProfile ya no se usa, ahora usamos ivNavAvatar
 
         btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new KlyerFeedFragment()); });
         btnPosts.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_posts); loadFragment(new KlyerPostsFragment()); });
         btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new KlyerCameraFragment()); });
-        btnSocial.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_social); loadFragment(new KlyerSocialFragment()); });
         btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new KlyerProfileFragment()); });
     }
 
@@ -148,7 +140,6 @@ public class KlyerFeed extends AppCompatActivity {
         ivCamera.setColorFilter(colorInactive);
         ivSocial.setColorFilter(colorInactive);
         
-        // El avatar del perfil siempre se muestra en color activo cuando se selecciona
         if (ivNavAvatar != null) {
             if (selectedId == R.id.btn_nav_profile) {
                 ivNavAvatar.setColorFilter(colorActive);
@@ -157,7 +148,6 @@ public class KlyerFeed extends AppCompatActivity {
             }
         }
         
-        // Actualizar el color de la letra del avatar
         if (tvNavAvatarLetter != null) {
             if (selectedId == R.id.btn_nav_profile) {
                 tvNavAvatarLetter.setTextColor(colorActive);
@@ -172,8 +162,6 @@ public class KlyerFeed extends AppCompatActivity {
             ivPosts.setColorFilter(colorActive);
         } else if (selectedId == R.id.btn_nav_camera) {
             ivCamera.setColorFilter(colorActive);
-        } else if (selectedId == R.id.btn_nav_social) {
-            ivSocial.setColorFilter(colorActive);
         }
     }
 

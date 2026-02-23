@@ -1,7 +1,6 @@
 package ejem1;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.sql.Date;
 import jakarta.ws.rs.Path;
 
@@ -10,7 +9,7 @@ public class Publicacion implements Serializable {
     private int id_publicacion;
     private int id_usuario;
     private Date fecha_publicacion;
-    private Blob imagen;
+    private byte[] imagen;
     private String descripcion;
     private int likes;
     private int comentarios;
@@ -18,7 +17,7 @@ public class Publicacion implements Serializable {
     public Publicacion() {
     }
 
-    public Publicacion(int id_usuario, Date fecha_publicacion, Blob imagen,
+    public Publicacion(int id_usuario, Date fecha_publicacion, byte[] imagen,
             String descripcion, int likes, int comentarios) {
         this.id_usuario = id_usuario;
         this.fecha_publicacion = fecha_publicacion;
@@ -40,7 +39,7 @@ public class Publicacion implements Serializable {
         return fecha_publicacion;
     }
 
-    public Blob getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
@@ -76,7 +75,7 @@ public class Publicacion implements Serializable {
         this.id_usuario = id_usuario;
     }
 
-    public void setImagen(Blob imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 

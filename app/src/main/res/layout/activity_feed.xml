@@ -23,8 +23,8 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="@color/surface_card"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -34,7 +34,11 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <FrameLayout android:id="@+id/btn_nav_home" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <FrameLayout
+                android:id="@+id/btn_nav_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv_home_icon"
@@ -44,34 +48,62 @@
                     android:src="@drawable/klyer_home"
                     app:tint="@color/blue_dark" />
             </FrameLayout>
-            <FrameLayout android:id="@+id/btn_nav_posts" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
-                <ImageView android:id="@+id/iv_posts_icon" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/text_secondary" />
+
+            <FrameLayout
+                android:id="@+id/btn_nav_posts"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_posts_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    app:tint="@color/text_secondary" />
             </FrameLayout>
-            <FrameLayout android:id="@+id/btn_nav_camera" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
-                <ImageView android:id="@+id/iv_camera_icon" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@drawable/klyer_camera" app:tint="@color/text_secondary" />
+
+            <FrameLayout
+                android:id="@+id/btn_nav_camera"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_camera_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/klyer_camera"
+                    app:tint="@color/text_secondary" />
             </FrameLayout>
-            <FrameLayout android:id="@+id/btn_nav_social" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
-                <ImageView android:id="@+id/iv_social_icon" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/text_secondary" />
-            </FrameLayout>
-            <FrameLayout android:id="@+id/btn_nav_profile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+
+            <FrameLayout
+                android:id="@+id/btn_nav_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_profile_avatar"
                     android:layout_width="34dp"
                     android:layout_height="34dp"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="17dp"
-                    app:cardBackgroundColor="@color/grey_light">
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-                        <ImageView android:id="@+id/iv_nav_avatar" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:visibility="gone" />
+                    app:cardBackgroundColor="@color/grey_light"
+                    app:cardCornerRadius="17dp">
 
-                        <TextView
-                            android:id="@+id/tv_nav_avatar_letter"
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_nav_avatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="U"
-                            android:textColor="@color/blue_dark"
-                            android:textStyle="bold" />
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
+
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>

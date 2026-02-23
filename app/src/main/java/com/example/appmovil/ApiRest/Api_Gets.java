@@ -253,6 +253,48 @@ public class Api_Gets {
         user.setDescription(obj.optString("descripcion", ""));
         return user;
     }
+    public void getAllPublicaciones(PostsCallback callback) {
+        new Thread(() -> {
+            HttpURLConnection connection = null;
+            ArrayList<Post> publicaciones = new ArrayList<>();
+            try {
+                URL url = new URL(API_ROOT + "/publicaciones/todas");
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(12000);
+                connection.setReadTimeout(12000);
+
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    JSONArray array = new JSONArray(readResponse(connection));
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject obj = array.getJSONObject(i);
+                        publicaciones.add(new Post(
+                                obj.optInt("id_publicacion", 0),
+                                "",
+                                "",
+                                obj.optString("imagen", ""),
+                                obj.optString("descripcion", ""),
+                                "Publicacion",
+                                obj.optInt("likes", 0),
+                                obj.optInt("comentarios", 0),
+                                obj.optString("fecha_publicacion", "")
+                        ));
+                    }
+                }
+                callback.onResult(publicaciones);
+
+            } catch (Exception e) {
+                Log.e("Api_Gets", "Error obteniendo publicaciones", e);
+                callback.onResult(publicaciones);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }).start();
+    }
+
 
     private String readResponse(HttpURLConnection connection) throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
