@@ -142,7 +142,6 @@ public class KlyerCameraFragment extends Fragment {
         String description = etDescription.getText().toString().trim();
         String selectedType = spinnerPostType.getText().toString();
         
-        // Get plain post type without emoji
         String postType = selectedType;
         for (int i = 0; i < postTypeEmojis.length; i++) {
             if (selectedType.equals(postTypeEmojis[i])) {
@@ -174,12 +173,10 @@ public class KlyerCameraFragment extends Fragment {
                     hideLoading();
                     if (success) {
                         Toast.makeText(getContext(), "¡Publicación compartida!", Toast.LENGTH_SHORT).show();
-                        // Clear form
                         etDescription.setText("");
                         ivPreview.setImageResource(android.R.drawable.ic_menu_camera);
                         selectedBitmap = null;
                         
-                        // Navigate to home
                         if (getActivity() instanceof KlyerFeed) {
                             ((KlyerFeed) getActivity()).navigateToHome();
                         }

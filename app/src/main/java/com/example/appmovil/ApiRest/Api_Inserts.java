@@ -16,17 +16,17 @@ import java.util.Locale;
 
 public class Api_Inserts {
     private static final String TAG = "Api_Inserts";
-    private static final String API_ROOT = "https://localhost:8080/rest";
+    private static final String API_ROOT = "http://10.0.2.2:8080/tema5maven/rest";
 
     public interface ApiInsertCallback {
         void onResult(boolean success);
     }
 
     public void addPost(int userId, String description, String imageBase64, String postType, ApiInsertCallback callback) {
-        addHabit(userId, description, imageBase64, postType, callback);
+        insertPosts(userId, description, imageBase64, postType, callback);
     }
 
-    public void addHabit(int userId, String description, String imageBase64, String habitType, ApiInsertCallback callback) {
+    public void insertPosts(int userId, String description, String imageBase64, String habitType, ApiInsertCallback callback) {
         new Thread(() -> {
             HttpURLConnection connection = null;
             try {
@@ -71,21 +71,27 @@ public class Api_Inserts {
                 URL url = new URL(API_ROOT + "/usuarios/insertar");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setConnectTimeout(12000);
                 connection.setReadTimeout(12000);
                 connection.setDoOutput(true);
 
+                String firstName = name;
+                String lastName = "";
+                if (name != null && name.contains(" ")) {
+                    int lastSpace = name.lastIndexOf(' ');
+                    firstName = name.substring(0, lastSpace);
+                    lastName = name.substring(lastSpace + 1);
+                }
+
                 JSONObject json = new JSONObject();
-                json.put("nombre", name == null ? "" : name);
-                json.put("apellidos", "");
-                json.put("nickname", username == null ? "" : username);
-                json.put("email", email == null ? "" : email);
-                json.put("password", password == null ? "" : password);
+                json.put("nombre", firstName);
+                json.put("apellidos", lastName);
+                json.put("nickname", username != null ? username : "");
+                json.put("email", email != null ? email : "");
+                json.put("password", password != null ? password : "");
                 json.put("foto_perfil", JSONObject.NULL);
-                json.put("fecha_nacimiento", "2000-01-01");
-                json.put("fecha_creacion_cuenta", new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date()));
 
                 try (OutputStream os = connection.getOutputStream()) {
                     os.write(json.toString().getBytes(StandardCharsets.UTF_8));
@@ -93,8 +99,9 @@ public class Api_Inserts {
 
                 int code = connection.getResponseCode();
                 callback.onResult(code == HttpURLConnection.HTTP_OK || code == HttpURLConnection.HTTP_CREATED);
-            } catch (IOException | JSONException e) {
-                Log.e(TAG, "Error inserting user", e);
+
+            } catch (Exception e) {
+                e.printStackTrace();
                 callback.onResult(false);
             } finally {
                 if (connection != null) {

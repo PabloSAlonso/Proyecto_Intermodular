@@ -46,7 +46,7 @@ public class Register extends AppCompatActivity {
 
         etName = findViewById(R.id.etName);
         etUsername = findViewById(R.id.etUsername);
-        etEmail = findViewById(R.id.etUserName);
+        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         Button btnRegister = findViewById(R.id.btnRegister);
@@ -85,29 +85,38 @@ public class Register extends AppCompatActivity {
 
         showLoading();
         apiInserts.insertUsuario(name, username, email, password, success -> {
-            if (!success) {
+            if (success) {
+                apiGets.getUser(username, password, user -> {
+                    runOnUiThread(() -> {
+                        hideLoading();
+                        if (user != null) {
+                            UserSession session = new UserSession(Register.this);
+                            session.saveUserData(
+                                    user.getId(),
+                                    user.getUsername(),
+                                    user.getName(),
+                                    user.getEmail(),
+                                    user.getAvatarUrl(),
+                                    user.getDescription()
+                            );
+
+                            Toast.makeText(Register.this, "¡Cuenta creada!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Register.this, KlyerFeed.class));
+                            finish();
+                        } else {
+                            Toast.makeText(Register.this, "Cuenta creada. Por favor inicia sesión.", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(Register.this, KlyerLogin.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                });
+            } else {
                 runOnUiThread(() -> {
                     hideLoading();
-                    Toast.makeText(Register.this, "No se pudo crear la cuenta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Error al crear cuenta. El usuario o correo ya existe.", Toast.LENGTH_LONG).show();
                 });
-                return;
             }
-
-            apiGets.getUser(email, password, (loginSuccess, userId) -> runOnUiThread(() -> {
-                hideLoading();
-                if (!loginSuccess || userId <= 0) {
-                    Toast.makeText(Register.this, "Cuenta creada. Inicia sesión.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Register.this, KlyerLogin.class));
-                    finish();
-                    return;
-                }
-
-                UserSession session = new UserSession(Register.this);
-                session.saveUserData(userId, username, name, email, "", "");
-                Toast.makeText(Register.this, "Cuenta creada", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Register.this, KlyerCompleteProfile.class));
-                finish();
-            }));
         });
     }
 
