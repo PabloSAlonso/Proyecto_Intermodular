@@ -60,15 +60,11 @@ public class KlyerFeed extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         loadUserAvatarInNav();
     }
 
 
     private void loadUserAvatarInNav() {
-        ivNavAvatar = findViewById(R.id.iv_nav_avatar);
-
-        
         if (ivNavAvatar == null || tvNavAvatarLetter == null) {
             return;
         }
@@ -79,7 +75,7 @@ public class KlyerFeed extends AppCompatActivity {
         if (name != null && !name.isEmpty()) {
             tvNavAvatarLetter.setText(name.substring(0, 1).toUpperCase());
         } else {
-            tvNavAvatarLetter.setText("U");
+            tvNavAvatarLetter.setText("");
         }
 
         if (avatar != null && !avatar.isEmpty()) {
@@ -91,12 +87,15 @@ public class KlyerFeed extends AppCompatActivity {
                     ivNavAvatar.setVisibility(View.VISIBLE);
                     tvNavAvatarLetter.setVisibility(View.GONE);
                 } else {
+                    ivNavAvatar.setVisibility(View.GONE);
                     tvNavAvatarLetter.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
+                ivNavAvatar.setVisibility(View.GONE);
                 tvNavAvatarLetter.setVisibility(View.VISIBLE);
             }
         } else {
+            ivNavAvatar.setVisibility(View.GONE);
             tvNavAvatarLetter.setVisibility(View.VISIBLE);
         }
     }
@@ -123,28 +122,31 @@ public class KlyerFeed extends AppCompatActivity {
         btnPosts = findViewById(R.id.btn_nav_posts);
         btnCamera = findViewById(R.id.btn_nav_camera);
         btnProfile = findViewById(R.id.btn_nav_profile);
+        btnSocial = findViewById(R.id.btn_nav_social);
 
         ivHome = findViewById(R.id.iv_home_icon);
         ivPosts = findViewById(R.id.iv_posts_icon);
         ivCamera = findViewById(R.id.iv_camera_icon);
+        ivSocial = findViewById(R.id.iv_social_icon);
 
-        btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new KlyerFeedFragment()); });
-        btnPosts.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_posts); loadFragment(new KlyerPostsFragment()); });
-        btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new KlyerCameraFragment()); });
-        btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new KlyerProfileFragment()); });
+        if (btnHome != null) btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new KlyerFeedFragment()); });
+        if (btnPosts != null) btnPosts.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_posts); loadFragment(new KlyerPostsFragment()); });
+        if (btnCamera != null) btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new KlyerCameraFragment()); });
+        if (btnProfile != null) btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new KlyerProfileFragment()); });
+        if (btnSocial != null) btnSocial.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_social); loadFragment(new KlyerSocialFragment()); });
     }
 
     private void updateNavUI(int selectedId) {
-        ivHome.setColorFilter(colorInactive);
-        ivPosts.setColorFilter(colorInactive);
-        ivCamera.setColorFilter(colorInactive);
-        ivSocial.setColorFilter(colorInactive);
+        if (ivHome != null) ivHome.setColorFilter(colorInactive);
+        if (ivPosts != null) ivPosts.setColorFilter(colorInactive);
+        if (ivCamera != null) ivCamera.setColorFilter(colorInactive);
+        if (ivSocial != null) ivSocial.setColorFilter(colorInactive);
         
         if (ivNavAvatar != null) {
             if (selectedId == R.id.btn_nav_profile) {
                 ivNavAvatar.setColorFilter(colorActive);
             } else {
-                ivNavAvatar.setColorFilter(colorInactive);
+                ivNavAvatar.clearColorFilter();
             }
         }
         
@@ -156,12 +158,14 @@ public class KlyerFeed extends AppCompatActivity {
             }
         }
 
-        if (selectedId == R.id.btn_nav_home) {
+        if (selectedId == R.id.btn_nav_home && ivHome != null) {
             ivHome.setColorFilter(colorActive);
-        } else if (selectedId == R.id.btn_nav_posts) {
+        } else if (selectedId == R.id.btn_nav_posts && ivPosts != null) {
             ivPosts.setColorFilter(colorActive);
-        } else if (selectedId == R.id.btn_nav_camera) {
+        } else if (selectedId == R.id.btn_nav_camera && ivCamera != null) {
             ivCamera.setColorFilter(colorActive);
+        } else if (selectedId == R.id.btn_nav_social && ivSocial != null) {
+            ivSocial.setColorFilter(colorActive);
         }
     }
 

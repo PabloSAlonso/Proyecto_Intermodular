@@ -58,12 +58,9 @@ public class KlyerSocialFragment extends Fragment {
         rvUsers = view.findViewById(R.id.rvUsers);
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        etSearch = view.findViewById(R.id.etSearch);
-        tilSearch = view.findViewById(R.id.tilSearch);
         loadingOverlay = view.findViewById(R.id.loading_overlay);
         emptyState = view.findViewById(R.id.emptyState);
 
-        // Setup search with debounce
         if (etSearch != null) {
             etSearch.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -74,7 +71,6 @@ public class KlyerSocialFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    // Debounce search
                     etSearch.removeCallbacks(searchRunnable);
                     etSearch.postDelayed(searchRunnable, 500);
                 }

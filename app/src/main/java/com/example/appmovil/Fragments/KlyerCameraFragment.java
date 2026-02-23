@@ -42,24 +42,6 @@ public class KlyerCameraFragment extends Fragment {
     private FrameLayout loadingOverlay;
     private UserSession session;
 
-    private final String[] postTypes = {
-            "Ejercicio",
-            "Lectura",
-            "Meditación",
-            "Estudio",
-            "Saludable",
-            "Otro"
-    };
-
-    private final String[] postTypeEmojis = {
-            "💪 Ejercicio",
-            "📚 Lectura",
-            "🧘 Meditación",
-            "📖 Estudio",
-            "🥗 Comida Saludable",
-            "⭐ Otro"
-    };
-
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -97,21 +79,10 @@ public class KlyerCameraFragment extends Fragment {
         
         ivPreview = view.findViewById(R.id.ivPreview);
         etDescription = view.findViewById(R.id.etDescription);
-        spinnerPostType = view.findViewById(R.id.spinnerHabitType);
         btnCamera = view.findViewById(R.id.btnCamera);
-        btnGallery = view.findViewById(R.id.btnGallery);
         btnPost = view.findViewById(R.id.btnPost);
         loadingOverlay = view.findViewById(R.id.camera_loading_overlay);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                postTypeEmojis
-        );
-        if (spinnerPostType != null) {
-            spinnerPostType.setAdapter(adapter);
-            spinnerPostType.setText(postTypeEmojis[0], false);
-        }
 
         if (btnCamera != null) {
             btnCamera.setOnClickListener(v -> {
@@ -142,14 +113,7 @@ public class KlyerCameraFragment extends Fragment {
         
         String description = etDescription.getText().toString().trim();
         String selectedType = spinnerPostType.getText().toString();
-        
-        String postType = "Otro";
-        for (int i = 0; i < postTypeEmojis.length; i++) {
-            if (selectedType.equals(postTypeEmojis[i])) {
-                postType = postTypes[i];
-                break;
-            }
-        }
+
         
         if (selectedBitmap == null || description.isEmpty()) {
             Toast.makeText(getContext(), "Añade una imagen y descripción", Toast.LENGTH_SHORT).show();
@@ -168,7 +132,7 @@ public class KlyerCameraFragment extends Fragment {
 
         String imageBase64 = encodeImageToBase64(selectedBitmap);
 
-        apiInserts.addPost(userId, description, imageBase64, postType, success -> {
+        apiInserts.addPost(userId, description, imageBase64, "",success -> {
             if (isAdded() && getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     hideLoading();
