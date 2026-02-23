@@ -4,9 +4,13 @@ class Request
 {
     private string $baseUrl;
 
-    public function __construct(string $baseUrl)
+    public function __construct(string $baseUrl = "http://localhost:8080/tema5maven/rest")
     {
         $this->baseUrl = rtrim($baseUrl, '/');
+    }
+
+    public function getBaseUrl() {
+        return $this->baseUrl;
     }
 
     private function request(string $method, string $url, ?array $data = null)
@@ -31,7 +35,7 @@ class Request
 
         curl_close($ch);
 
-        return json_decode($response);
+        return json_decode($response, true);
     }
 
     /* Métodos públicos para usar en cualquier sitio */
@@ -59,15 +63,20 @@ class Request
     // ==== USUARIOS ====
     public function login(string $email, string $password)
     {
-        return $this->post('/usuarios/login', [
-            'email' => $email,
-            'password' => $password
-        ]);
+        // Mobile API uses GET with URL parameters
+        return $this->get('/usuarios/login/' . urlencode($email) . '/' . urlencode($password));
     }
+    
     public function register(array $userData)
     {
         return $this->post("/usuarios/insertar", $userData);
     }
+    
+    public function getUserById(int $id)
+    {
+        return $this->get('/usuarios/obtenerId/' . $id);
+    }
+    
     public function deleteUser(int $id)
     {
         return $this->delete("/usuarios/eliminar/$id");
@@ -85,7 +94,7 @@ class Request
     }
     public function getAllPublicationsPerUser(int $id)
     {
-        return $this->get('/publicaciones/usuario/$id');
+        return $this->get('/publicaciones/usuario/' . $id);
     }
     public function createPublication(array $publicationData)
     {

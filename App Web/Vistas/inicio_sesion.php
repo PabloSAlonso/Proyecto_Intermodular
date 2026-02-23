@@ -6,93 +6,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../src/styles.css">
+    <style>
+        body { background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-card { background: white; border-radius: 24px; padding: 48px 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; }
+        .brand-logo { width: 64px; height: 64px; display: block; margin: 0 auto 16px; }
+        .brand-title { text-align: center; font-size: 32px; font-weight: 700; margin: 0 0 8px; color: #0ea5e9; }
+        .brand-subtitle { text-align: center; color: #64748b; margin: 0 0 32px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+        .form-control { width: 100%; padding: 14px 16px; font-size: 15px; border: 2px solid #e2e8f0; border-radius: 12px; }
+        .form-control:focus { border-color: #0ea5e9; outline: none; box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15); }
+        .btn-submit { width: 100%; padding: 16px; font-size: 16px; font-weight: 600; color: white; background: linear-gradient(135deg, #0ea5e9, #0284c7); border: none; border-radius: 12px; cursor: pointer; }
+        .btn-submit:hover { transform: translateY(-2px); }
+        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+        .login-section { text-align: center; margin-top: 28px; }
+        .login-section a { color: #0ea5e9; font-weight: 600; text-decoration: none; }
+        .message { padding: 14px; border-radius: 12px; margin-bottom: 24px; font-size: 14px; display: none; }
+        .message.show { display: block; }
+        .message.error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
+    </style>
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body>
 
-    <?php require_once '../components/header.php' ?>
+    <div class="login-card">
+        <img src="../src/imagenes/Klyer-logo-transparent.png" alt="KLYER" class="brand-logo">
+        <h1 class="brand-title">KLYER</h1>
+        <p class="brand-subtitle">Inicia sesión en tu cuenta</p>
 
-    <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
-        <div class="col-md-5 col-lg-4">
+        <div id="errorMessage" class="message error"></div>
 
-            <div class="card shadow">
-                <div class="card-body p-4">
-                    <h3 class="text-center mb-4 text-primary">Iniciar Sesión</h3>
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" placeholder="Formato:micorreo@ejemplo.com" required id="email">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" placeholder="******" required minlength="6" id="password">
-                            
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100" id="btnIniciarSesion">
-                            Iniciar sesión
-                        </button>
-                    </form>
-
-                    <div class="text-center mt-3">
-                        <span class="d-block mt-2">
-                            ¿No tienes cuenta?
-                            <a href="registro.php">Regístrate</a>
-                        </span>
-                    </div>
-                </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label">Usuario (nickname)</label>
+                <input type="text" class="form-control" placeholder="Tu usuario" required id="email">
             </div>
+
+            <div class="form-group">
+                <label class="form-label">Contraseña</label>
+                <input type="password" class="form-control" placeholder="******" required minlength="6" id="password">
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnIniciarSesion">
+                Iniciar sesión
+            </button>
+        </form>
+
+        <div class="login-section">
+            <p>¿No tienes cuenta? <a href="registro.php">Regístrate</a></p>
         </div>
     </div>
-    <?php require_once '../components/footer.php' ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const btnIniciarSesion = document.getElementById("btnIniciarSesion");
+        // Usar el archivo de login
+        const API_LOGIN = "../api_login.php";
 
-        btnIniciarSesion.addEventListener("click", (e) => {
+        // If already logged in, redirect to feed
+        const usuario = sessionStorage.getItem('usuario');
+        if (usuario) {
+            window.location.href = 'feed.php';
+        }
+
+        const form = document.getElementById('loginForm');
+        const btnIniciarSesion = document.getElementById('btnIniciarSesion');
+        const errorMessage = document.getElementById('errorMessage');
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
+            hideError();
             
-            // Get values on button click
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            // Login usa NICKNAME, no email
+            const username = document.getElementById('email').value.trim(); // Este campo ahora es para el nickname
+            const password = document.getElementById('password').value;
 
-            // Validate required fields
-            if (!email || !password) {
-                alert("Por favor, completa todos los campos");
+            if (!username || !password) {
+                showError('Por favor, completa todos los campos');
                 return;
             }
 
-            // Make API call to login
-            fetch(`https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password })
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else if (response.status === 401 || response.status === 404) {
-                    throw new Error("Email o contraseña incorrectos");
-                } else {
-                    throw new Error("Error en el servidor");
+            btnIniciarSesion.disabled = true;
+            btnIniciarSesion.textContent = 'Iniciando sesión...';
+
+            try {
+                console.log('Login request to:', API_LOGIN + '/usuarios/login/' + encodeURIComponent(username) + '/' + encodeURIComponent(password));
+                
+                const response = await fetch(API_LOGIN + '/usuarios/login/' + encodeURIComponent(username) + '/' + encodeURIComponent(password), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+                const responseText = await response.text();
+                console.log('Response text:', responseText);
+
+                // Intentar parsear la respuesta
+                try {
+                    const data = JSON.parse(responseText);
+                    console.log('Parsed data:', data);
+                    
+                    // Verificar si la respuesta contiene datos de usuario (éxito) o un error
+                    // La API devuelve el usuario con id y nickname, o un error con message/error
+                    if (data.id && data.nickname) {
+                        // Login exitoso - tiene datos de usuario
+                        console.log('Login success:', data);
+                        
+                        // Store user data
+                        sessionStorage.setItem('usuario', JSON.stringify(data));
+                        sessionStorage.setItem('usuario_id', data.id);
+                        
+                        window.location.href = 'feed.php';
+                    } else if (data.error || data.message) {
+                        // La API devolvió un error
+                        showError(data.error || data.message || 'Email o contraseña incorrectos');
+                    } else {
+                        // Respuesta inesperada
+                        console.log('Unexpected response:', data);
+                        showError('Respuesta inesperada del servidor');
+                    }
+                } catch (e) {
+                    // No es JSON válido
+                    console.log('Parse error:', e);
+                    if (responseText.includes('incorrecta') || responseText.includes('no encontrado')) {
+                        showError('Email o contraseña incorrectos');
+                    } else {
+                        showError('Error en el servidor: ' + responseText);
+                    }
                 }
-            })
-            .then(data => {
-                // Login successful - store user data in sessionStorage
-                sessionStorage.setItem("usuario", JSON.stringify(data));
-                alert("¡Bienvenido, " + data.nombre + "!");
-                window.location.href = "feed.php";
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert(error.message);
-            });
+            } catch (error) {
+                console.error('Error completo:', error);
+                showError('Error de conexión. Verifica que el servidor PHP esté funcionando.');
+            } finally {
+                btnIniciarSesion.disabled = false;
+                btnIniciarSesion.textContent = 'Iniciar sesión';
+            }
+        });
+
+        document.querySelectorAll('#loginForm input').forEach(input => {
+            input.addEventListener('input', hideError);
         });
     </script>
 </body>
+
+</html>
+

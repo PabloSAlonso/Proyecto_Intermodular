@@ -22,15 +22,13 @@ if (!is_array($decoded)) {
     exit;
 }
 
-$apiUrl = 'https://proyecto-intermodular-kpzv.onrender.com/rest/usuarios/insertar';
+$apiUrl = 'http://localhost:8080/tema5maven/rest/usuarios/insertar';
 
 $ch = curl_init($apiUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($decoded));
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 
 $responseBody = curl_exec($ch);
 
@@ -53,3 +51,4 @@ if ($statusCode <= 0) {
 
 http_response_code($statusCode);
 echo $responseBody;
+
