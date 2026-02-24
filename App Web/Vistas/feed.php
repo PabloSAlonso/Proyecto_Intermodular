@@ -11,7 +11,11 @@
         .post-card { background: white; border-radius: 12px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .post-header { padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
         .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-        .post-img { width: 100%; display: block; }
+        .post-img {
+            width: 100%;
+            max-height: 600px; 
+            object-fit: cover; 
+        }
         .post-body { padding: 12px 16px; }
         .post-actions { padding: 8px 16px; border-top: 1px solid #eee; display: flex; gap: 10px; }
         .btn-like { background: none; border: none; color: #0ea5e9; cursor: pointer; font-size: 14px; }
@@ -53,86 +57,126 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Usar el proxy para la API (ruta relativa)
         const API_PROXY = "../api_proxy.php";
 
-        // Check if user is logged in
         const usuario = sessionStorage.getItem('usuario');
-        if (!usuario) {
-            window.location.href = 'inicio_sesion.php';
-        }
+        const usuario_id = sessionStorage.getItem('usuario_id');
 
-        // Get user info
-        const userData = usuario ? JSON.parse(usuario) : null;
-        if (userData && userData.nombre) {
-            document.getElementById('userName').textContent = 'Hola, ' + userData.nombre;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!usuario && !usuario_id) {
+                window.location.href = 'inicio_sesion.php';
+                return;
+            }
 
-        // Logout function
-        function logout() {
-            sessionStorage.removeItem('usuario');
-            sessionStorage.removeItem('usuario_id');
-            window.location.href = 'inicio_sesion.php';
-        }
+            const userData = usuario ? JSON.parse(usuario) : null;
+            if (userData && userData.nombre) {
+                document.getElementById('userName').textContent = 'Hola, ' + userData.nombre;
+            }
 
-        // Load publications
+            loadPublications();
+        });
+
         async function loadPublications() {
             try {
-                const response = await fetch(API_PROXY + 'publicaciones/todas');
-                
+                const response = await fetch(`${API_PROXY}?path=/publicaciones/todas`);
                 if (!response.ok) {
-                    throw new Error('Error al cargar publicaciones');
+                    throw new Error(`Error al cargar publicaciones: ${response.statusText}`);
                 }
 
-                const publicaciones = await response.json();
-                const container = document.getElementById('publicationsContainer');
+                const responseText = await response.text();
+                let publicaciones;
+                try {
+                    publicaciones = JSON.parse(responseText);
+                } catch (e) {
+                    console.error("Respuesta del servidor no válida:", responseText);
+                    throw new Error("La respuesta del servidor no es un JSON válido. Revisa la consola.");
+                }
+                
+                publicaciones.reverse(); 
 
+                const container = document.getElementById('publicationsContainer');
                 if (!publicaciones || publicaciones.length === 0) {
                     container.innerHTML = '<div class="alert alert-info">No hay publicaciones todavía.</div>';
                     return;
                 }
 
-                container.innerHTML = publicaciones.map(pub => `
-                    <div class="post-card">
-                        <div class="post-header">
-                            <img src="${pub.foto_perfil || '../src/imagenes/user.webp'}" class="avatar" alt="Foto de perfil">
-                            <div>
-                                <strong>${pub.nombre || 'Usuario'}</strong>
-                                <div class="text-muted small">${pub.nickname || ''}</div>
+                const userCache = new Map();
+                const getUserData = async (userId) => {
+                    if (!userId) return { nickname: 'Usuario desconocido', foto_perfil: null };
+                    if (userCache.has(userId)) return userCache.get(userId);
+                    
+                    try {
+                        const userResponse = await fetch(`${API_PROXY}?path=/usuarios/obtenerId/${userId}`);
+                        if (userResponse.ok) {
+                            const user = await userResponse.json();
+                            userCache.set(userId, user);
+                            return user;
+                        }
+                    } catch (e) {
+                        console.error(`Error al obtener el usuario ${userId}`, e);
+                    }
+                    return { nickname: 'Usuario desconocido', foto_perfil: null };
+                };
+
+                const userPromises = publicaciones.map(pub => getUserData(pub.id_usuario));
+                const usersData = await Promise.all(userPromises);
+
+                const html = publicaciones.map((pub, index) => {
+                    const user = usersData[index];
+                    const userNickname = user.nickname || 'Usuario';
+                    const userAvatar = user.foto_perfil
+                        ? `data:image/jpeg;base64,${user.foto_perfil}`
+                        : '../src/imagenes/user.webp';
+                    
+                    const imagenHtml = pub.imagen
+                        ? `<img src="data:image/jpeg;base64,${pub.imagen}" class="post-img" alt="Imagen de publicación">`
+                        : '';
+
+                    return `
+                        <div class="post-card">
+                            <div class="post-header">
+                                <img src="${userAvatar}" class="avatar" alt="Foto de perfil de ${userNickname}">
+                                <div>
+                                    <strong>${userNickname}</strong>
+                                </div>
                             </div>
-                        </div>
-                        <img src="${pub.imagen}" class="post-img" alt="Imagen de publicación">
-                        <div class="post-body">
-                            <p class="mb-0">${pub.descripcion || ''}</p>
-                        </div>
-                        <div class="post-actions">
-                            <button class="btn-like" data-id="${pub.id_publicacion}" onclick="toggleLike(this)">
-                                ♥ ${pub.likes || 0}
-                            </button>
-                            <button class="btn-like">
-                                💬 ${pub.comentarios || 0}
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
+                            ${imagenHtml}
+                            <div class="post-body">
+                                <p class="mb-0">${pub.descripcion || ''}</p>
+                            </div>
+                            <div class="post-actions">
+                                <button class="btn-like" data-id="${pub.id_publicacion}" onclick="toggleLike(this)">
+                                    ♥ ${pub.likes || 0}
+                                </button>
+                                <button class="btn-like">
+                                    💬 ${pub.comentarios || 0}
+                                </button>
+                            </div>
+                        </div>`;
+                }).join('');
+
+                container.innerHTML = html;
 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error en loadPublications:', error);
                 document.getElementById('publicationsContainer').innerHTML = 
-                    '<div class="alert alert-danger">Error al cargar las publicaciones. Asegúrate de que la API esté funcionando.</div>';
+                    '<div class="alert alert-danger">Error al cargar las publicaciones. Revisa la consola para más detalles.</div>';
             }
         }
 
-        // Toggle like
-        function toggleLike(btn) {
-            btn.classList.toggle('liked');
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'inicio_sesion.php';
         }
 
-        // Load on page load
-        loadPublications();
+
+        function toggleLike(btn) {
+            btn.classList.toggle('liked');
+            
+        }
+
     </script>
 
 </body>
 
 </html>
-

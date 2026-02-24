@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <!-- Navigation -->
+
     <nav class="navbar sticky-top">
         <a href="feed.php" class="navbar-brand">
             <img src="../src/imagenes/Klyer-logo-transparent.png" alt="Logo">KLYER
@@ -75,7 +75,14 @@
 
         // Get user info
         const userData = usuario ? JSON.parse(usuario) : null;
-        const userId = usuario_id || (userData ? userData.id : null);
+        
+        // Intentar obtener ID de varias fuentes y asegurar que no sea "undefined" string
+        let userId = usuario_id;
+        if (!userId || userId === "undefined") {
+            if (userData) {
+                userId = userData.id || userData.id_usuario;
+            }
+        }
 
         // Logout function
         function logout() {
@@ -93,19 +100,30 @@
 
             try {
                 // Load user data
-                const userResponse = await fetch(API_PROXY + 'usuarios/obtenerId/' + userId);
+                const userResponse = await fetch(`${API_PROXY}?path=/usuarios/obtenerId/${userId}`);
                 if (userResponse.ok) {
-                    const user = await userResponse.json();
+                    // Usar text() primero para evitar errores de sintaxis si devuelve HTML
+                    const responseText = await userResponse.text();
+                    let user;
+                    try {
+                        user = JSON.parse(responseText);
+                    } catch (e) {
+                        console.warn("Respuesta no JSON al cargar usuario, usando datos de sesión.");
+                        throw new Error("Respuesta inválida");
+                    }
+
                     document.getElementById('userNickname').textContent = user.nickname || user.nombre || 'Usuario';
                     document.getElementById('userName').textContent = 'Hola, ' + (user.nombre || 'Usuario');
                     if (user.foto_perfil) {
-                        document.getElementById('userPhoto').src = user.foto_perfil;
+                        // Asumiendo que la API devuelve la imagen como un string base64
+                        document.getElementById('userPhoto').src = 'data:image/jpeg;base64,' + user.foto_perfil;
                     }
                 }
             } catch (error) {
                 console.error('Error loading user:', error);
-                document.getElementById('userNickname').textContent = userData ? userData.nickname : 'Usuario';
-                document.getElementById('userName').textContent = 'Hola, ' + (userData ? userData.nombre : 'Usuario');
+                const fallbackName = (userData && (userData.nickname || userData.nombre)) ? (userData.nickname || userData.nombre) : 'Usuario';
+                document.getElementById('userNickname').textContent = fallbackName;
+                document.getElementById('userName').textContent = 'Hola, ' + fallbackName;
             }
         }
 
@@ -117,14 +135,24 @@
             }
 
             try {
-                const response = await fetch(API_PROXY + 'publicaciones/usuario/' + userId);
+                const response = await fetch(`${API_PROXY}?path=/publicaciones/usuario/${userId}`);
                 
                 if (!response.ok) {
                     throw new Error('Error al cargar publicaciones');
                 }
 
-                const publicaciones = await response.json();
+                const responseText = await response.text();
+                let publicaciones;
+                try {
+                    publicaciones = JSON.parse(responseText);
+                } catch (e) {
+                    throw new Error("La respuesta del servidor no es un JSON válido.");
+                }
+
                 const container = document.getElementById('publicationsContainer');
+
+                // Invertir para mostrar las más recientes primero
+                publicaciones.reverse();
 
                 if (!publicaciones || publicaciones.length === 0) {
                     container.innerHTML = '<p class="text-center col-12">No hay publicaciones todavía.</p>';
@@ -133,7 +161,7 @@
 
                 container.innerHTML = publicaciones.map(pub => `
                     <div class="card-post">
-                        <img src="${pub.imagen}" alt="Imagen">
+                        <img src="data:image/jpeg;base64,${pub.imagen}" alt="Imagen">
                         <p>${pub.descripcion || ''}</p>
                     </div>
                 `).join('');
@@ -153,4 +181,3 @@
 </body>
 
 </html>
-

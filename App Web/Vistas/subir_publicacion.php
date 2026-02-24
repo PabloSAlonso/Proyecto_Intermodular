@@ -6,28 +6,144 @@
     <title>Subir Publicación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f5f5f5; }
-        .container { max-width: 500px; margin: 40px auto; padding: 20px; }
-        .form-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        h2 { text-align: center; margin-bottom: 25px; color: #333; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; }
-        .form-group input:focus, .form-group textarea:focus { border-color: #0ea5e9; outline: none; }
-        .btn-publicar { width: 100%; padding: 14px; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
-        .btn-publicar:hover { transform: translateY(-2px); }
-        .btn-publicar:disabled { opacity: 0.7; cursor: not-allowed; }
-        .message { padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; display: none; }
-        .message.show { display: block; }
-        .message.success { background: #d1fae5; color: #065f46; }
-        .message.error { background: #fee2e2; color: #991b1b; }
-        .volver-link { display: block; text-align: center; margin-top: 20px; color: #0ea5e9; text-decoration: none; }
-        .navbar { background: #0ea5e9; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .navbar-brand { color: white; font-size: 20px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .navbar-brand img { width: 35px; height: 35px; }
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-links a { color: white; text-decoration: none; font-size: 14px; }
-        .nav-links span { color: white; font-size: 14px; }
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #0ea5e9;
+            outline: none;
+        }
+
+        .btn-publicar {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-publicar:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-publicar:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .volver-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #0ea5e9;
+            text-decoration: none;
+        }
+
+        .navbar {
+            background: #0ea5e9;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links span {
+            color: white;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -75,46 +191,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Usar el proxy para la API (ruta relativa)
         const API_PROXY = "../api_proxy.php";
 
-        // Check if user is logged in
         const usuario = sessionStorage.getItem('usuario');
         const usuario_id = sessionStorage.getItem('usuario_id');
-        
+
         if (!usuario && !usuario_id) {
             window.location.href = 'inicio_sesion.php';
         }
 
-        // Get user info
         const userData = usuario ? JSON.parse(usuario) : null;
         const userId = usuario_id || (userData ? userData.id : null);
 
-        // Set user name in navbar
         if (userData && userData.nombre) {
             document.getElementById('userName').textContent = 'Hola, ' + userData.nombre;
         }
 
-        // Logout function
         function logout() {
             sessionStorage.removeItem('usuario');
             sessionStorage.removeItem('usuario_id');
             window.location.href = 'inicio_sesion.php';
         }
 
-        // Show message
         function showMessage(text, type) {
             const msgEl = document.getElementById('message');
             msgEl.textContent = text;
             msgEl.className = 'message show ' + type;
         }
 
-        // Hide message
         function hideMessage() {
             document.getElementById('message').className = 'message';
         }
 
-        // Handle form submit
         document.getElementById('publicacionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             hideMessage();
@@ -141,10 +249,9 @@
                 return;
             }
 
-            // Read image as base64
             const reader = new FileReader();
             reader.onload = async function() {
-                // Extraer solo la parte base64 (sin el prefijo data:image/xxx;base64,)
+
                 const base64WithPrefix = reader.result;
                 const base64 = base64WithPrefix.split(',')[1];
 
@@ -152,16 +259,30 @@
                 btnPublicar.textContent = 'Publicando...';
 
                 try {
-                    const response = await fetch(API_PROXY + 'publicaciones/insertar', {
+                    const today = new Date();
+                    const fecha = today.getFullYear() + '-' +
+                        String(today.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(today.getDate()).padStart(2, '0');
+
+                    const publicacion = {
+                        id_usuario: parseInt(userId),
+                        descripcion: descripcion,
+                        imagen: base64, 
+                        fecha_publicacion: fecha, 
+                        likes: 0,
+                        comentarios: 0
+                    };
+
+                    const url = `${API_PROXY}?path=/publicaciones/insertar`;
+                    console.log('URL being called:', url);
+                    console.log('Sending publicacion:', publicacion);
+
+                    const response = await fetch(url, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            id_usuario: userId,
-                            descripcion: descripcion,
-                            imagen: base64
-                        })
+                        body: JSON.stringify(publicacion)
                     });
 
                     console.log('Response status:', response.status);
@@ -191,7 +312,6 @@
             reader.readAsDataURL(file);
         });
 
-        // Clear message on input
         document.querySelectorAll('input, textarea').forEach(el => {
             el.addEventListener('input', hideMessage);
         });
@@ -200,4 +320,3 @@
 </body>
 
 </html>
-
