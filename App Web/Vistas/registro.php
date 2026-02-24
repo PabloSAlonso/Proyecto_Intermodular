@@ -1,6 +1,6 @@
 <?php
 session_start();
-// If already logged in, redirect to feed
+
 if (isset($_SESSION['usuario']) || isset($_SESSION['usuario_id'])) {
     header('Location: feed.php');
     exit;
@@ -110,8 +110,8 @@ if (isset($_SESSION['usuario']) || isset($_SESSION['usuario_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Usar el archivo de registro existente
-        const API_REGISTRO = "../api_registro.php";
+        // Usar el proxy genérico
+        const API_PROXY = "../api_proxy.php";
         
         const form = document.getElementById('registroForm');
         const btnEnviar = document.getElementById('btnEnviar');
@@ -202,10 +202,11 @@ if (isset($_SESSION['usuario']) || isset($_SESSION['usuario_id'])) {
             btnEnviar.textContent = 'Creando cuenta...';
 
             try {
-                console.log('Enviando datos a:', API_REGISTRO);
+                const apiPath = '/usuarios/insertar';
+                console.log('Enviando datos a:', `${API_PROXY}?path=${apiPath}`);
                 console.log('Datos:', JSON.stringify(userData));
                 
-                const response = await fetch(API_REGISTRO, {
+                const response = await fetch(`${API_PROXY}?path=${apiPath}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

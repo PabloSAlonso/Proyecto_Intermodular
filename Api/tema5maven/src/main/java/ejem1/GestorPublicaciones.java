@@ -72,7 +72,7 @@ public class GestorPublicaciones {
         try {
             Class.forName("org.postgresql.Driver");
             try (Connection conn = DriverManager.getConnection(url, user, password);
-                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
 
                 ps.setInt(1, idUsuario);
                 try (ResultSet rs = ps.executeQuery()) {

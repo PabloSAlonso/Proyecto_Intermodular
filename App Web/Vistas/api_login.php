@@ -12,11 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Extraer los parámetros de la URL
 $requestUri = $_SERVER['REQUEST_URI'];
 $path = parse_url($requestUri, PHP_URL_PATH);
 
-// Encontrar todo después de api_login.php
 $pos = strpos($path, 'api_login.php');
 if ($pos !== false) {
     $apiPath = substr($path, $pos + strlen('api_login.php'));
@@ -24,11 +22,9 @@ if ($pos !== false) {
     $apiPath = '';
 }
 
-// Limpiar el path
 $apiPath = str_replace('//', '/', $apiPath);
 $apiPath = trim($apiPath);
 
-// Asegurar que empieza con /
 if (!empty($apiPath) && $apiPath[0] !== '/') {
     $apiPath = '/' . $apiPath;
 }
@@ -39,23 +35,18 @@ if (empty($apiPath) || $apiPath === '/') {
     exit;
 }
 
-// URL base de la API
 $apiBase = 'http://localhost:8080/tema5maven/rest';
 $apiUrl = $apiBase . $apiPath;
 
-// Debug: ver qué URL se genera
 error_log("Request URI: " . $requestUri);
 error_log("Path: " . $path);
 error_log("API Path: " . $apiPath);
 error_log("Final API URL: " . $apiUrl);
 
-// Si es GET, añadir query string
 if ($method === 'GET' && !empty($_SERVER['QUERY_STRING'])) {
     $apiUrl .= '?' . $_SERVER['QUERY_STRING'];
 }
 
-// Quitar el echo de debug
-// error_log("API URL: " . $apiUrl);
 
 $ch = curl_init($apiUrl);
 
@@ -81,7 +72,6 @@ if (curl_errno($ch)) {
     exit;
 }
 
-// En PHP 8+, curl_close ya no es necesario pero lo mantenemos por compatibilidad
 if (PHP_VERSION_ID < 80000) {
     curl_close($ch);
 } else {

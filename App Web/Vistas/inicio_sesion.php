@@ -60,8 +60,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Usar el archivo de login
-        const API_LOGIN = "../api_login.php";
+        // Usar el proxy genérico
+        const API_PROXY = "../api_proxy.php";
 
         // If already logged in, redirect to feed
         const usuario = sessionStorage.getItem('usuario');
@@ -99,9 +99,10 @@
             btnIniciarSesion.textContent = 'Iniciando sesión...';
 
             try {
-                console.log('Login request to:', API_LOGIN + '/usuarios/login/' + encodeURIComponent(username) + '/' + encodeURIComponent(password));
+                const apiPath = `/usuarios/login/${encodeURIComponent(username)}/${encodeURIComponent(password)}`;
+                console.log('Login request to:', `${API_PROXY}?path=${apiPath}`);
                 
-                const response = await fetch(API_LOGIN + '/usuarios/login/' + encodeURIComponent(username) + '/' + encodeURIComponent(password), {
+                const response = await fetch(`${API_PROXY}?path=${apiPath}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -119,13 +120,14 @@
                     
                     // Verificar si la respuesta contiene datos de usuario (éxito) o un error
                     // La API devuelve el usuario con id y nickname, o un error con message/error
-                    if (data.id && data.nickname) {
+                    const userId = data.id || data.id_usuario;
+                    if (userId && data.nickname) {
                         // Login exitoso - tiene datos de usuario
                         console.log('Login success:', data);
                         
                         // Store user data
                         sessionStorage.setItem('usuario', JSON.stringify(data));
-                        sessionStorage.setItem('usuario_id', data.id);
+                        sessionStorage.setItem('usuario_id', userId);
                         
                         window.location.href = 'feed.php';
                     } else if (data.error || data.message) {
@@ -161,4 +163,3 @@
 </body>
 
 </html>
-
