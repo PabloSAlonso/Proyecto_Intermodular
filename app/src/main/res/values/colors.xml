@@ -5,16 +5,45 @@
     <color name="grey">#5E6B80</color>
     <color name="yellow">#F59E0B</color>
 
-    <color name="blue_primary">#03A9F4</color>
-    <color name="blue_dark">#3F51B5</color>
-    <color name="blue_light">#00BCD4</color>
+    <!-- Primary Blue Palette - Enhanced -->
+    <color name="blue_primary">#2196F3</color>
+    <color name="blue_dark">#1565C0</color>
+    <color name="blue_light">#64B5F6</color>
+    <color name="blue_ultra_light">#E3F2FD</color>
+    <color name="blue_accent">#00BCD4</color>
+    
+    <!-- Gradient Blues -->
+    <color name="blue_gradient_start">#1976D2</color>
+    <color name="blue_gradient_end">#42A5F5</color>
+    <color name="blue_soft">#BBDEFB</color>
 
-    <color name="white_background">#EEF2FF</color>
-    <color name="white_light">#F8FAFC</color>
-    <color name="grey_light">#DCE3EE</color>
-    <color name="text_dark">#102A43</color>
-    <color name="text_secondary">#62748A</color>
+    <!-- Background Colors -->
+    <color name="white_background">#F5F9FF</color>
+    <color name="white_light">#FAFCFE</color>
+    <color name="grey_light">#E8EEF5</color>
+    <color name="text_dark">#1A2B3C</color>
+    <color name="text_secondary">#5A6B7C</color>
+    <color name="text_hint">#9EAAB8</color>
 
+    <!-- Accent Colors -->
     <color name="accent_coral">#F25C54</color>
+    <color name="accent_green">#4CAF50</color>
+    <color name="accent_orange">#FF9800</color>
+    <color name="accent_purple">#7E57C2</color>
+    
+    <!-- Surface Colors -->
     <color name="surface_card">#FFFFFF</color>
+    <color name="surface_elevated">#FFFFFF</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    
+    <!-- Overlay Colors -->
+    <color name="overlay_dark">#CC0B1220</color>
+    <color name="overlay_light">#33000000</color>
+    
+    <!-- Divider -->
+    <color name="divider">#E0E8F0</color>
 </resources>
