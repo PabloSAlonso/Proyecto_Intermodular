@@ -3,27 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Editar Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - Klyer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f5f5f5; }
-        .perfil-container { max-width: 500px; margin: 40px auto; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { font-weight: 500; margin-bottom: 8px; }
-        .form-control { border-radius: 8px; }
-        .btn-editar { width: 100%; padding: 12px; background: #0ea5e9; color: white; border: none; border-radius: 8px; font-size: 16px; }
-        .volver-link { display: block; text-align: center; margin-top: 20px; color: #0ea5e9; text-decoration: none; }
-        .message { padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; display: none; }
-        .message.show { display: block; }
-        .message.success { background: #d1fae5; color: #065f46; }
-        .message.error { background: #fee2e2; color: #991b1b; }
-        .navbar { background: #0ea5e9; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .navbar-brand { color: white; font-size: 20px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .navbar-brand img { width: 35px; height: 35px; }
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-links a { color: white; text-decoration: none; font-size: 14px; }
-        .nav-links span { color: white; font-size: 14px; }
-    </style>
+    <link href="../src/styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -41,49 +24,52 @@
         </div>
     </nav>
 
-    <div class="perfil-container">
-        <h2>Editar Perfil</h2>
-
-        <div id="message" class="message"></div>
-
-        <form id="editProfileForm">
-            <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" required>
+    <div class="container">
+        <div class="card animate-slide-up" style="max-width: 500px; margin: 0 auto;">
+            <div class="card-header">
+                <h2 style="margin: 0; font-size: 1.5rem;">Editar Perfil</h2>
             </div>
 
-            <div class="form-group">
-                <label>Apellidos</label>
-                <input type="text" class="form-control" name="apellidos" id="apellidos" required>
-            </div>
+            <div id="message" class="message"></div>
 
-            <div class="form-group">
-                <label>Nickname</label>
-                <input type="text" class="form-control" name="nickname" id="nickname" required>
-            </div>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label class="form-label" for="nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                </div>
 
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control" name="email" id="email" required>
-            </div>
+                <div class="form-group">
+                    <label class="form-label" for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" required>
+                </div>
 
-            <div class="form-group">
-                <label>Nueva contraseña (opcional)</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Dejar en blanco para no cambiar">
-            </div>
+                <div class="form-group">
+                    <label class="form-label" for="nickname">Nickname</label>
+                    <input type="text" class="form-control" name="nickname" id="nickname" required>
+                </div>
 
-            <button type="submit" class="btn-editar">
-                Guardar cambios
-            </button>
-        </form>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" required>
+                </div>
 
-        <div style="text-align:center;">
+                <div class="form-group">
+                    <label class="form-label" for="password">Nueva contraseña (opcional)</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Dejar en blanco para no cambiar">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    Guardar cambios
+                </button>
+            </form>
+
             <a href="perfil.php" class="volver-link">
                 ← Volver al perfil
             </a>
         </div>
-
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const API_PROXY = "../api_proxy.php";
@@ -103,7 +89,7 @@
         function showMessage(text, type) {
             const msgEl = document.getElementById('message');
             msgEl.textContent = text;
-            msgEl.className = 'message show ' + type;
+            msgEl.className = 'message message-' + type + ' show';
         }
 
         async function loadProfileData() {
@@ -201,3 +187,4 @@
 </body>
 
 </html>
+

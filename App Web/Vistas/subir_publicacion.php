@@ -3,153 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Subir Publicación</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Publicación - Klyer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .form-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #0ea5e9;
-            outline: none;
-        }
-
-        .btn-publicar {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #0ea5e9, #0284c7);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-publicar:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-publicar:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        .message.success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .message.error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .volver-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #0ea5e9;
-            text-decoration: none;
-        }
-
-        .navbar {
-            background: #0ea5e9;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand {
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .navbar-brand img {
-            width: 35px;
-            height: 35px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .nav-links span {
-            color: white;
-            font-size: 14px;
-        }
-    </style>
+    <link href="../src/styles.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar sticky-top">
         <a href="feed.php" class="navbar-brand">
             <img src="../src/imagenes/Klyer-logo-transparent.png" alt="Logo">KLYER
         </a>
@@ -163,23 +25,25 @@
     </nav>
 
     <div class="container">
-        <div class="form-card">
-            <h2>Nueva Publicación</h2>
+        <div class="card animate-slide-up" style="max-width: 500px; margin: 0 auto;">
+            <div class="card-header">
+                <h2 style="margin: 0; font-size: 1.5rem;">Nueva Publicación</h2>
+            </div>
 
             <div id="message" class="message"></div>
 
             <form id="publicacionForm">
                 <div class="form-group">
-                    <label>Seleccionar imagen</label>
-                    <input type="file" name="imagen" accept="image/*" required id="imagenInput">
+                    <label class="form-label" for="imagenInput">Seleccionar imagen</label>
+                    <input type="file" name="imagen" accept="image/*" required id="imagenInput" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label>Descripción</label>
-                    <textarea name="descripcion" rows="3" required id="descripcionInput" placeholder="¿Qué estás pensando?"></textarea>
+                    <label class="form-label" for="descripcionInput">Descripción</label>
+                    <textarea name="descripcion" rows="4" required id="descripcionInput" class="form-control" placeholder="¿Qué estás pensando?"></textarea>
                 </div>
 
-                <button type="submit" class="btn-publicar" id="btnPublicar">
+                <button type="submit" class="btn btn-success btn-full" id="btnPublicar">
                     Publicar
                 </button>
             </form>
@@ -216,7 +80,7 @@
         function showMessage(text, type) {
             const msgEl = document.getElementById('message');
             msgEl.textContent = text;
-            msgEl.className = 'message show ' + type;
+            msgEl.className = 'message message-' + type + ' show';
         }
 
         function hideMessage() {
@@ -320,3 +184,4 @@
 </body>
 
 </html>
+
