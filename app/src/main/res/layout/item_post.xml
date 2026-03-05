@@ -4,19 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
-    android:layout_marginBottom="5dp"
-    app:cardBackgroundColor="@color/white_background"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/grey_light"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@color/surface_card"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
     app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:padding="16dp">
 
+        <!-- Header: User Info -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,15 +25,17 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivProfilePost"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@color/blue_ultra_light"
+                android:padding="2dp"
                 android:src="@drawable/logoklyer"
                 app:shapeAppearanceOverlay="@style/CircleImage" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -42,9 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_dark"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
+                    android:textSize="15sp"
             </LinearLayout>
 
         </LinearLayout>
