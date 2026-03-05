@@ -6,54 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .login-card { background: white; border-radius: 24px; padding: 48px 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; }
-        .brand-logo { width: 64px; height: 64px; display: block; margin: 0 auto 16px; }
-        .brand-title { text-align: center; font-size: 32px; font-weight: 700; margin: 0 0 8px; color: #0ea5e9; }
-        .brand-subtitle { text-align: center; color: #64748b; margin: 0 0 32px; }
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-        .form-control { width: 100%; padding: 14px 16px; font-size: 15px; border: 2px solid #e2e8f0; border-radius: 12px; }
-        .form-control:focus { border-color: #0ea5e9; outline: none; box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15); }
-        .btn-submit { width: 100%; padding: 16px; font-size: 16px; font-weight: 600; color: white; background: linear-gradient(135deg, #0ea5e9, #0284c7); border: none; border-radius: 12px; cursor: pointer; }
-        .btn-submit:hover { transform: translateY(-2px); }
-        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-        .login-section { text-align: center; margin-top: 28px; }
-        .login-section a { color: #0ea5e9; font-weight: 600; text-decoration: none; }
-        .message { padding: 14px; border-radius: 12px; margin-bottom: 24px; font-size: 14px; display: none; }
-        .message.show { display: block; }
-        .message.error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
-    </style>
+    <link href="../src/styles.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="container-narrow" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <div class="auth-card animate-slide-up">
+            <img src="../src/imagenes/Klyer-logo-transparent.png" alt="KLYER" class="auth-logo">
+            <h1 class="auth-title">KLYER</h1>
+            <p class="auth-subtitle">Inicia sesión en tu cuenta</p>
 
-    <div class="login-card">
-        <img src="../src/imagenes/Klyer-logo-transparent.png" alt="KLYER" class="brand-logo">
-        <h1 class="brand-title">KLYER</h1>
-        <p class="brand-subtitle">Inicia sesión en tu cuenta</p>
+            <div id="errorMessage" class="message message-error"></div>
 
-        <div id="errorMessage" class="message error"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="email">Usuario (nickname)</label>
+                    <input type="text" class="form-control" placeholder="Tu usuario" required id="email">
+                </div>
 
-        <form id="loginForm">
-            <div class="form-group">
-                <label class="form-label">Usuario (nickname)</label>
-                <input type="text" class="form-control" placeholder="Tu usuario" required id="email">
+                <div class="form-group">
+                    <label class="form-label" for="password">Contraseña</label>
+                    <input type="password" class="form-control" placeholder="******" required minlength="6" id="password">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="btnIniciarSesion">
+                    Iniciar sesión
+                </button>
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="text-muted mb-0">¿No tienes cuenta? <a href="registro.php" class="link">Regístrate</a></p>
             </div>
-
-            <div class="form-group">
-                <label class="form-label">Contraseña</label>
-                <input type="password" class="form-control" placeholder="******" required minlength="6" id="password">
-            </div>
-
-            <button type="submit" class="btn-submit" id="btnIniciarSesion">
-                Iniciar sesión
-            </button>
-        </form>
-
-        <div class="login-section">
-            <p>¿No tienes cuenta? <a href="registro.php">Regístrate</a></p>
         </div>
     </div>
 
@@ -163,3 +146,4 @@
 </body>
 
 </html>
+
