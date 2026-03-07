@@ -66,4 +66,8 @@ public class Usuario {
     public void setFoto_perfil(byte[] foto_perfil) {
         this.foto_perfil = foto_perfil;
     }
+
+    public static void main(String[] args){
+        System.out.println("Hello World");
+    }
 }
