@@ -116,7 +116,10 @@
                         <div class="post-card">
                             <div class="post-header">
                                 <img src="${userAvatar}" class="post-avatar" alt="Foto de perfil de ${userNickname}">
-                                <div class="post-user">${userNickname}</div>
+                                <div class="post-user-info">
+                                    <div class="post-user">${userNickname}</div>
+                                    <div class="post-time">${new Date(pub.fecha_publicacion).toLocaleString()}</div>
+                                </div>
                             </div>
                             ${imagenHtml}
                             <div class="post-body">

@@ -393,6 +393,16 @@ textarea.form-control {
     color: var(--text-primary);
 }
 
+.post-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
 .post-image {
     width: 100%;
     max-height: 600px;
