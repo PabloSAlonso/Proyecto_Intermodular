@@ -14,3 +14,10 @@
 .cxx
 local.properties
 .vs/
+AGENT.*
+API_SPEC.*
+ARCHITECTURE.*
+DEVELOPMENT_RULES.*
+PROJECT_CONTEXT.*
+TASKS.*
+PROMPTS.*
