@@ -14,7 +14,10 @@ public class Aplicacion extends Application {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(Usuario.class);
         classes.add(Publicacion.class);
+        classes.add(PublicacionDTO.class);
         classes.add(GestorUsuarios.class);
+        classes.add(GestorPublicaciones.class);
+        classes.add(DBUtil.class);
         return classes;
     }
 }
