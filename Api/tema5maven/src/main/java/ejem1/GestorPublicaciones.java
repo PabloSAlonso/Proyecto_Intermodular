@@ -1,9 +1,9 @@
 package ejem1;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -20,85 +20,90 @@ import jakarta.ws.rs.core.Response;
 @Path("/publicaciones")
 public class GestorPublicaciones {
 
-    private final String url = "jdbc:postgresql://aws-1-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require";
-    private final String user = "postgres.vefvxfzqkwhfetudvnlv";
-    private final String password = "bUf*2m9N!w2mmEU";
-
-    @Path("/todas")
+@Path("/todas")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPublicaciones() {
-        String sql = "SELECT * FROM publicaciones ORDER BY id DESC";
-        ArrayList<Publicacion> publicaciones = new ArrayList<>();
+        String sql = """
+            SELECT p.*, u.nombre || ' ' || u.apellidos as nombre_usuario, u.nickname as nickname_usuario, u.foto_perfil as foto_usuario 
+            FROM publicaciones p 
+            JOIN usuarios u ON p.id_usuario = u.id 
+            ORDER BY p.id DESC
+            """;
+        ArrayList<PublicacionDTO> publicaciones = new ArrayList<>();
 
-        try {
-            Class.forName("org.postgresql.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, password);
-                 PreparedStatement ps = conn.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-                while (rs.next()) {
-                    Publicacion p = new Publicacion();
-                    p.setId_publicacion(rs.getInt("id"));
-                    p.setId_usuario(rs.getInt("id_usuario"));
-                    p.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-                    p.setImagen(rs.getBytes("foto_publicacion"));
-                    p.setDescripcion(rs.getString("description"));
-                    p.setLikes(rs.getInt("likes"));
-                    p.setComentarios(rs.getInt("comentarios"));
-                    publicaciones.add(p);
-                }
-                return Response.ok(publicaciones).build();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                        .entity("Error SQL: " + e.getMessage()).build();
+            while (rs.next()) {
+                PublicacionDTO p = new PublicacionDTO(
+                    rs.getInt("id"),
+                    rs.getInt("id_usuario"),
+                    rs.getDate("fecha_publicacion"),
+                    rs.getBytes("foto_publicacion"),
+                    rs.getString("description"),
+                    rs.getInt("likes"),
+                    rs.getInt("comentarios"),
+                    rs.getString("nombre_usuario"),
+                    rs.getString("nickname_usuario"),
+                    rs.getBytes("foto_usuario")
+                );
+                publicaciones.add(p);
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            return Response.ok(publicaciones).build();
+
+        } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Error: Driver PostgreSQL no encontrado").build();
+                    .entity("Error SQL: " + e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error: " + e.getMessage()).build();
         }
     }
 
-    @Path("/usuario/{id_usuario}")
+@Path("/usuario/{id_usuario}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPublicacionesPorUsuario(@PathParam("id_usuario") int idUsuario) {
-        String sql = "SELECT * FROM publicaciones WHERE id_usuario=? ORDER BY id DESC";
-        ArrayList<Publicacion> publicaciones = new ArrayList<>();
+        String sql = """
+            SELECT p.*, u.nombre || ' ' || u.apellidos as nombre_usuario, u.nickname as nickname_usuario, u.foto_perfil as foto_usuario 
+            FROM publicaciones p 
+            JOIN usuarios u ON p.id_usuario = u.id 
+            WHERE p.id_usuario = ? 
+            ORDER BY p.id DESC
+            """;
+        ArrayList<PublicacionDTO> publicaciones = new ArrayList<>();
 
-        try {
-            Class.forName("org.postgresql.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, password);
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                ps.setInt(1, idUsuario);
-                try (ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-                        Publicacion p = new Publicacion();
-                        p.setId_publicacion(rs.getInt("id"));
-                        p.setId_usuario(rs.getInt("id_usuario"));
-                        p.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-                        p.setImagen(rs.getBytes("foto_publicacion"));
-                        p.setDescripcion(rs.getString("description"));
-                        p.setLikes(rs.getInt("likes"));
-                        p.setComentarios(rs.getInt("comentarios"));
-                        publicaciones.add(p);
-                    }
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    PublicacionDTO p = new PublicacionDTO(
+                        rs.getInt("id"),
+                        rs.getInt("id_usuario"),
+                        rs.getDate("fecha_publicacion"),
+                        rs.getBytes("foto_publicacion"),
+                        rs.getString("description"),
+                        rs.getInt("likes"),
+                        rs.getInt("comentarios"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("nickname_usuario"),
+                        rs.getBytes("foto_usuario")
+                    );
+                    publicaciones.add(p);
                 }
-                return Response.ok(publicaciones).build();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                        .entity("Error SQL: " + e.getMessage()).build();
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            return Response.ok(publicaciones).build();
+
+        } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Error: Driver PostgreSQL no encontrado").build();
+                    .entity("Error SQL: " + e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error: " + e.getMessage()).build();
         }
     }
 
@@ -181,43 +186,47 @@ public class GestorPublicaciones {
         }
     }
 
-    @Path("/obtener/{id}")
+@Path("/obtener/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPublicacion(@PathParam("id") int id) {
-        String sql = "SELECT * FROM publicaciones WHERE id=?";
+        String sql = """
+            SELECT p.*, u.nombre || ' ' || u.apellidos as nombre_usuario, u.nickname as nickname_usuario, u.foto_perfil as foto_usuario 
+            FROM publicaciones p 
+            JOIN usuarios u ON p.id_usuario = u.id 
+            WHERE p.id = ?
+            """;
 
-        try {
-            Class.forName("org.postgresql.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, password);
-                 PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                ps.setInt(1, id);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        Publicacion p = new Publicacion();
-                        p.setId_publicacion(rs.getInt("id"));
-                        p.setId_usuario(rs.getInt("id_usuario"));
-                        p.setFecha_publicacion(rs.getDate("fecha_publicacion"));
-                        p.setImagen(rs.getBytes("foto_publicacion"));
-                        p.setDescripcion(rs.getString("description"));
-                        p.setLikes(rs.getInt("likes"));
-                        p.setComentarios(rs.getInt("comentarios"));
-                        return Response.ok(p).build();
-                    } else {
-                        return Response.status(Response.Status.NOT_FOUND).build();
-                    }
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    PublicacionDTO p = new PublicacionDTO(
+                        rs.getInt("id"),
+                        rs.getInt("id_usuario"),
+                        rs.getDate("fecha_publicacion"),
+                        rs.getBytes("foto_publicacion"),
+                        rs.getString("description"),
+                        rs.getInt("likes"),
+                        rs.getInt("comentarios"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("nickname_usuario"),
+                        rs.getBytes("foto_usuario")
+                    );
+                    return Response.ok(p).build();
+                } else {
+                    return Response.status(Response.Status.NOT_FOUND).build();
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                        .entity("Error SQL: " + e.getMessage()).build();
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
+        } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Error: Driver PostgreSQL no encontrado").build();
+                    .entity("Error SQL: " + e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error: " + e.getMessage()).build();
         }
     }
 }

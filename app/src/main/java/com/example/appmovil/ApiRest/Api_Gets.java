@@ -193,11 +193,6 @@ public class Api_Gets {
         ArrayList<Post> posts = new ArrayList<>();
 
         try {
-            Map<Integer, User> usersById = new HashMap<>();
-            for (User user : fetchUsers()) {
-                usersById.put(user.getId(), user);
-            }
-
             URL url = new URL(endpoint);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -209,17 +204,16 @@ public class Api_Gets {
                 JSONArray array = new JSONArray(readResponse(connection));
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = array.getJSONObject(i);
-                    int userId = obj.optInt("id_usuario", -1);
-                    User user = usersById.get(userId);
-                    String username = user != null ? user.getUsername() : ("user" + userId);
-                    String avatar = user != null ? user.getAvatarUrl() : "";
+                    String nombreUsuario = obj.optString("nombre_usuario", "Usuario desconocido");
+                    String userAvatar = obj.optString("foto_usuario", "");
+                    // Convert byte[] base64 if needed, assume backend sends base64 string or adjust
 
                     posts.add(new Post(
                             obj.optInt("id_publicacion", 0),
-                            username,
-                            avatar,
+                            nombreUsuario,
+                            userAvatar,
                             obj.optString("imagen", ""),
-                            obj.optString("descripcion", ""),
+                            obj.optString("description", ""),
                             "Publicacion",
                             obj.optInt("likes", 0),
                             obj.optInt("comentarios", 0),
@@ -253,49 +247,6 @@ public class Api_Gets {
         user.setDescription(obj.optString("descripcion", ""));
         return user;
     }
-    public void getAllPublicaciones(PostsCallback callback) {
-        new Thread(() -> {
-            HttpURLConnection connection = null;
-            ArrayList<Post> publicaciones = new ArrayList<>();
-            try {
-                URL url = new URL(API_ROOT + "/publicaciones/todas");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "application/json");
-                connection.setConnectTimeout(12000);
-                connection.setReadTimeout(12000);
-
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    JSONArray array = new JSONArray(readResponse(connection));
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject obj = array.getJSONObject(i);
-                        publicaciones.add(new Post(
-                                obj.optInt("id_publicacion", 0),
-                                "",
-                                "",
-                                obj.optString("imagen", ""),
-                                obj.optString("descripcion", ""),
-                                "Publicacion",
-                                obj.optInt("likes", 0),
-                                obj.optInt("comentarios", 0),
-                                obj.optString("fecha_publicacion", "")
-                        ));
-                    }
-                }
-                callback.onResult(publicaciones);
-
-            } catch (Exception e) {
-                Log.e("Api_Gets", "Error obteniendo publicaciones", e);
-                callback.onResult(publicaciones);
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-        }).start();
-    }
-
-
     private String readResponse(HttpURLConnection connection) throws IOException {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();

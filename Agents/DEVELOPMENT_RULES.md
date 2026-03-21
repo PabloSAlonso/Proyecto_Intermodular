@@ -24,8 +24,11 @@ C#:
 
 - usar arquitectura por capas
 - usar HttpClient para API
+- seguir el mayor número de estándares de microsoft posibles
 
 API:
 
 - respuestas JSON
 - manejo correcto de errores
+- no java text blocks
+- uso de la clase DBUtil para realizar las conexiones a driver

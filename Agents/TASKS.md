@@ -9,6 +9,7 @@ REALIZADO:
 
 PENDIENTE:
 
-1. Mejor visualizacion de publicaciones en web
+1. Arreglar la Api en GestorPublicaciones utilizando DBUtil cuando sea necesario
 2. Diferenciacion de usuarios en publicaciones y perfil
 3. Limpieza, documentacion y optimizacion de códgio
+4. Implementacion de modificar usuario y eliminar usuario y publicaciones
