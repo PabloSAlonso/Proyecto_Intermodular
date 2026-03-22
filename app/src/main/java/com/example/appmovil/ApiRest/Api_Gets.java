@@ -79,7 +79,7 @@ public class Api_Gets {
         new Thread(() -> {
             HttpURLConnection connection = null;
             try {
-                URL url = new URL(API_ROOT + "/usuarios/obtenerId/" + userId);
+                URL url = new URL(API_ROOT + "/usuarios/obtener/" + userId);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Accept", "application/json");
@@ -204,13 +204,13 @@ public class Api_Gets {
                 JSONArray array = new JSONArray(readResponse(connection));
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = array.getJSONObject(i);
-                    String nombreUsuario = obj.optString("nombre_usuario", "Usuario desconocido");
-                    String userAvatar = obj.optString("foto_usuario", "");
+                String nicknameUsuario = obj.optString("nickname_usuario", "Usuario desconocido");
+                String userAvatar = obj.optString("foto_usuario", "");
                     // Convert byte[] base64 if needed, assume backend sends base64 string or adjust
 
-                    posts.add(new Post(
+                    Post p = new Post(
                             obj.optInt("id_publicacion", 0),
-                            nombreUsuario,
+                            nicknameUsuario,
                             userAvatar,
                             obj.optString("imagen", ""),
                             obj.optString("description", ""),
@@ -218,7 +218,11 @@ public class Api_Gets {
                             obj.optInt("likes", 0),
                             obj.optInt("comentarios", 0),
                             obj.optString("fecha_publicacion", "")
-                    ));
+                    );
+                    // Fill derived fields for nickname and avatar from API data
+                    p.setNicknameUsuario(nicknameUsuario);
+                    p.setFotoUsuario(userAvatar);
+                    posts.add(p);
                 }
             }
         } catch (Exception e) {

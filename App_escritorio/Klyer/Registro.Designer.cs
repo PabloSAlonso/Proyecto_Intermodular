@@ -10,7 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true if managed resources should be disposed; false otherwise.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Registro));
             this.lblRegistro = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbNom = new System.Windows.Forms.TextBox();
@@ -78,7 +77,6 @@
             this.groupBox1.Controls.Add(this.tbNick);
             this.groupBox1.Controls.Add(this.tbApellidos);
             this.groupBox1.Controls.Add(this.tbNom);
-            this.groupBox1.Controls.Add(this.lblRegistro);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -106,7 +104,7 @@
             this.tbNick.Name = "tbNick";
             this.tbNick.Size = new System.Drawing.Size(137, 20);
             this.tbNick.TabIndex = 3;
-            this.tbNick.TextChanged += new System.EventHandler(this.tbNick_TextChanged);
+//            this.tbNick.TextChanged += new System.EventHandler(this.tbNick_TextChanged);
             // 
             // tbCorreo
             // 
@@ -235,7 +233,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(604, 441);
             this.Controls.Add(this.groupBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Registro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -243,6 +241,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

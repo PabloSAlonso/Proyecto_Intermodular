@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -181,6 +183,72 @@ public class GestorUsuarios {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Error: " + e.getMessage()).build();
+        }
+    }
+
+    @Path("/obtener/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerUsuarioPorId(@PathParam("id") int id) {
+        String sql = "SELECT id, nombre, apellidos, nickname, email, foto_perfil FROM usuarios WHERE id = ?";
+        
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, id);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Usuario u = new Usuario();
+                    u.setId(rs.getInt("id"));
+                    u.setNombre(rs.getString("nombre"));
+                    u.setApellidos(rs.getString("apellidos"));
+                    u.setNickname(rs.getString("nickname"));
+                    u.setEmail(rs.getString("email"));
+                    u.setPassword(null);
+                    u.setFoto_perfil(rs.getBytes("foto_perfil"));
+                    
+                    return Response.ok(u).build();
+                } else {
+                    return Response.status(Response.Status.NOT_FOUND)
+                            .entity("Usuario no encontrado").build();
+                }
+            }
+            
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error SQL: " + e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error interno: " + e.getMessage()).build();
+        }
+    }
+
+    @Path("/eliminar/{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response eliminarUsuario(@PathParam("id") int id) {
+        String sql = "DELETE FROM usuarios WHERE id = ?";
+        
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, id);
+            
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                return Response.ok("Usuario eliminado").build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Usuario no encontrado").build();
+            }
+            
+        } catch (SQLException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error SQL: " + e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error interno: " + e.getMessage()).build();
         }
     }
 }

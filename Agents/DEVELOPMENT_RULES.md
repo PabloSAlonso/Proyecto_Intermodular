@@ -25,6 +25,7 @@ C#:
 - usar arquitectura por capas
 - usar HttpClient para API
 - seguir el mayor número de estándares de microsoft posibles
+- trabajar sobre la solución que tiene los formularios Windows Forms
 
 API:
 
