@@ -80,32 +80,11 @@
                     return;
                 }
 
-                const userCache = new Map();
-                const getUserData = async (userId) => {
-                    if (!userId) return { nickname: 'Usuario desconocido', foto_perfil: null };
-                    if (userCache.has(userId)) return userCache.get(userId);
-                    
-                    try {
-                        const userResponse = await fetch(`${API_PROXY}?path=/usuarios/obtenerId/${userId}`);
-                        if (userResponse.ok) {
-                            const user = await userResponse.json();
-                            userCache.set(userId, user);
-                            return user;
-                        }
-                    } catch (e) {
-                        console.error(`Error al obtener el usuario ${userId}`, e);
-                    }
-                    return { nickname: 'Usuario desconocido', foto_perfil: null };
-                };
-
-                const userPromises = publicaciones.map(pub => getUserData(pub.id_usuario));
-                const usersData = await Promise.all(userPromises);
-
-                const html = publicaciones.map((pub, index) => {
-                    const user = usersData[index];
-                    const userNickname = user.nickname || 'Usuario';
-                    const userAvatar = user.foto_perfil
-                        ? `data:image/jpeg;base64,${user.foto_perfil}`
+                    const html = publicaciones.map((pub) => {
+                    // Prefer nickname_usuario, fallback to nombre_usuario, then nickname (older) or 'Usuario'
+                    const userNickname = pub.nickname_usuario || pub.nombre_usuario || pub.nickname || 'Usuario';
+                    const userAvatar = pub.foto_usuario
+                        ? `data:image/jpeg;base64,${pub.foto_usuario}`
                         : '../src/imagenes/user.webp';
                     
                     const imagenHtml = pub.imagen
@@ -123,7 +102,7 @@
                             </div>
                             ${imagenHtml}
                             <div class="post-body">
-                                <p class="mb-0">${pub.descripcion || ''}</p>
+                                <p class="mb-0">${pub.description || ''}</p>
                             </div>
                             <div class="post-actions">
                                 <button class="btn-like" data-id="${pub.id_publicacion}" onclick="toggleLike(this)">
@@ -161,4 +140,3 @@
 </body>
 
 </html>
-

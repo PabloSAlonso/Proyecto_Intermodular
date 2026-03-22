@@ -16,7 +16,7 @@ namespace Klyer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Inicio_de_sesión());
+            Application.Run(new Registro());
         }
     }
 }

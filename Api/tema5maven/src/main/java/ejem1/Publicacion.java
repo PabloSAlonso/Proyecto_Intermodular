@@ -13,6 +13,9 @@ public class Publicacion implements Serializable {
     private String descripcion;
     private int likes;
     private int comentarios;
+    // Derived fields from related Usuario, not persisted
+    private String nickname_usuario;
+    private byte[] foto_usuario;
 
     public Publicacion() {
     }
@@ -53,6 +56,20 @@ public class Publicacion implements Serializable {
 
     public int getComentarios() {
         return comentarios;
+    }
+
+    // Derived user data accessors (not stored in publicaciones)
+    public String getNickname_usuario() {
+        return nickname_usuario;
+    }
+    public void setNickname_usuario(String nickname_usuario) {
+        this.nickname_usuario = nickname_usuario;
+    }
+    public byte[] getFoto_usuario() {
+        return foto_usuario;
+    }
+    public void setFoto_usuario(byte[] foto_usuario) {
+        this.foto_usuario = foto_usuario;
     }
 
     public void setId_publicacion(int id_publicacion) {

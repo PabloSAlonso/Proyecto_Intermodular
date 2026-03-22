@@ -92,9 +92,9 @@
             msgEl.className = 'message message-' + type + ' show';
         }
 
-        async function loadProfileData() {
-            try {
-                const response = await fetch(`${API_PROXY}?path=/usuarios/obtenerId/${usuario_id}`);
+         async function loadProfileData() {
+             try {
+                 const response = await fetch(`${API_PROXY}?path=/usuarios/obtener/${usuario_id}`);
                 if (response.ok) {
                     const user = await response.json();
                     document.getElementById('nombre').value = user.nombre || '';

@@ -42,7 +42,11 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Post post = listaPosts.get(position);
         
-        holder.tvUserName.setText("@" + post.getNombreUsuario());
+        // Prefer nickname if available, else fallback to nombreUsuario
+        String displayName = post.getNicknameUsuario() != null && !post.getNicknameUsuario().isEmpty()
+                ? post.getNicknameUsuario()
+                : post.getNombreUsuario();
+        holder.tvUserName.setText("@" + displayName);
         
         if (post.getDescripcion() != null && !post.getDescripcion().isEmpty()) {
             holder.tvDescription.setText(post.getDescripcion());

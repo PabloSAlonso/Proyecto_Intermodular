@@ -72,10 +72,10 @@ class Request
         return $this->post("/usuarios/insertar", $userData);
     }
     
-    public function getUserById(int $id)
-    {
-        return $this->get('/usuarios/obtenerId/' . $id);
-    }
+     public function getUserById(int $id)
+     {
+         return $this->get('/usuarios/obtener/' . $id);
+     }
     
     public function deleteUser(int $id)
     {

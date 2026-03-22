@@ -12,6 +12,9 @@ public class Post {
     private String postType;
     private String createdAt;
     private boolean isLiked;
+    // Derived user data from API (JOIN with Usuario)
+    private String nicknameUsuario;
+    private String fotoUsuario; // avatar de usuario (base64)
 
     public Post(String nombreUsuario, String userAvatar, String imageUrl, String descripcion, String info, int likes, int streak) {
         this.nombreUsuario = nombreUsuario;
@@ -35,6 +38,16 @@ public class Post {
         this.streak = streak;
         this.createdAt = createdAt;
     }
+
+    // New derived fields accessors (nickname from Usuario and avatar base64)
+    public String getNicknameUsuario() {
+        return nicknameUsuario;
+    }
+    public void setNicknameUsuario(String nicknameUsuario) {
+        this.nicknameUsuario = nicknameUsuario;
+    }
+    public String getFotoUsuario() { return fotoUsuario; }
+    public void setFotoUsuario(String fotoUsuario) { this.fotoUsuario = fotoUsuario; }
 
     public int getId() { return id; }
     public String getNombreUsuario() { return nombreUsuario; }

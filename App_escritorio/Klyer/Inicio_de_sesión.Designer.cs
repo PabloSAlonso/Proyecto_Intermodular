@@ -3,14 +3,14 @@
     partial class Inicio_de_sesión
     {
         /// <summary>
-        /// Variable del diseñador necesaria.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén usando.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        /// <param name="disposing">true if managed resources should be disposed; false otherwise.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,19 +20,18 @@
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio_de_sesión));
             this.lblCorreo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxUsuario = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.lblNotificarCorreo = new System.Windows.Forms.Label();
             this.lblMensajeRegistro = new System.Windows.Forms.Label();
             this.lblRegistro = new System.Windows.Forms.Label();
@@ -52,7 +51,7 @@
             this.lblCorreo.Name = "lblCorreo";
             this.lblCorreo.Size = new System.Drawing.Size(140, 20);
             this.lblCorreo.TabIndex = 1;
-            this.lblCorreo.Text = "Correo Electrónico";
+            this.lblCorreo.Text = "Usuario (Nickname o Email)";
             // 
             // label1
             // 
@@ -66,22 +65,22 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Contraseña";
             // 
-            // textBox1
+            // textBoxUsuario
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.Location = new System.Drawing.Point(166, 105);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(262, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBoxUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBoxUsuario.Location = new System.Drawing.Point(166, 105);
+            this.textBoxUsuario.Name = "textBoxUsuario";
+            this.textBoxUsuario.Size = new System.Drawing.Size(262, 20);
+            this.textBoxUsuario.TabIndex = 2;
             // 
-            // textBox2
+            // textBoxPassword
             // 
-            this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox2.Location = new System.Drawing.Point(166, 143);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(262, 20);
-            this.textBox2.TabIndex = 4;
+            this.textBoxPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBoxPassword.Location = new System.Drawing.Point(166, 143);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.Size = new System.Drawing.Size(262, 20);
+            this.textBoxPassword.TabIndex = 4;
             // 
             // lblNotificarCorreo
             // 
@@ -155,9 +154,9 @@
             this.grupoComponentes.Controls.Add(this.lblCorreo);
             this.grupoComponentes.Controls.Add(this.label1);
             this.grupoComponentes.Controls.Add(this.lblRegistro);
-            this.grupoComponentes.Controls.Add(this.textBox1);
+            this.grupoComponentes.Controls.Add(this.textBoxUsuario);
             this.grupoComponentes.Controls.Add(this.lblMensajeRegistro);
-            this.grupoComponentes.Controls.Add(this.textBox2);
+            this.grupoComponentes.Controls.Add(this.textBoxPassword);
             this.grupoComponentes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grupoComponentes.Location = new System.Drawing.Point(0, 0);
             this.grupoComponentes.Name = "grupoComponentes";
@@ -173,7 +172,7 @@
             this.ClientSize = new System.Drawing.Size(474, 381);
             this.Controls.Add(this.grupoComponentes);
             this.Controls.Add(this.lblNotificarCorreo);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Inicio_de_sesión";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -189,8 +188,8 @@
 
         private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxUsuario;
+        private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label lblNotificarCorreo;
         private System.Windows.Forms.Label lblMensajeRegistro;
         private System.Windows.Forms.Label lblRegistro;
@@ -199,4 +198,3 @@
         private System.Windows.Forms.GroupBox grupoComponentes;
     }
 }
-

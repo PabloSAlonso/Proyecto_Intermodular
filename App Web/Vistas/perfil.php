@@ -82,24 +82,17 @@
             }
 
             try {
-                // Load user data
-                const userResponse = await fetch(`${API_PROXY}?path=/usuarios/obtenerId/${userId}`);
-                if (userResponse.ok) {
-                    // Usar text() primero para evitar errores de sintaxis si devuelve HTML
-                    const responseText = await userResponse.text();
-                    let user;
-                    try {
-                        user = JSON.parse(responseText);
-                    } catch (e) {
-                        console.warn("Respuesta no JSON al cargar usuario, usando datos de sesión.");
-                        throw new Error("Respuesta inválida");
-                    }
-
-                    document.getElementById('userNickname').textContent = user.nickname || user.nombre || 'Usuario';
-                    document.getElementById('userName').textContent = 'Hola, ' + (user.nombre || 'Usuario');
-                    if (user.foto_perfil) {
-                        // Asumiendo que la API devuelve la imagen como un string base64
-                        document.getElementById('userPhoto').src = 'data:image/jpeg;base64,' + user.foto_perfil;
+                // Load user data via API using the canonical endpoint
+                if (userId) {
+                    const userResponse = await fetch(`${API_PROXY}?path=/usuarios/obtener/${userId}`);
+                    if (userResponse.ok) {
+                        const user = await userResponse.json();
+                    // Use nickname_usuario first, then nickname or nombre as fallback
+                    document.getElementById('userNickname').textContent = user.nickname_usuario || user.nickname || user.nombre || 'Usuario';
+                        document.getElementById('userName').textContent = 'Hola, ' + (user.nombre || 'Usuario');
+                        if (user.foto_perfil) {
+                            document.getElementById('userPhoto').src = 'data:image/jpeg;base64,' + user.foto_perfil;
+                        }
                     }
                 }
             } catch (error) {
