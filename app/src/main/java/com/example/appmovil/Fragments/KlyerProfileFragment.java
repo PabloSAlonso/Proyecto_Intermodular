@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.appmovil.ApiRest.Api_Gets;
+import com.example.appmovil.ApiRest.Api_Inserts;
 import com.example.appmovil.KlyerFeed;
 import com.example.appmovil.KlyerIntro;
 import com.example.appmovil.R;
@@ -33,8 +35,9 @@ public class KlyerProfileFragment extends Fragment {
     private ImageView ivAvatar;
     private View layoutFollowers, layoutFollowing;
     private FrameLayout loadingOverlay;
-    private MaterialButton btnLogout;
+    private MaterialButton btnLogout, btnDeleteAccount;
     private Api_Gets apiGets;
+    private Api_Inserts apiInserts;
     private UserSession session;
     private int myUserId;
 
@@ -44,6 +47,7 @@ public class KlyerProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         apiGets = new Api_Gets();
+        apiInserts = new Api_Inserts();
         session = new UserSession(requireContext());
         
         tvName = view.findViewById(R.id.tvName);
@@ -52,6 +56,7 @@ public class KlyerProfileFragment extends Fragment {
         ivAvatar = view.findViewById(R.id.ivAvatar);
         loadingOverlay = view.findViewById(R.id.loading_overlay);
         btnLogout = view.findViewById(R.id.btnLogout);
+        btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount);
 
         myUserId = session.getUserId();
 
@@ -75,6 +80,12 @@ public class KlyerProfileFragment extends Fragment {
         if (btnLogout != null) {
             btnLogout.setOnClickListener(v -> {
                 logout();
+            });
+        }
+
+        if (btnDeleteAccount != null) {
+            btnDeleteAccount.setOnClickListener(v -> {
+                confirmDeleteAccount();
             });
         }
 
@@ -190,6 +201,30 @@ public class KlyerProfileFragment extends Fragment {
         if (loadingOverlay != null) {
             loadingOverlay.setVisibility(View.GONE);
         }
+    }
+
+    private void confirmDeleteAccount() {
+        if (getActivity() == null) return;
+        new AlertDialog.Builder(requireContext())
+            .setTitle("Eliminar cuenta")
+            .setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")
+            .setPositiveButton("Eliminar", (dialog, which) -> {
+                apiInserts.deleteUser(myUserId, success -> {
+                    if (isAdded() && getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            if (success) {
+                                session.logout();
+                                Intent intent = new Intent(getActivity(), KlyerIntro.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                if (getActivity() != null) getActivity().finish();
+                            }
+                        });
+                    }
+                });
+            })
+            .setNegativeButton("Cancelar", null)
+            .show();
     }
 
     private void logout() {

@@ -33,6 +33,12 @@
             <div id="message" class="message"></div>
 
             <form id="editProfileForm">
+                <div class="form-group" style="text-align: center;">
+                    <img id="currentPhoto" src="../src/imagenes/user.webp" alt="Foto de perfil" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 10px;">
+                    <label class="form-label" for="fotoPerfil">Cambiar foto de perfil</label>
+                    <input type="file" class="form-control" name="fotoPerfil" id="fotoPerfil" accept="image/*">
+                </div>
+
                 <div class="form-group">
                     <label class="form-label" for="nombre">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="nombre" required>
@@ -102,6 +108,9 @@
                     document.getElementById('nickname').value = user.nickname || '';
                     document.getElementById('email').value = user.email || '';
                     document.getElementById('userName').textContent = 'Hola, ' + (user.nombre || 'Usuario');
+                    if (user.foto_perfil) {
+                        document.getElementById('currentPhoto').src = 'data:image/jpeg;base64,' + user.foto_perfil;
+                    }
                 } else {
                     showMessage('No se pudieron cargar los datos del perfil.', 'error');
                 }
@@ -135,8 +144,23 @@
                 dataToUpdate.password = password;
             }
 
+            const photoInput = document.getElementById('fotoPerfil');
+            if (photoInput.files && photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    dataToUpdate.foto_perfil = e.target.result.split(',')[1];
+                    await sendUpdate(dataToUpdate, btn);
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+                return;
+            }
+
+            await sendUpdate(dataToUpdate, btn);
+        });
+
+        async function sendUpdate(dataToUpdate, btn) {
             try {
-                const response = await fetch(`${API_PROXY}?path=/usuarios/actualizar/${usuario_id}`, {
+                const response = await fetch(`${API_PROXY}?path=/usuarios/update/${usuario_id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -146,8 +170,7 @@
 
                 if (response.ok) {
                     showMessage('Perfil actualizado correctamente.', 'success');
-                    // Actualizar datos en sessionStorage si es necesario
-                    const updatedUser = { ...JSON.parse(usuario), nombre: nombre, nickname: nickname };
+                    const updatedUser = { ...JSON.parse(usuario), nombre: dataToUpdate.nombre, nickname: dataToUpdate.nickname };
                     sessionStorage.setItem('usuario', JSON.stringify(updatedUser));
                     
                     setTimeout(() => {
@@ -172,7 +195,7 @@
                 btn.disabled = false;
                 btn.textContent = 'Guardar cambios';
             }
-        });
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             if (!usuario_id) {

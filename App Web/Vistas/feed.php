@@ -102,7 +102,7 @@
                             </div>
                             ${imagenHtml}
                             <div class="post-body">
-                                <p class="mb-0">${pub.description || ''}</p>
+                                <p class="mb-0">${pub.descripcion || ''}</p>
                             </div>
                             <div class="post-actions">
                                 <button class="btn-like" data-id="${pub.id_publicacion}" onclick="toggleLike(this)">
