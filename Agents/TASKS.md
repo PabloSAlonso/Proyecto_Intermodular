@@ -6,10 +6,8 @@ Haz los siguientes cambios revisando las estructuras de tablas para no cometer e
 
 Quiero codigo limpio, escalable y que cumpla los estándares pedidos.
 
-1. Revisar TODA la app de escritorio que hay en la solución App_escritorio.sln 
+1. Revisar perfil escritorio (error 500 al cargar el perfil)
 
-2. Asegurar la correcta navegación por la app mediante mostración y ocultación de formularios correspondientes
+2. Revisar subir publicación escritorio (formulario en blanco)
 
-3. Realizar mismas funcionalidades y vistas que en la app web y de movil
-
-4. Mayor simplificación de codigo dentro de lo posible y documentacion profesional en castellano de las funciones
+3. Revisar vistas no texto montado encima de otras cosas
