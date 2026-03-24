@@ -130,4 +130,52 @@ public class Api_Inserts {
     public void unfollowUser(int followerId, int followingId, ApiInsertCallback callback) {
         callback.onResult(true);
     }
+
+    public void deleteUser(int userId, ApiInsertCallback callback) {
+        new Thread(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(API_ROOT + "/usuarios/eliminar/" + userId);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("DELETE");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(12000);
+                connection.setReadTimeout(12000);
+
+                int code = connection.getResponseCode();
+                callback.onResult(code == HttpURLConnection.HTTP_OK);
+            } catch (IOException e) {
+                Log.e(TAG, "Error deleting user", e);
+                callback.onResult(false);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }).start();
+    }
+
+    public void deletePublication(int pubId, ApiInsertCallback callback) {
+        new Thread(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(API_ROOT + "/publicaciones/eliminar/" + pubId);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("DELETE");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(12000);
+                connection.setReadTimeout(12000);
+
+                int code = connection.getResponseCode();
+                callback.onResult(code == HttpURLConnection.HTTP_OK);
+            } catch (IOException e) {
+                Log.e(TAG, "Error deleting publication", e);
+                callback.onResult(false);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }).start();
+    }
 }

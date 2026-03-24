@@ -33,6 +33,7 @@
             <div class="profile-actions">
                 <a href="editar_perfil.php" class="btn btn-primary">Editar perfil</a>
                 <a href="subir_publicacion.php" class="btn btn-success">+ Nueva publicación</a>
+                <button class="btn btn-danger" onclick="deleteAccount()" style="background: var(--danger); color: white; border: none; border-radius: var(--radius-md);">Eliminar cuenta</button>
             </div>
         </div>
 
@@ -141,6 +142,7 @@
                         <div class="publication-overlay">
                             <span>♥ ${pub.likes || 0}</span>
                             <span>💬 ${pub.comentarios || 0}</span>
+                            <button onclick="deletePublication(${pub.id_publicacion}, event)" style="background: var(--danger); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 16px;">×</button>
                         </div>
                     </div>
                 `).join('');
@@ -149,6 +151,36 @@
                 console.error('Error:', error);
                 document.getElementById('publicationsContainer').innerHTML = 
                     '<p class="text-center text-muted col-12">Error al cargar las publicaciones.</p>';
+            }
+        }
+
+        async function deletePublication(pubId, event) {
+            event.stopPropagation();
+            if (!confirm('¿Estás seguro de que quieres eliminar esta publicación?')) return;
+            try {
+                const response = await fetch(`${API_PROXY}?path=/publicaciones/eliminar/${pubId}`, { method: 'DELETE' });
+                if (response.ok) {
+                    loadUserPublications();
+                } else {
+                    alert('Error al eliminar la publicación.');
+                }
+            } catch (error) {
+                alert('Error de conexión al eliminar la publicación.');
+            }
+        }
+
+        async function deleteAccount() {
+            if (!confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) return;
+            try {
+                const response = await fetch(`${API_PROXY}?path=/usuarios/eliminar/${userId}`, { method: 'DELETE' });
+                if (response.ok) {
+                    sessionStorage.clear();
+                    window.location.href = 'inicio_sesion.php';
+                } else {
+                    alert('Error al eliminar la cuenta.');
+                }
+            } catch (error) {
+                alert('Error de conexión al eliminar la cuenta.');
             }
         }
 

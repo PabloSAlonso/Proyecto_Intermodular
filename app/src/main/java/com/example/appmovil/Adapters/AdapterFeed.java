@@ -23,12 +23,27 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
     private int userId;
     private Api_Inserts apiInserts;
     private Runnable onLikeChanged;
+    private OnDeletePostListener deleteListener;
+    private boolean showDeleteButton = false;
+
+    public interface OnDeletePostListener {
+        void onDelete(int postId);
+    }
 
     public AdapterFeed(ArrayList<Post> listaPosts, int userId, Api_Inserts apiInserts, Runnable onLikeChanged) {
         this.listaPosts = listaPosts;
         this.userId = userId;
         this.apiInserts = apiInserts;
         this.onLikeChanged = onLikeChanged;
+    }
+
+    public AdapterFeed(ArrayList<Post> listaPosts, int userId, Api_Inserts apiInserts, Runnable onLikeChanged, OnDeletePostListener deleteListener) {
+        this.listaPosts = listaPosts;
+        this.userId = userId;
+        this.apiInserts = apiInserts;
+        this.onLikeChanged = onLikeChanged;
+        this.deleteListener = deleteListener;
+        this.showDeleteButton = true;
     }
 
     @NonNull
@@ -77,6 +92,15 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         } else {
             holder.cvPostImage.setVisibility(View.GONE);
         }
+
+        if (showDeleteButton && deleteListener != null) {
+            holder.btnDeletePost.setVisibility(View.VISIBLE);
+            holder.btnDeletePost.setOnClickListener(v -> {
+                deleteListener.onDelete(post.getId());
+            });
+        } else {
+            holder.btnDeletePost.setVisibility(View.GONE);
+        }
     }
 
 
@@ -100,6 +124,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         TextView tvUserName, tvPostInfo, tvDescription, tvPostType;
         ImageView ivPostImage, ivProfilePost;
         View cvPostImage;
+        View btnDeletePost;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,6 +133,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
             ivPostImage = itemView.findViewById(R.id.ivPostImage);
             ivProfilePost = itemView.findViewById(R.id.ivProfilePost);
             cvPostImage = itemView.findViewById(R.id.cvPostImage);
+            btnDeletePost = itemView.findViewById(R.id.btnDeletePost);
         }
     }
 }

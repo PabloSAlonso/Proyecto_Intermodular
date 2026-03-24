@@ -213,7 +213,7 @@ public class Api_Gets {
                             nicknameUsuario,
                             userAvatar,
                             obj.optString("imagen", ""),
-                            obj.optString("description", ""),
+                            obj.optString("descripcion", ""),
                             "Publicacion",
                             obj.optInt("likes", 0),
                             obj.optInt("comentarios", 0),

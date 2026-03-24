@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,12 +72,12 @@ public class KlyerPostsFragment extends Fragment {
 
         apiGets.getPostsByUserId(myUserId, posts -> {
             if (isAdded() && getActivity() != null) {
-                getActivity().runOnUiThread(() -> {
+                    getActivity().runOnUiThread(() -> {
                     hideLoading();
                     if (posts != null && !posts.isEmpty()) {
                         listaPosts.clear();
                         listaPosts.addAll(posts);
-                        adapter = new AdapterFeed(listaPosts, myUserId, apiInserts, () -> loadMyPosts());
+                        adapter = new AdapterFeed(listaPosts, myUserId, apiInserts, () -> loadMyPosts(), this::deletePost);
                         rvMyPosts.setAdapter(adapter);
                         rvMyPosts.setVisibility(View.VISIBLE);
                         emptyState.setVisibility(View.GONE);
@@ -91,6 +92,26 @@ public class KlyerPostsFragment extends Fragment {
     private void showEmptyState() {
         rvMyPosts.setVisibility(View.GONE);
         emptyState.setVisibility(View.VISIBLE);
+    }
+
+    private void deletePost(int postId) {
+        if (getActivity() == null) return;
+        new AlertDialog.Builder(requireContext())
+            .setTitle("Eliminar publicación")
+            .setMessage("¿Estás seguro de que quieres eliminar esta publicación?")
+            .setPositiveButton("Eliminar", (dialog, which) -> {
+                apiInserts.deletePublication(postId, success -> {
+                    if (isAdded() && getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            if (success) {
+                                loadMyPosts();
+                            }
+                        });
+                    }
+                });
+            })
+            .setNegativeButton("Cancelar", null)
+            .show();
     }
 
     private void showLoading() {
