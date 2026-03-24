@@ -1,20 +1,21 @@
-﻿using System;
+using System;
 
 namespace Klyer
 {
+    /// <summary>
+    /// Modelo de datos para una publicación del muro.
+    /// Las propiedades usan nombres en minúsculas para coincidir con el JSON de la API.
+    /// </summary>
     public class Publicacion
     {
-        public int IdPublicacion { get; set; }
-        public int IdUsuario { get; set; }
-        public DateTime? FechaPublicacion { get; set; }
-        public byte[] Imagen { get; set; }
-        public string Descripcion { get; set; }
-        public int Likes { get; set; }
-        public int Comentarios { get; set; }
-        
-        // User info for display
-        public string NicknameUsuario { get; set; }
-        public string NombreUsuario { get; set; }
-        public byte[] FotoPerfilUsuario { get; set; }
+        public int id_publicacion { get; set; }
+        public int id_usuario { get; set; }
+        public string fecha_publicacion { get; set; }
+        public string imagen { get; set; }
+        public string descripcion { get; set; }
+        public int likes { get; set; }
+        public int comentarios { get; set; }
+        public string nickname_usuario { get; set; }
+        public string foto_usuario { get; set; }
     }
 }

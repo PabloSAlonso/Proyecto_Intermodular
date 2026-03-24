@@ -1,16 +1,9 @@
-﻿namespace Klyer
+namespace Klyer
 {
     partial class NuevaPublicacionForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; false otherwise.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
@@ -34,136 +23,153 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblImagen = new System.Windows.Forms.Label();
             this.btnSeleccionarImagen = new System.Windows.Forms.Button();
+            this.picPreview = new System.Windows.Forms.PictureBox();
             this.lblImagenSeleccionada = new System.Windows.Forms.Label();
             this.btnPanel = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnPublicar = new System.Windows.Forms.Button();
+
             this.mainPanel.SuspendLayout();
             this.btnPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
-            // 
+
+            // ══════════════════════════════════════════════
             // mainPanel
-            // 
+            // ══════════════════════════════════════════════
             this.mainPanel.AutoScroll = true;
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Padding = new System.Windows.Forms.Padding(20);
-            this.mainPanel.Size = new System.Drawing.Size(500, 600);
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(30);
+            this.mainPanel.Size = new System.Drawing.Size(1024, 720);
             this.mainPanel.TabIndex = 0;
-            // 
+
             // lblTitle
-            // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Location = new System.Drawing.Point(30, 30);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(161, 25);
+            this.lblTitle.Size = new System.Drawing.Size(310, 37);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Crear Nueva Publicación";
-            // 
+
             // lblDescripcion
-            // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(20, 60);
+            this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblDescripcion.Location = new System.Drawing.Point(32, 90);
             this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(66, 13);
+            this.lblDescripcion.Size = new System.Drawing.Size(91, 20);
             this.lblDescripcion.TabIndex = 1;
             this.lblDescripcion.Text = "Descripción:";
-            // 
+
             // txtDescripcion
-            // 
-            this.txtDescripcion.Location = new System.Drawing.Point(20, 80);
+            this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtDescripcion.Location = new System.Drawing.Point(30, 115);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(460, 100);
+            this.txtDescripcion.Size = new System.Drawing.Size(950, 120);
             this.txtDescripcion.TabIndex = 2;
-            // 
+
             // lblImagen
-            // 
             this.lblImagen.AutoSize = true;
-            this.lblImagen.Location = new System.Drawing.Point(20, 200);
+            this.lblImagen.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblImagen.Location = new System.Drawing.Point(32, 255);
             this.lblImagen.Name = "lblImagen";
-            this.lblImagen.Size = new System.Drawing.Size(95, 13);
+            this.lblImagen.Size = new System.Drawing.Size(125, 20);
             this.lblImagen.TabIndex = 3;
             this.lblImagen.Text = "Imagen (opcional):";
-            // 
+
             // btnSeleccionarImagen
-            // 
-            this.btnSeleccionarImagen.Location = new System.Drawing.Point(20, 220);
+            this.btnSeleccionarImagen.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnSeleccionarImagen.Location = new System.Drawing.Point(30, 280);
             this.btnSeleccionarImagen.Name = "btnSeleccionarImagen";
-            this.btnSeleccionarImagen.Size = new System.Drawing.Size(100, 23);
+            this.btnSeleccionarImagen.Size = new System.Drawing.Size(160, 35);
             this.btnSeleccionarImagen.TabIndex = 4;
             this.btnSeleccionarImagen.Text = "Seleccionar Imagen";
             this.btnSeleccionarImagen.UseVisualStyleBackColor = true;
-            // 
+            this.btnSeleccionarImagen.Click += new System.EventHandler(this.btnSeleccionarImagen_Click);
+
             // lblImagenSeleccionada
-            // 
             this.lblImagenSeleccionada.AutoSize = true;
+            this.lblImagenSeleccionada.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblImagenSeleccionada.ForeColor = System.Drawing.Color.Gray;
-            this.lblImagenSeleccionada.Location = new System.Drawing.Point(140, 225);
+            this.lblImagenSeleccionada.Location = new System.Drawing.Point(200, 288);
             this.lblImagenSeleccionada.Name = "lblImagenSeleccionada";
-            this.lblImagenSeleccionada.Size = new System.Drawing.Size(101, 13);
+            this.lblImagenSeleccionada.Size = new System.Drawing.Size(190, 19);
             this.lblImagenSeleccionada.TabIndex = 5;
             this.lblImagenSeleccionada.Text = "Ninguna imagen seleccionada";
-            // 
+
+            // picPreview (vista previa de la imagen)
+            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPreview.Location = new System.Drawing.Point(30, 325);
+            this.picPreview.Name = "picPreview";
+            this.picPreview.Size = new System.Drawing.Size(950, 300);
+            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPreview.TabIndex = 6;
+            this.picPreview.TabStop = false;
+            this.picPreview.Visible = false;
+
+            // ══════════════════════════════════════════════
             // btnPanel
-            // 
+            // ══════════════════════════════════════════════
+            this.btnPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnPanel.Controls.Add(this.btnCancelar);
+            this.btnPanel.Controls.Add(this.btnPublicar);
             this.btnPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnPanel.Location = new System.Drawing.Point(0, 550);
+            this.btnPanel.Location = new System.Drawing.Point(0, 660);
             this.btnPanel.Name = "btnPanel";
-            this.btnPanel.Size = new System.Drawing.Size(500, 50);
-            this.btnPanel.TabIndex = 6;
-            // 
+            this.btnPanel.Padding = new System.Windows.Forms.Padding(20);
+            this.btnPanel.Size = new System.Drawing.Size(1024, 60);
+            this.btnPanel.TabIndex = 7;
+
             // btnCancelar
-            // 
-            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(320, 10);
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.btnCancelar.Location = new System.Drawing.Point(780, 12);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 7;
+            this.btnCancelar.Size = new System.Drawing.Size(100, 36);
+            this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            // 
+
             // btnPublicar
-            // 
+            this.btnPublicar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPublicar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
-            this.btnPublicar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnPublicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPublicar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnPublicar.ForeColor = System.Drawing.Color.White;
-            this.btnPublicar.Location = new System.Drawing.Point(410, 10);
+            this.btnPublicar.Location = new System.Drawing.Point(890, 12);
             this.btnPublicar.Name = "btnPublicar";
-            this.btnPublicar.Size = new System.Drawing.Size(75, 23);
-            this.btnPublicar.TabIndex = 8;
+            this.btnPublicar.Size = new System.Drawing.Size(100, 36);
+            this.btnPublicar.TabIndex = 9;
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = false;
-            // 
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
+
+            // ══════════════════════════════════════════════
             // NuevaPublicacionForm
-            // 
+            // ══════════════════════════════════════════════
             this.AcceptButton = this.btnPublicar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelar;
-            this.ClientSize = new System.Drawing.Size(500, 600);
+            this.ClientSize = new System.Drawing.Size(1024, 720);
+            this.Controls.Add(this.picPreview);
             this.Controls.Add(this.btnPanel);
-            this.Controls.Add(this.lblImagenSeleccionada);
-            this.Controls.Add(this.btnSeleccionarImagen);
-            this.Controls.Add(this.lblImagen);
-            this.Controls.Add(this.txtDescripcion);
-            this.Controls.Add(this.lblDescripcion);
-            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "NuevaPublicacionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nueva Publicación";
+
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
             this.btnPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
-
         }
 
         #endregion
@@ -175,6 +181,7 @@
         private System.Windows.Forms.Label lblImagen;
         private System.Windows.Forms.Button btnSeleccionarImagen;
         private System.Windows.Forms.Label lblImagenSeleccionada;
+        private System.Windows.Forms.PictureBox picPreview;
         private System.Windows.Forms.Panel btnPanel;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnPublicar;
