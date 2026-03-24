@@ -37,14 +37,13 @@ namespace Klyer
 
             try
             {
-                var usuarioDto = new UsuarioDto
+                var usuarioDto = new Dictionary<string, object>
                 {
-                    nombre = nombre,
-                    apellidos = apellidos,
-                    nickname = nickname,
-                    email = email,
-                    password = password,
-                    foto_perfil = new byte[0] // Foto vacía por defecto
+                    ["nombre"] = nombre,
+                    ["apellidos"] = apellidos,
+                    ["nickname"] = nickname,
+                    ["email"] = email,
+                    ["password"] = password
                 };
 
                 bool success = await _apiHelper.PostAsync("/usuarios/insertar", usuarioDto);
