@@ -123,9 +123,11 @@ namespace Klyer
                 var publicaciones = await _apiHelper.GetAsync<List<Publicacion>>($"/publicaciones/usuario/{_userSession.UserId}");
                 if (publicaciones != null && publicaciones.Count > 0)
                 {
+                    int ancho = flpMisPublicaciones.ClientSize.Width - 60;
+                    if (ancho < 400) ancho = 600;
                     foreach (var pub in publicaciones)
                     {
-                        flpMisPublicaciones.Controls.Add(CrearTarjetaPublicacion(pub, true));
+                        flpMisPublicaciones.Controls.Add(CrearTarjetaPublicacionInterna(pub, true, ancho));
                     }
                 }
                 else
@@ -153,6 +155,14 @@ namespace Klyer
             int anchoContenedor = postsPanel.ClientSize.Width - 60;
             if (anchoContenedor < 400) anchoContenedor = 600;
 
+            return CrearTarjetaPublicacionInterna(pub, conEliminar, anchoContenedor);
+        }
+
+        /// <summary>
+        /// Crea un panel visual para una publicación con un ancho específico.
+        /// </summary>
+        private Panel CrearTarjetaPublicacionInterna(Publicacion pub, bool conEliminar, int anchoContenedor)
+        {  
             Panel tarjeta = new Panel();
             tarjeta.BorderStyle = BorderStyle.FixedSingle;
             tarjeta.Margin = new Padding(0, 0, 0, 15);
@@ -239,6 +249,7 @@ namespace Klyer
                 lblDesc.MaximumSize = new Size(anchoContenedor - 35, 0);
                 lblDesc.AutoSize = true;
                 tarjeta.Controls.Add(lblDesc);
+                tarjeta.PerformLayout();
 
                 contenidoY += lblDesc.Height + 5;
             }
@@ -339,7 +350,7 @@ namespace Klyer
         {
             Form dlg = new Form();
             dlg.Text = "Editar Perfil";
-            dlg.Size = new Size(450, 320);
+            dlg.Size = new Size(480, 420);
             dlg.StartPosition = FormStartPosition.CenterParent;
             dlg.FormBorderStyle = FormBorderStyle.FixedDialog;
             dlg.MaximizeBox = false;
@@ -363,7 +374,7 @@ namespace Klyer
             TextBox t5 = new TextBox() { Location = new Point(140, y), Width = 270, PasswordChar = '*', Font = new Font("Segoe UI", 10) };
             y += 45;
 
-            Button btnOk = new Button() { Text = "Guardar", Location = new Point(140, y), Width = 120, Height = 35, BackColor = Color.FromArgb(15, 118, 110), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10) };
+            Button btnOk = new Button() { Text = "Guardar", Location = new Point(140, y), Width = 120, Height = 35, BackColor = Color.FromArgb(14, 165, 233), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10) };
             Button btnCancel = new Button() { Text = "Cancelar", Location = new Point(270, y), Width = 120, Height = 35, Font = new Font("Segoe UI", 10) };
 
             btnCancel.Click += (s, ev) => dlg.Close();
@@ -466,10 +477,6 @@ namespace Klyer
             else if (tabControl1.SelectedTab == tabPerfil)
             {
                 CargarPerfil();
-            }
-            else if (tabControl1.SelectedTab == tabSubir)
-            {
-                CrearPublicacion();
             }
         }
 

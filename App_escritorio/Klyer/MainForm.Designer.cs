@@ -43,6 +43,9 @@ namespace Klyer
             this.lblTituloMisPosts = new System.Windows.Forms.Label();
             this.flpMisPublicaciones = new System.Windows.Forms.FlowLayoutPanel();
 
+            // ── Controles de Subir Publicación ──
+            this.btnCrearPublicacion = new System.Windows.Forms.Button();
+
             this.tabControl1.SuspendLayout();
             this.tabFeed.SuspendLayout();
             this.tabPerfil.SuspendLayout();
@@ -68,7 +71,7 @@ namespace Klyer
             // ══════════════════════════════════════════════
             // HEADER PANEL (común a todas las pestañas)
             // ══════════════════════════════════════════════
-            this.headerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
+            this.headerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
             this.headerPanel.Controls.Add(this.btnCerrarSesionHeader);
             this.headerPanel.Controls.Add(this.lblUser);
             this.headerPanel.Controls.Add(this.btnNewPost);
@@ -91,7 +94,7 @@ namespace Klyer
 
             // btnNewPost
             this.btnNewPost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewPost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
+            this.btnNewPost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
             this.btnNewPost.FlatAppearance.BorderSize = 0;
             this.btnNewPost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewPost.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -167,7 +170,7 @@ namespace Klyer
             this.tabPerfil.UseVisualStyleBackColor = true;
 
             // ── pnlPerfilHeader ──
-            this.pnlPerfilHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.pnlPerfilHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.pnlPerfilHeader.Controls.Add(this.lblTituloMisPosts);
             this.pnlPerfilHeader.Controls.Add(this.btnEliminarCuenta);
             this.pnlPerfilHeader.Controls.Add(this.btnEditarPerfil);
@@ -178,33 +181,33 @@ namespace Klyer
             this.pnlPerfilHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPerfilHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlPerfilHeader.Name = "pnlPerfilHeader";
-            this.pnlPerfilHeader.Padding = new System.Windows.Forms.Padding(30, 20, 30, 15);
+            this.pnlPerfilHeader.Padding = new System.Windows.Forms.Padding(40, 25, 40, 15);
             this.pnlPerfilHeader.Size = new System.Drawing.Size(1016, 170);
             this.pnlPerfilHeader.TabIndex = 0;
 
             // picPerfilAvatar
-            this.picPerfilAvatar.Location = new System.Drawing.Point(30, 20);
+            this.picPerfilAvatar.Location = new System.Drawing.Point(40, 25);
             this.picPerfilAvatar.Name = "picPerfilAvatar";
-            this.picPerfilAvatar.Size = new System.Drawing.Size(90, 90);
+            this.picPerfilAvatar.Size = new System.Drawing.Size(100, 100);
             this.picPerfilAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picPerfilAvatar.TabIndex = 0;
             this.picPerfilAvatar.TabStop = false;
 
             // lblPerfilNombre
             this.lblPerfilNombre.AutoSize = true;
-            this.lblPerfilNombre.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lblPerfilNombre.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblPerfilNombre.ForeColor = System.Drawing.Color.White;
-            this.lblPerfilNombre.Location = new System.Drawing.Point(140, 20);
+            this.lblPerfilNombre.Location = new System.Drawing.Point(160, 25);
             this.lblPerfilNombre.Name = "lblPerfilNombre";
-            this.lblPerfilNombre.Size = new System.Drawing.Size(200, 32);
+            this.lblPerfilNombre.Size = new System.Drawing.Size(220, 37);
             this.lblPerfilNombre.TabIndex = 1;
             this.lblPerfilNombre.Text = "Nombre Apellido";
 
             // lblPerfilNick
             this.lblPerfilNick.AutoSize = true;
             this.lblPerfilNick.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblPerfilNick.ForeColor = System.Drawing.Color.LightGray;
-            this.lblPerfilNick.Location = new System.Drawing.Point(142, 58);
+            this.lblPerfilNick.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
+            this.lblPerfilNick.Location = new System.Drawing.Point(162, 68);
             this.lblPerfilNick.Name = "lblPerfilNick";
             this.lblPerfilNick.Size = new System.Drawing.Size(100, 21);
             this.lblPerfilNick.TabIndex = 2;
@@ -213,19 +216,20 @@ namespace Klyer
             // lblPerfilEmail
             this.lblPerfilEmail.AutoSize = true;
             this.lblPerfilEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblPerfilEmail.ForeColor = System.Drawing.Color.Gray;
-            this.lblPerfilEmail.Location = new System.Drawing.Point(143, 82);
+            this.lblPerfilEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
+            this.lblPerfilEmail.Location = new System.Drawing.Point(162, 92);
             this.lblPerfilEmail.Name = "lblPerfilEmail";
             this.lblPerfilEmail.Size = new System.Drawing.Size(150, 19);
             this.lblPerfilEmail.TabIndex = 3;
             this.lblPerfilEmail.Text = "email@ejemplo.com";
 
             // btnEditarPerfil
-            this.btnEditarPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
+            this.btnEditarPerfil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditarPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
             this.btnEditarPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditarPerfil.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnEditarPerfil.ForeColor = System.Drawing.Color.White;
-            this.btnEditarPerfil.Location = new System.Drawing.Point(145, 115);
+            this.btnEditarPerfil.Location = new System.Drawing.Point(680, 35);
             this.btnEditarPerfil.Name = "btnEditarPerfil";
             this.btnEditarPerfil.Size = new System.Drawing.Size(130, 35);
             this.btnEditarPerfil.TabIndex = 4;
@@ -234,11 +238,12 @@ namespace Klyer
             this.btnEditarPerfil.Click += new System.EventHandler(this.btnEditarPerfil_Click);
 
             // btnEliminarCuenta
-            this.btnEliminarCuenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnEliminarCuenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminarCuenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.btnEliminarCuenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminarCuenta.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnEliminarCuenta.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarCuenta.Location = new System.Drawing.Point(285, 115);
+            this.btnEliminarCuenta.Location = new System.Drawing.Point(820, 35);
             this.btnEliminarCuenta.Name = "btnEliminarCuenta";
             this.btnEliminarCuenta.Size = new System.Drawing.Size(145, 35);
             this.btnEliminarCuenta.TabIndex = 5;
@@ -249,8 +254,8 @@ namespace Klyer
             // lblTituloMisPosts
             this.lblTituloMisPosts.AutoSize = true;
             this.lblTituloMisPosts.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTituloMisPosts.ForeColor = System.Drawing.Color.White;
-            this.lblTituloMisPosts.Location = new System.Drawing.Point(30, 140);
+            this.lblTituloMisPosts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
+            this.lblTituloMisPosts.Location = new System.Drawing.Point(40, 140);
             this.lblTituloMisPosts.Name = "lblTituloMisPosts";
             this.lblTituloMisPosts.Size = new System.Drawing.Size(170, 25);
             this.lblTituloMisPosts.TabIndex = 6;
@@ -270,6 +275,7 @@ namespace Klyer
             // ══════════════════════════════════════════════
             // TAB: SUBIR PUBLICACIÓN
             // ══════════════════════════════════════════════
+            this.tabSubir.Controls.Add(this.btnCrearPublicacion);
             this.tabSubir.Location = new System.Drawing.Point(4, 22);
             this.tabSubir.Name = "tabSubir";
             this.tabSubir.Padding = new System.Windows.Forms.Padding(3);
@@ -277,6 +283,17 @@ namespace Klyer
             this.tabSubir.TabIndex = 2;
             this.tabSubir.Text = "  Subir Publicación  ";
             this.tabSubir.UseVisualStyleBackColor = true;
+
+            // btnCrearPublicacion
+            this.btnCrearPublicacion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCrearPublicacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
+            this.btnCrearPublicacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCrearPublicacion.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.btnCrearPublicacion.ForeColor = System.Drawing.Color.White;
+            this.btnCrearPublicacion.Size = new System.Drawing.Size(280, 55);
+            this.btnCrearPublicacion.Text = "+ Nueva Publicación";
+            this.btnCrearPublicacion.UseVisualStyleBackColor = false;
+            this.btnCrearPublicacion.Click += new System.EventHandler(this.btnNewPost_Click);
 
             // ══════════════════════════════════════════════
             // MainForm
@@ -293,6 +310,7 @@ namespace Klyer
             this.tabControl1.ResumeLayout(false);
             this.tabFeed.ResumeLayout(false);
             this.tabPerfil.ResumeLayout(false);
+            this.tabSubir.ResumeLayout(false);
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
             this.pnlPerfilHeader.ResumeLayout(false);
@@ -329,5 +347,8 @@ namespace Klyer
         private System.Windows.Forms.Button btnEliminarCuenta;
         private System.Windows.Forms.Label lblTituloMisPosts;
         private System.Windows.Forms.FlowLayoutPanel flpMisPublicaciones;
+
+        // ── Subir Publicación ──
+        private System.Windows.Forms.Button btnCrearPublicacion;
     }
 }

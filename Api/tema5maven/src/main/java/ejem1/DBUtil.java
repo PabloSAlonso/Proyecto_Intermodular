@@ -9,24 +9,8 @@ public class DBUtil {
     private static final String USER = "postgres.vefvxfzqkwhfetudvnlv";
     private static final String PASSWORD = "bUf*2m9N!w2mmEU";
 
-    private static Connection connection = null;
-
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
-        if (connection == null || connection.isClosed()) {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        }
-        return connection;
-    }
-
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // Log silently
-            }
-            connection = null;
-        }
+        Class.forName("org.postgresql.Driver");
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
