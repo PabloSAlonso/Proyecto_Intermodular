@@ -31,25 +31,27 @@ namespace Klyer
 
         private void colorLabelRegistro(object sender, EventArgs e)
         {
-            if (((Label)sender).ForeColor == Color.DodgerBlue)
+            var azul = Color.FromArgb(14, 165, 233);
+            if (((Label)sender).ForeColor == azul)
             {
-                ((Label)sender).ForeColor = Color.Blue;
+                ((Label)sender).ForeColor = Color.FromArgb(2, 132, 199);
             }
             else
             {
-                ((Label)sender).ForeColor = Color.DodgerBlue;
+                ((Label)sender).ForeColor = azul;
             }
         }
 
         private void colorBotonInicio(object sender, EventArgs e) 
         {
-            if (((Button)sender).BackColor == Color.DodgerBlue)
+            var azul = Color.FromArgb(14, 165, 233);
+            if (((Button)sender).BackColor == azul)
             {
-                ((Button)sender).BackColor = Color.Blue;
+                ((Button)sender).BackColor = Color.FromArgb(2, 132, 199);
             }
             else
             {
-                ((Button)sender).BackColor = Color.DodgerBlue;
+                ((Button)sender).BackColor = azul;
             }
         }
 

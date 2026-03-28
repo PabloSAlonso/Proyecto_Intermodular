@@ -34,7 +34,7 @@ namespace Klyer
             // ══════════════════════════════════════════════
             // grupoComponentes (panel central)
             // ══════════════════════════════════════════════
-            this.grupoComponentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.grupoComponentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.grupoComponentes.Controls.Add(this.lblBienvenida);
             this.grupoComponentes.Controls.Add(this.lblCorreo);
             this.grupoComponentes.Controls.Add(this.textBoxUsuario);
@@ -55,7 +55,7 @@ namespace Klyer
             this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBienvenida.AutoSize = true;
             this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblBienvenida.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblBienvenida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
             this.lblBienvenida.Location = new System.Drawing.Point(340, 150);
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(350, 51);
@@ -113,7 +113,7 @@ namespace Klyer
 
             // btnInicio
             this.btnInicio.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnInicio.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnInicio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
             this.btnInicio.FlatAppearance.BorderSize = 0;
             this.btnInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInicio.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
@@ -144,7 +144,7 @@ namespace Klyer
             this.lblRegistro.AutoSize = true;
             this.lblRegistro.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblRegistro.Font = new System.Drawing.Font("Segoe UI", 14F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.lblRegistro.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblRegistro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
             this.lblRegistro.Location = new System.Drawing.Point(440, 540);
             this.lblRegistro.Name = "lblRegistro";
             this.lblRegistro.Size = new System.Drawing.Size(130, 25);
@@ -157,9 +157,10 @@ namespace Klyer
             // ══════════════════════════════════════════════
             // Inicio_de_sesión Form
             // ══════════════════════════════════════════════
+            this.AcceptButton = this.btnInicio;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(1024, 720);
             this.Controls.Add(this.grupoComponentes);
             this.Name = "Inicio_de_sesión";

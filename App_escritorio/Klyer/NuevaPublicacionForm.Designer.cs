@@ -23,8 +23,8 @@ namespace Klyer
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblImagen = new System.Windows.Forms.Label();
             this.btnSeleccionarImagen = new System.Windows.Forms.Button();
-            this.picPreview = new System.Windows.Forms.PictureBox();
             this.lblImagenSeleccionada = new System.Windows.Forms.Label();
+            this.picPreview = new System.Windows.Forms.PictureBox();
             this.btnPanel = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnPublicar = new System.Windows.Forms.Button();
@@ -35,14 +35,58 @@ namespace Klyer
             this.SuspendLayout();
 
             // ══════════════════════════════════════════════
-            // mainPanel
+            // btnPanel (Bottom - se define primero para que el Dock funcione)
+            // ══════════════════════════════════════════════
+            this.btnPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnPanel.Controls.Add(this.btnCancelar);
+            this.btnPanel.Controls.Add(this.btnPublicar);
+            this.btnPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnPanel.Location = new System.Drawing.Point(0, 660);
+            this.btnPanel.Name = "btnPanel";
+            this.btnPanel.Padding = new System.Windows.Forms.Padding(20);
+            this.btnPanel.Size = new System.Drawing.Size(1024, 60);
+            this.btnPanel.TabIndex = 7;
+
+            // btnCancelar
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.btnCancelar.Location = new System.Drawing.Point(780, 12);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(100, 36);
+            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+
+            // btnPublicar
+            this.btnPublicar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPublicar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
+            this.btnPublicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPublicar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnPublicar.ForeColor = System.Drawing.Color.White;
+            this.btnPublicar.Location = new System.Drawing.Point(890, 12);
+            this.btnPublicar.Name = "btnPublicar";
+            this.btnPublicar.Size = new System.Drawing.Size(100, 36);
+            this.btnPublicar.TabIndex = 9;
+            this.btnPublicar.Text = "Publicar";
+            this.btnPublicar.UseVisualStyleBackColor = false;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
+
+            // ══════════════════════════════════════════════
+            // mainPanel (Fill - contiene todos los controles de contenido)
             // ══════════════════════════════════════════════
             this.mainPanel.AutoScroll = true;
+            this.mainPanel.Controls.Add(this.lblTitle);
+            this.mainPanel.Controls.Add(this.lblDescripcion);
+            this.mainPanel.Controls.Add(this.txtDescripcion);
+            this.mainPanel.Controls.Add(this.lblImagen);
+            this.mainPanel.Controls.Add(this.btnSeleccionarImagen);
+            this.mainPanel.Controls.Add(this.lblImagenSeleccionada);
+            this.mainPanel.Controls.Add(this.picPreview);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Padding = new System.Windows.Forms.Padding(30);
-            this.mainPanel.Size = new System.Drawing.Size(1024, 720);
+            this.mainPanel.Size = new System.Drawing.Size(1024, 660);
             this.mainPanel.TabIndex = 0;
 
             // lblTitle
@@ -69,7 +113,7 @@ namespace Klyer
             this.txtDescripcion.Location = new System.Drawing.Point(30, 115);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(950, 120);
+            this.txtDescripcion.Size = new System.Drawing.Size(930, 120);
             this.txtDescripcion.TabIndex = 2;
 
             // lblImagen
@@ -101,52 +145,15 @@ namespace Klyer
             this.lblImagenSeleccionada.TabIndex = 5;
             this.lblImagenSeleccionada.Text = "Ninguna imagen seleccionada";
 
-            // picPreview (vista previa de la imagen)
+            // picPreview
             this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picPreview.Location = new System.Drawing.Point(30, 325);
             this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(950, 300);
+            this.picPreview.Size = new System.Drawing.Size(930, 280);
             this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picPreview.TabIndex = 6;
             this.picPreview.TabStop = false;
             this.picPreview.Visible = false;
-
-            // ══════════════════════════════════════════════
-            // btnPanel
-            // ══════════════════════════════════════════════
-            this.btnPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.btnPanel.Controls.Add(this.btnCancelar);
-            this.btnPanel.Controls.Add(this.btnPublicar);
-            this.btnPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnPanel.Location = new System.Drawing.Point(0, 660);
-            this.btnPanel.Name = "btnPanel";
-            this.btnPanel.Padding = new System.Windows.Forms.Padding(20);
-            this.btnPanel.Size = new System.Drawing.Size(1024, 60);
-            this.btnPanel.TabIndex = 7;
-
-            // btnCancelar
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.btnCancelar.Location = new System.Drawing.Point(780, 12);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(100, 36);
-            this.btnCancelar.TabIndex = 8;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-
-            // btnPublicar
-            this.btnPublicar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPublicar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
-            this.btnPublicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPublicar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnPublicar.ForeColor = System.Drawing.Color.White;
-            this.btnPublicar.Location = new System.Drawing.Point(890, 12);
-            this.btnPublicar.Name = "btnPublicar";
-            this.btnPublicar.Size = new System.Drawing.Size(100, 36);
-            this.btnPublicar.TabIndex = 9;
-            this.btnPublicar.Text = "Publicar";
-            this.btnPublicar.UseVisualStyleBackColor = false;
-            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
 
             // ══════════════════════════════════════════════
             // NuevaPublicacionForm
@@ -156,9 +163,8 @@ namespace Klyer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(1024, 720);
-            this.Controls.Add(this.picPreview);
-            this.Controls.Add(this.btnPanel);
             this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.btnPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "NuevaPublicacionForm";
