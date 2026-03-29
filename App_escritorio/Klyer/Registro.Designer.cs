@@ -182,6 +182,8 @@ namespace Klyer
             this.btnRegistro.Text = "Registrarse";
             this.btnRegistro.UseVisualStyleBackColor = false;
             this.btnRegistro.Click += new System.EventHandler(this.btnRegistro_Click);
+            this.btnRegistro.MouseEnter += new System.EventHandler(this.btnRegistro_Enter);
+            this.btnRegistro.MouseLeave += new System.EventHandler(this.btnRegistro_Leave);
 
             // lblMensajeIniciar
             this.lblMensajeIniciar.Anchor = System.Windows.Forms.AnchorStyles.None;

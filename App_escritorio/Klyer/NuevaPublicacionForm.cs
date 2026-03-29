@@ -106,5 +106,15 @@ namespace Klyer
                 }
             }
         }
+
+        private void btnPublicar_Enter(object sender, EventArgs e)
+        {
+            btnPublicar.BackColor = Color.FromArgb(2, 132, 199);
+        }
+
+        private void btnPublicar_Leave(object sender, EventArgs e)
+        {
+            btnPublicar.BackColor = Color.FromArgb(14, 165, 233);
+        }
     }
 }
