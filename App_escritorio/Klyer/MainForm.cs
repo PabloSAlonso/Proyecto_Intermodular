@@ -397,7 +397,7 @@ namespace Klyer
                         _userSession.Nombre = t1.Text.Trim();
                         _userSession.Apellidos = t2.Text.Trim();
                         _userSession.Nickname = t3.Text.Trim();
-                        _userSession.Email = t4.Text.Trim();
+                        _userSession.Email = t5.Text.Trim();
                         MessageBox.Show("Perfil actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         dlg.Close();
                         CargarPerfil();
