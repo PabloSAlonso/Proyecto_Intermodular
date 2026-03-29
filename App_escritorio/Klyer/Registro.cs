@@ -71,10 +71,19 @@ namespace Klyer
 
         private void lblInicia_Click(object sender, EventArgs e)
         {
-            // Volver a la pantalla de inicio de sesión
             Inicio_de_sesión loginForm = new Inicio_de_sesión();
             loginForm.Show();
             this.Hide();
+        }
+
+        private void btnRegistro_Enter(object sender, EventArgs e)
+        {
+            btnRegistro.BackColor = Color.FromArgb(2, 132, 199);
+        }
+
+        private void btnRegistro_Leave(object sender, EventArgs e)
+        {
+            btnRegistro.BackColor = Color.FromArgb(14, 165, 233);
         }
     }
 }

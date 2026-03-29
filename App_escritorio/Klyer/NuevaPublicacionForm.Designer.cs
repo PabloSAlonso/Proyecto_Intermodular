@@ -70,6 +70,8 @@ namespace Klyer
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = false;
             this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
+            this.btnPublicar.MouseEnter += new System.EventHandler(this.btnPublicar_Enter);
+            this.btnPublicar.MouseLeave += new System.EventHandler(this.btnPublicar_Leave);
 
             // ══════════════════════════════════════════════
             // mainPanel (Fill - contiene todos los controles de contenido)

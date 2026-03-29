@@ -20,7 +20,6 @@ namespace Klyer
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabFeed = new System.Windows.Forms.TabPage();
             this.tabPerfil = new System.Windows.Forms.TabPage();
-            this.tabSubir = new System.Windows.Forms.TabPage();
 
             // ── Controles del Header (compartido entre pestañas) ──
             this.headerPanel = new System.Windows.Forms.Panel();
@@ -59,7 +58,6 @@ namespace Klyer
             // ══════════════════════════════════════════════
             this.tabControl1.Controls.Add(this.tabFeed);
             this.tabControl1.Controls.Add(this.tabPerfil);
-            this.tabControl1.Controls.Add(this.tabSubir);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -106,6 +104,8 @@ namespace Klyer
             this.btnNewPost.Text = "+ Nueva Publicación";
             this.btnNewPost.UseVisualStyleBackColor = false;
             this.btnNewPost.Click += new System.EventHandler(this.btnNewPost_Click);
+            this.btnNewPost.MouseEnter += new System.EventHandler(this.btnHover_Enter);
+            this.btnNewPost.MouseLeave += new System.EventHandler(this.btnPrimary_Leave);
 
             // lblUser
             this.lblUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -131,6 +131,8 @@ namespace Klyer
             this.btnCerrarSesionHeader.Text = "Salir";
             this.btnCerrarSesionHeader.UseVisualStyleBackColor = false;
             this.btnCerrarSesionHeader.Click += new System.EventHandler(this.btnCerrarSesion_Click);
+            this.btnCerrarSesionHeader.MouseEnter += new System.EventHandler(this.btnHover_Enter);
+            this.btnCerrarSesionHeader.MouseLeave += new System.EventHandler(this.btnDanger_Leave);
 
             // ══════════════════════════════════════════════
             // TAB: FEED
@@ -171,6 +173,7 @@ namespace Klyer
 
             // ── pnlPerfilHeader ──
             this.pnlPerfilHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.pnlPerfilHeader.Controls.Add(this.btnCrearPublicacion);
             this.pnlPerfilHeader.Controls.Add(this.lblTituloMisPosts);
             this.pnlPerfilHeader.Controls.Add(this.btnEliminarCuenta);
             this.pnlPerfilHeader.Controls.Add(this.btnEditarPerfil);
@@ -236,6 +239,8 @@ namespace Klyer
             this.btnEditarPerfil.Text = "Editar perfil";
             this.btnEditarPerfil.UseVisualStyleBackColor = false;
             this.btnEditarPerfil.Click += new System.EventHandler(this.btnEditarPerfil_Click);
+            this.btnEditarPerfil.MouseEnter += new System.EventHandler(this.btnHover_Enter);
+            this.btnEditarPerfil.MouseLeave += new System.EventHandler(this.btnPrimary_Leave);
 
             // btnEliminarCuenta
             this.btnEliminarCuenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -250,6 +255,24 @@ namespace Klyer
             this.btnEliminarCuenta.Text = "Eliminar cuenta";
             this.btnEliminarCuenta.UseVisualStyleBackColor = false;
             this.btnEliminarCuenta.Click += new System.EventHandler(this.btnEliminarCuenta_Click);
+            this.btnEliminarCuenta.MouseEnter += new System.EventHandler(this.btnHover_Enter);
+            this.btnEliminarCuenta.MouseLeave += new System.EventHandler(this.btnDanger_Leave);
+
+            // btnCrearPublicacion (debajo de editar/eliminar)
+            this.btnCrearPublicacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCrearPublicacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(165)))), ((int)(((byte)(233)))));
+            this.btnCrearPublicacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCrearPublicacion.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCrearPublicacion.ForeColor = System.Drawing.Color.White;
+            this.btnCrearPublicacion.Location = new System.Drawing.Point(680, 80);
+            this.btnCrearPublicacion.Name = "btnCrearPublicacion";
+            this.btnCrearPublicacion.Size = new System.Drawing.Size(285, 35);
+            this.btnCrearPublicacion.TabIndex = 7;
+            this.btnCrearPublicacion.Text = "+ Nueva Publicación";
+            this.btnCrearPublicacion.UseVisualStyleBackColor = false;
+            this.btnCrearPublicacion.Click += new System.EventHandler(this.btnNewPost_Click);
+            this.btnCrearPublicacion.MouseEnter += new System.EventHandler(this.btnHover_Enter);
+            this.btnCrearPublicacion.MouseLeave += new System.EventHandler(this.btnPrimary_Leave);
 
             // lblTituloMisPosts
             this.lblTituloMisPosts.AutoSize = true;
@@ -273,29 +296,6 @@ namespace Klyer
             this.flpMisPublicaciones.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 
             // ══════════════════════════════════════════════
-            // TAB: SUBIR PUBLICACIÓN
-            // ══════════════════════════════════════════════
-            this.tabSubir.Controls.Add(this.btnCrearPublicacion);
-            this.tabSubir.Location = new System.Drawing.Point(4, 22);
-            this.tabSubir.Name = "tabSubir";
-            this.tabSubir.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSubir.Size = new System.Drawing.Size(1016, 694);
-            this.tabSubir.TabIndex = 2;
-            this.tabSubir.Text = "  Subir Publicación  ";
-            this.tabSubir.UseVisualStyleBackColor = true;
-
-            // btnCrearPublicacion
-            this.btnCrearPublicacion.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCrearPublicacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(118)))), ((int)(((byte)(110)))));
-            this.btnCrearPublicacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCrearPublicacion.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnCrearPublicacion.ForeColor = System.Drawing.Color.White;
-            this.btnCrearPublicacion.Size = new System.Drawing.Size(280, 55);
-            this.btnCrearPublicacion.Text = "+ Nueva Publicación";
-            this.btnCrearPublicacion.UseVisualStyleBackColor = false;
-            this.btnCrearPublicacion.Click += new System.EventHandler(this.btnNewPost_Click);
-
-            // ══════════════════════════════════════════════
             // MainForm
             // ══════════════════════════════════════════════
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -310,7 +310,6 @@ namespace Klyer
             this.tabControl1.ResumeLayout(false);
             this.tabFeed.ResumeLayout(false);
             this.tabPerfil.ResumeLayout(false);
-            this.tabSubir.ResumeLayout(false);
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
             this.pnlPerfilHeader.ResumeLayout(false);
@@ -325,7 +324,6 @@ namespace Klyer
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabFeed;
         private System.Windows.Forms.TabPage tabPerfil;
-        private System.Windows.Forms.TabPage tabSubir;
 
         // ── Header ──
         private System.Windows.Forms.Panel headerPanel;

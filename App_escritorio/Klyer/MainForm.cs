@@ -98,7 +98,7 @@ namespace Klyer
                     lblPerfilNombre.Text = (usuario.nombre ?? "") + " " + (usuario.apellidos ?? "");
                     lblPerfilNick.Text = "@" + (usuario.nickname ?? "");
                     lblPerfilEmail.Text = usuario.email ?? "";
-                    picPerfilAvatar.Image = ObtenerAvatar(usuario.foto_perfil != null ? Convert.ToBase64String(usuario.foto_perfil) : null);
+                    picPerfilAvatar.Image = ObtenerAvatar(usuario.foto_perfil != null ? Convert.ToBase64String(usuario.foto_perfil) : null, 100);
                 }
             }
             catch (Exception ex)
@@ -288,9 +288,9 @@ namespace Klyer
         }
 
         /// <summary>
-        /// Obtiene un avatar a partir de base64, o genera uno por defecto.
+        /// Obtiene un avatar a partir de base64, o genera uno por defecto con el tamaño indicado.
         /// </summary>
-        private Image ObtenerAvatar(string fotoBase64)
+        private Image ObtenerAvatar(string fotoBase64, int size = 40)
         {
             if (!string.IsNullOrEmpty(fotoBase64))
             {
@@ -305,11 +305,12 @@ namespace Klyer
                 catch { }
             }
 
-            Bitmap bmp = new Bitmap(40, 40);
+            Bitmap bmp = new Bitmap(size, size);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.Clear(Color.FromArgb(15, 118, 110));
-                g.DrawString("U", new Font("Segoe UI", 15, FontStyle.Bold), Brushes.White, 6, 3);
+                g.Clear(Color.FromArgb(14, 165, 233));
+                float fontSize = size * 0.4f;
+                g.DrawString("U", new Font("Segoe UI", fontSize, FontStyle.Bold), Brushes.White, size * 0.25f, size * 0.15f);
             }
             return bmp;
         }
@@ -350,7 +351,7 @@ namespace Klyer
         {
             Form dlg = new Form();
             dlg.Text = "Editar Perfil";
-            dlg.Size = new Size(480, 420);
+            dlg.Size = new Size(480, 350);
             dlg.StartPosition = FormStartPosition.CenterParent;
             dlg.FormBorderStyle = FormBorderStyle.FixedDialog;
             dlg.MaximizeBox = false;
@@ -359,23 +360,20 @@ namespace Klyer
             int y = 20;
 
             Label l1 = new Label() { Text = "Nombre:", Location = new Point(20, y + 3), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            TextBox t1 = new TextBox() { Text = _userSession.Nombre, Location = new Point(140, y), Width = 270, Font = new Font("Segoe UI", 10) };
-            y += 35;
+            TextBox t1 = new TextBox() { Text = _userSession.Nombre, Location = new Point(160, y), Width = 270, Font = new Font("Segoe UI", 10) };
+            y += 40;
             Label l2 = new Label() { Text = "Apellidos:", Location = new Point(20, y + 3), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            TextBox t2 = new TextBox() { Text = _userSession.Apellidos, Location = new Point(140, y), Width = 270, Font = new Font("Segoe UI", 10) };
-            y += 35;
+            TextBox t2 = new TextBox() { Text = _userSession.Apellidos, Location = new Point(160, y), Width = 270, Font = new Font("Segoe UI", 10) };
+            y += 40;
             Label l3 = new Label() { Text = "Nickname:", Location = new Point(20, y + 3), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            TextBox t3 = new TextBox() { Text = _userSession.Nickname, Location = new Point(140, y), Width = 270, Font = new Font("Segoe UI", 10) };
-            y += 35;
-            Label l4 = new Label() { Text = "Email:", Location = new Point(20, y + 3), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            TextBox t4 = new TextBox() { Text = _userSession.Email, Location = new Point(140, y), Width = 270, Font = new Font("Segoe UI", 10) };
-            y += 35;
-            Label l5 = new Label() { Text = "Contraseña:", Location = new Point(20, y + 3), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            TextBox t5 = new TextBox() { Location = new Point(140, y), Width = 270, PasswordChar = '*', Font = new Font("Segoe UI", 10) };
-            y += 45;
+            TextBox t3 = new TextBox() { Text = _userSession.Nickname, Location = new Point(160, y), Width = 270, Font = new Font("Segoe UI", 10) };
+            y += 40;
+            Label l5 = new Label() { Text = "Nueva contraseña:", Location = new Point(20, y + 3), AutoSize = true, Font = new Font("Segoe UI", 10) };
+            TextBox t5 = new TextBox() { Location = new Point(160, y), Width = 270, PasswordChar = '*', Font = new Font("Segoe UI", 10) };
+            y += 50;
 
-            Button btnOk = new Button() { Text = "Guardar", Location = new Point(140, y), Width = 120, Height = 35, BackColor = Color.FromArgb(14, 165, 233), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10) };
-            Button btnCancel = new Button() { Text = "Cancelar", Location = new Point(270, y), Width = 120, Height = 35, Font = new Font("Segoe UI", 10) };
+            Button btnOk = new Button() { Text = "Guardar", Location = new Point(160, y), Width = 120, Height = 35, BackColor = Color.FromArgb(14, 165, 233), ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10) };
+            Button btnCancel = new Button() { Text = "Cancelar", Location = new Point(290, y), Width = 120, Height = 35, Font = new Font("Segoe UI", 10) };
 
             btnCancel.Click += (s, ev) => dlg.Close();
             btnOk.Click += async (s, ev) =>
@@ -386,7 +384,7 @@ namespace Klyer
                     ["nombre"] = t1.Text.Trim(),
                     ["apellidos"] = t2.Text.Trim(),
                     ["nickname"] = t3.Text.Trim(),
-                    ["email"] = t4.Text.Trim()
+                    ["email"] = _userSession.Email
                 };
                 if (!string.IsNullOrWhiteSpace(t5.Text))
                     datos["password"] = t5.Text;
@@ -415,7 +413,7 @@ namespace Klyer
                 }
             };
 
-            dlg.Controls.AddRange(new Control[] { l1, t1, l2, t2, l3, t3, l4, t4, l5, btnOk, btnCancel });
+            dlg.Controls.AddRange(new Control[] { l1, t1, l2, t2, l3, t3, l5, t5, btnOk, btnCancel });
             dlg.ShowDialog();
         }
 
@@ -497,6 +495,34 @@ namespace Klyer
         private void btnNewPost_Click(object sender, EventArgs e)
         {
             CrearPublicacion();
+        }
+
+        // ──────────────────────────────────────────────
+        // HOVER DE BOTONES
+        // ──────────────────────────────────────────────
+
+        private void btnHover_Enter(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+            int r = Math.Max(0, btn.BackColor.R - 30);
+            int g = Math.Max(0, btn.BackColor.G - 30);
+            int b = Math.Max(0, btn.BackColor.B - 30);
+            btn.BackColor = Color.FromArgb(r, g, b);
+        }
+
+        private void btnPrimary_Leave(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+            btn.BackColor = Color.FromArgb(14, 165, 233);
+        }
+
+        private void btnDanger_Leave(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null) return;
+            btn.BackColor = Color.FromArgb(239, 68, 68);
         }
     }
 }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +50,12 @@ public class Api_Gets {
         new Thread(() -> {
             HttpURLConnection connection = null;
             try {
-                URL url = new URL(API_ROOT + "/usuarios/login/" + emailOrNick + "/" + password);
+                String encodedUser = URLEncoder.encode(emailOrNick, "UTF-8");
+                String encodedPass = URLEncoder.encode(password, "UTF-8");
+                String urlStr = API_ROOT + "/usuarios/login/" + encodedUser + "/" + encodedPass;
+                Log.d(TAG, "Login request: " + urlStr);
+
+                URL url = new URL(urlStr);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Accept", "application/json");
@@ -57,11 +63,17 @@ public class Api_Gets {
                 connection.setReadTimeout(12000);
 
                 int code = connection.getResponseCode();
+                Log.d(TAG, "Login response code: " + code);
+
                 if (code == HttpURLConnection.HTTP_OK) {
-                    JSONObject obj = new JSONObject(readResponse(connection));
+                    String body = readResponse(connection);
+                    Log.d(TAG, "Login success, parsing user");
+                    JSONObject obj = new JSONObject(body);
                     User user = parseUser(obj);
                     callback.onResult(user);
                 } else {
+                    String errorBody = readErrorStream(connection);
+                    Log.w(TAG, "Login failed code=" + code + " body=" + errorBody);
                     callback.onResult(null);
                 }
             } catch (Exception e) {
@@ -259,6 +271,22 @@ public class Api_Gets {
                 response.append(line);
             }
             return response.toString();
+        }
+    }
+
+    private String readErrorStream(HttpURLConnection connection) {
+        try {
+            if (connection.getErrorStream() == null) return "";
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8))) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                return sb.toString();
+            }
+        } catch (Exception e) {
+            return "Error reading stream: " + e.getMessage();
         }
     }
 }

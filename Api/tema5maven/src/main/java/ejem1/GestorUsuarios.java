@@ -72,11 +72,12 @@ public class GestorUsuarios {
     public Response loginUsuario(@PathParam("username") String username,
                                  @PathParam("password") String password2) {
         String sql = "SELECT id, nombre, apellidos, nickname, email, password, foto_perfil "
-                   + "FROM usuarios WHERE nickname = ?";
+                   + "FROM usuarios WHERE nickname = ? OR email = ?";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, username);
+            ps.setString(2, username);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

@@ -69,6 +69,8 @@ public class Api_Inserts {
             HttpURLConnection connection = null;
             try {
                 URL url = new URL(API_ROOT + "/usuarios/insertar");
+                Log.d(TAG, "Register request to: " + url);
+
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -78,7 +80,7 @@ public class Api_Inserts {
                 connection.setDoOutput(true);
 
                 String firstName = name;
-                String lastName = " "; 
+                String lastName = "";
                 if (name != null && name.contains(" ")) {
                     int lastSpace = name.lastIndexOf(' ');
                     firstName = name.substring(0, lastSpace);
@@ -86,19 +88,22 @@ public class Api_Inserts {
                 }
 
                 JSONObject json = new JSONObject();
-                json.put("id", 0);
                 json.put("nombre", firstName);
                 json.put("apellidos", lastName);
                 json.put("nickname", username == null ? "" : username);
                 json.put("email", email == null ? "" : email);
                 json.put("password", password == null ? "" : password);
-                json.put("foto_perfil", "");
+
+                Log.d(TAG, "Register JSON: " + json.toString());
 
                 try (OutputStream os = connection.getOutputStream()) {
                     os.write(json.toString().getBytes(StandardCharsets.UTF_8));
                 }
 
                 int code = connection.getResponseCode();
+                String body = readResponse(connection, code);
+                Log.d(TAG, "Register response code=" + code + " body=" + body);
+
                 callback.onResult(code == HttpURLConnection.HTTP_OK || code == HttpURLConnection.HTTP_CREATED);
             } catch (IOException | JSONException e) {
                 Log.e(TAG, "Error inserting user", e);
@@ -177,5 +182,28 @@ public class Api_Inserts {
                 }
             }
         }).start();
+    }
+
+    private String readResponse(HttpURLConnection connection, int code) {
+        try {
+            java.io.InputStream is;
+            if (code >= 200 && code < 300) {
+                is = connection.getInputStream();
+            } else {
+                is = connection.getErrorStream();
+                if (is == null) return "";
+            }
+            try (java.io.BufferedReader in = new java.io.BufferedReader(
+                    new java.io.InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8))) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                return sb.toString();
+            }
+        } catch (Exception e) {
+            return "Error reading: " + e.getMessage();
+        }
     }
 }
