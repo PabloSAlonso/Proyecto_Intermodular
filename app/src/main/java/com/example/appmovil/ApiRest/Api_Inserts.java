@@ -120,8 +120,46 @@ public class Api_Inserts {
         callback.onResult(true);
     }
 
-    public void updateUserProfile(int userId, String description, String avatarBase64, ApiInsertCallback callback) {
-        callback.onResult(true);
+    public void updateUserProfile(int userId, String nombre, String nickname, String password, ApiInsertCallback callback) {
+        new Thread(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL(API_ROOT + "/usuarios/update/" + userId);
+                Log.d(TAG, "Update profile: " + url);
+
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("PUT");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(12000);
+                connection.setReadTimeout(12000);
+                connection.setDoOutput(true);
+
+                JSONObject json = new JSONObject();
+                json.put("id", userId);
+                json.put("nombre", nombre);
+                json.put("apellidos", "");
+                json.put("nickname", nickname);
+                json.put("email", "");
+
+                if (password != null && !password.isEmpty()) {
+                    json.put("password", password);
+                }
+
+                try (OutputStream os = connection.getOutputStream()) {
+                    os.write(json.toString().getBytes(StandardCharsets.UTF_8));
+                }
+
+                int code = connection.getResponseCode();
+                Log.d(TAG, "Update response code=" + code);
+                callback.onResult(code == HttpURLConnection.HTTP_OK);
+            } catch (IOException | JSONException e) {
+                Log.e(TAG, "Error updating profile", e);
+                callback.onResult(false);
+            } finally {
+                if (connection != null) connection.disconnect();
+            }
+        }).start();
     }
 
     public void likeHabit(int habitId, int userId, ApiInsertCallback callback) {

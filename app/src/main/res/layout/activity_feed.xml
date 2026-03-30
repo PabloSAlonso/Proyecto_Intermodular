@@ -85,23 +85,6 @@
                     app:tint="@color/text_secondary" />
             </FrameLayout>
 
-            <!-- Social Button (hidden) -->
-            <FrameLayout
-                android:id="@+id/btn_nav_social"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="invisible">
-
-                <ImageView
-                    android:id="@+id/iv_social_icon"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_gravity="center"
-                    android:src="@android:drawable/ic_menu_share"
-                    app:tint="@color/text_secondary" />
-            </FrameLayout>
-
             <!-- Profile Button -->
             <FrameLayout
                 android:id="@+id/btn_nav_profile"

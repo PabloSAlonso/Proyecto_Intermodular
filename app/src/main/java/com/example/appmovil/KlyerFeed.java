@@ -17,16 +17,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.appmovil.Fragments.KlyerCameraFragment;
 import com.example.appmovil.Fragments.KlyerFeedFragment;
 import com.example.appmovil.Fragments.KlyerPostsFragment;
 import com.example.appmovil.Fragments.KlyerProfileFragment;
-import com.example.appmovil.Fragments.KlyerSocialFragment;
+import com.example.appmovil.Fragments.KlyerCameraFragment;
 
 public class KlyerFeed extends AppCompatActivity {
 
-    private FrameLayout btnHome, btnPosts, btnCamera, btnSocial, btnProfile;
-    private ImageView ivHome, ivPosts, ivCamera, ivSocial, ivProfile;
+    private FrameLayout btnHome, btnPosts, btnCamera, btnProfile;
+    private ImageView ivHome, ivPosts, ivCamera;
     private ImageView ivNavAvatar;
     private TextView tvNavAvatarLetter;
     private FrameLayout loadingOverlay;
@@ -51,7 +50,7 @@ public class KlyerFeed extends AppCompatActivity {
 
         initNav();
         loadUserAvatarInNav();
-        
+
         if (savedInstanceState == null) {
             navigateToHome();
         }
@@ -63,11 +62,8 @@ public class KlyerFeed extends AppCompatActivity {
         loadUserAvatarInNav();
     }
 
-
     private void loadUserAvatarInNav() {
-        if (ivNavAvatar == null || tvNavAvatarLetter == null) {
-            return;
-        }
+        if (ivNavAvatar == null || tvNavAvatarLetter == null) return;
 
         String name = session.getUserName();
         String avatar = session.getUserAvatar();
@@ -101,15 +97,11 @@ public class KlyerFeed extends AppCompatActivity {
     }
 
     public void showLoading() {
-        if (loadingOverlay != null) {
-            loadingOverlay.setVisibility(View.VISIBLE);
-        }
+        if (loadingOverlay != null) loadingOverlay.setVisibility(View.VISIBLE);
     }
 
     public void hideLoading() {
-        if (loadingOverlay != null) {
-            loadingOverlay.setVisibility(View.GONE);
-        }
+        if (loadingOverlay != null) loadingOverlay.setVisibility(View.GONE);
     }
 
     public void navigateToHome() {
@@ -122,26 +114,22 @@ public class KlyerFeed extends AppCompatActivity {
         btnPosts = findViewById(R.id.btn_nav_posts);
         btnCamera = findViewById(R.id.btn_nav_camera);
         btnProfile = findViewById(R.id.btn_nav_profile);
-        btnSocial = findViewById(R.id.btn_nav_social);
 
         ivHome = findViewById(R.id.iv_home_icon);
         ivPosts = findViewById(R.id.iv_posts_icon);
         ivCamera = findViewById(R.id.iv_camera_icon);
-        ivSocial = findViewById(R.id.iv_social_icon);
 
         if (btnHome != null) btnHome.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_home); loadFragment(new KlyerFeedFragment()); });
         if (btnPosts != null) btnPosts.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_posts); loadFragment(new KlyerPostsFragment()); });
         if (btnCamera != null) btnCamera.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_camera); loadFragment(new KlyerCameraFragment()); });
         if (btnProfile != null) btnProfile.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_profile); loadFragment(new KlyerProfileFragment()); });
-        if (btnSocial != null) btnSocial.setOnClickListener(v -> { updateNavUI(R.id.btn_nav_social); loadFragment(new KlyerSocialFragment()); });
     }
 
     private void updateNavUI(int selectedId) {
         if (ivHome != null) ivHome.setColorFilter(colorInactive);
         if (ivPosts != null) ivPosts.setColorFilter(colorInactive);
         if (ivCamera != null) ivCamera.setColorFilter(colorInactive);
-        if (ivSocial != null) ivSocial.setColorFilter(colorInactive);
-        
+
         if (ivNavAvatar != null) {
             if (selectedId == R.id.btn_nav_profile) {
                 ivNavAvatar.setColorFilter(colorActive);
@@ -149,7 +137,7 @@ public class KlyerFeed extends AppCompatActivity {
                 ivNavAvatar.clearColorFilter();
             }
         }
-        
+
         if (tvNavAvatarLetter != null) {
             if (selectedId == R.id.btn_nav_profile) {
                 tvNavAvatarLetter.setTextColor(colorActive);
@@ -164,8 +152,6 @@ public class KlyerFeed extends AppCompatActivity {
             ivPosts.setColorFilter(colorActive);
         } else if (selectedId == R.id.btn_nav_camera && ivCamera != null) {
             ivCamera.setColorFilter(colorActive);
-        } else if (selectedId == R.id.btn_nav_social && ivSocial != null) {
-            ivSocial.setColorFilter(colorActive);
         }
     }
 
