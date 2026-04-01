@@ -80,4 +80,9 @@ La finalidad es documentar el progreso del proyecto, facilitar su seguimiento y 
 - Conexión definitiva entre frontend y backend en ambas aplicaciones.
 
 #### 4ª semana
-- (Pendiente de documentación)
+- Testing de ambas apps y solución de bugs encontrados
+
+### Marzo
+
+- Realización total de app de escritorio e implementación de eliminación de usuario y publicación en todas las app, además de fotos 
+de perfil actualizables.
